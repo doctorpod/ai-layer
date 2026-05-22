@@ -1,3 +1,8 @@
+---
+name: review
+description: Review the implementation against the PRP before raising a PR.
+---
+
 # Workflow: Post-execution Review
 
 Review the implementation against the PRP before raising a PR.

@@ -30,13 +30,25 @@ for src in "$REPO_ROOT/vault/workflows"/*.md; do
   fi
 done
 
-# Write a skill stub file
+# Write a skill stub file, embedding name/description from the workflow's front matter
 write_skill() {
   local name="$1"
-  local stub="$2"
+  local src="$2"
+  local stub="$3"
+
+  local description
+  description=$(awk '/^---/{if(++c==1)next; if(c==2)exit} c==1 && /^description:/{sub(/^description: */, ""); print}' "$src")
+
   mkdir -p "$SKILLS_DEST/$name"
   rm -f "$SKILLS_DEST/$name/SKILL.md"
-  printf '%s\n' "$stub" > "$SKILLS_DEST/$name/SKILL.md"
+
+  if [[ -n "$description" ]]; then
+    printf -- '---\nname: %s\ndescription: %s\n---\n\n%s\n' \
+      "$name" "$description" "$stub" > "$SKILLS_DEST/$name/SKILL.md"
+  else
+    printf '%s\n' "$stub" > "$SKILLS_DEST/$name/SKILL.md"
+  fi
+
   installed_names="$installed_names $name "
   echo "Synced: $name"
 }
@@ -46,19 +58,19 @@ installed_names=""
 for src in "$REPO_ROOT/code/workflows"/*.md; do
   [[ -e "$src" ]] || continue
   name=$(basename "$src" .md)
-  write_skill "$name" "Read and follow \`_AI/local/workflows/$name.md\`."
+  write_skill "$name" "$src" "Read and follow \`_AI/local/workflows/$name.md\`."
 done
 
 for src in "$REPO_ROOT/vault/workflows"/*.md; do
   [[ -e "$src" ]] || continue
   name=$(basename "$src" .md)
-  write_skill "$name" "Read and follow \`_AI/local/workflows/$name.md\`."
+  write_skill "$name" "$src" "Read and follow \`_AI/local/workflows/$name.md\`."
 done
 
 for src in "$REPO_ROOT/shared/workflows"/*.md; do
   [[ -e "$src" ]] || continue
   name=$(basename "$src" .md)
-  write_skill "$name" "Read and follow \`_AI/shared/workflows/$name.md\`."
+  write_skill "$name" "$src" "Read and follow \`_AI/shared/workflows/$name.md\`."
 done
 
 # Remove stale skills: SKILL.md references our paths but name not in current install set

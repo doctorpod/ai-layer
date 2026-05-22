@@ -1,3 +1,8 @@
+---
+name: ingest
+description: Ingest new sources from inbox/ by classifying and processing them.
+---
+
 The user has added one or more new sources to `inbox/` and has asked you to ingest:
 
 ## Step 0: Classify the source

@@ -1,3 +1,8 @@
+---
+name: handoff
+description: Save a handoff document so this conversation can be resumed in a future session.
+---
+
 # Handoff Workflow
 
 Save a handoff document so this conversation can be resumed in a future session.

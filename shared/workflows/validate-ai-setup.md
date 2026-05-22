@@ -1,3 +1,8 @@
+---
+name: validate-ai-setup
+description: Check that the AI layer is correctly installed in this project.
+---
+
 # Workflow: Validate AI Setup
 
 Check that the AI layer is correctly installed in this project.

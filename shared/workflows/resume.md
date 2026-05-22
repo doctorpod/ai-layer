@@ -1,3 +1,8 @@
+---
+name: resume
+description: Resume work from a saved handoff document.
+---
+
 # Resume Workflow
 
 Resume from a saved handoff document in `~/.claude/handoffs/`.

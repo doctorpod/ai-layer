@@ -1,3 +1,8 @@
+---
+name: teach-me
+description: Teach a topic by probing what you already know and using the codebase as the learning material.
+---
+
 # Workflow: Teach Me
 
 Teach the user about a topic by probing what they already know, then building on it using the actual codebase as the learning material.

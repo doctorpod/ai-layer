@@ -1,3 +1,8 @@
+---
+name: lint
+description: Audit a knowledge base by running structural checks via lint-kb.py.
+---
+
 When the user asks you to **lint** or **audit** a knowledge base:
 
 ## Step 1: Run the structural check

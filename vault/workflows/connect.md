@@ -1,3 +1,8 @@
+---
+name: connect
+description: Run a cross-wiki insights pass to find and surface connections between knowledge bases.
+---
+
 # Connect
 
 When asked to **connect** or run a **cross-wiki insights** pass:

@@ -1,3 +1,8 @@
+---
+name: debrief
+description: Process first-hand material (site visit, conversation, observation) where accuracy is paramount.
+---
+
 # Debrief Workflow
 
 Use this workflow when the user has first-hand material to process — a site visit, a conversation with someone, a memory, an observation, or a thought they've worked out. The source is the user themselves. Truth and accuracy are paramount.

@@ -1,3 +1,8 @@
+---
+name: compose
+description: Produce written output (design doc, blog post, article) section-by-section in your voice.
+---
+
 # Compose Workflow
 
 Use this workflow when the user wants to produce written output — a design document, blog post, article, social media post, or any other piece. The key difference from [[write]]: I draft the prose in the user's voice; the user approves section by section by dictating reactions.

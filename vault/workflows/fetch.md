@@ -1,3 +1,8 @@
+---
+name: fetch
+description: Retrieve your last chat message and respond with proper headings and timestamps.
+---
+
 # Fetch
 
 1. Run `python3 _AI/core/scripts/fetch-read.py` — prints the user's last message from the active chat file.

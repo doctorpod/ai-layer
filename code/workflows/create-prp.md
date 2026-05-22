@@ -1,3 +1,8 @@
+---
+name: create-prp
+description: Create a complete implementation brief (PRP) so a feature can be built in one focused coding session.
+---
+
 # Workflow: Create PRP
 
 Create a PRP (Product Requirements Prompt) — a complete implementation brief that allows a coding session to implement a set of changes in one pass.

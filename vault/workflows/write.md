@@ -1,3 +1,8 @@
+---
+name: write
+description: Work on output pieces or guides using the named-folder/four-file pattern.
+---
+
 # Write
 
 When asked to **write**, work on a piece of **output**, or help with a **guide** or **brief**:

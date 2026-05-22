@@ -1,3 +1,8 @@
+---
+name: save
+description: Summarise recent changes and commit them automatically.
+---
+
 The user has asked you to "save"
 
 1. Create a brief summary of what you have just done, no more than 12 words

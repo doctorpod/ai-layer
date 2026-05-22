@@ -1,3 +1,8 @@
+---
+name: execute-prp
+description: Implement a feature from a validated PRP file.
+---
+
 # Workflow: Execute PRP
 
 Implement a feature from a validated PRP file.
