@@ -1,31 +1,53 @@
-A portable AI workflow layer that installs into any codebase via symlink. It gives your AI assistant a structured approach to planning, implementing, and reviewing code changes — without baking any project-specific knowledge into the shared core.
+A portable AI workflow layer that installs into any project via symlink. It gives your AI assistant a structured set of workflows for two contexts: **coding repos** and **Obsidian vaults**.
 
 Inspired by [Matt Pocock](https://www.mattpocock.com).
 
-Drop it in, point your AI boot file at it, and get:
-- **Grill me** — relentless interrogation to surface assumptions before you write a line of code
+---
+
+## Contexts
+
+### Code workflows
+
+Drop the `code/core` layer into any coding repo and get:
+- **Grill me** — relentless interrogation to surface assumptions before writing a line of code
 - **Create PRP** — a complete implementation brief built from that shared understanding
 - **Execute PRP** — a disciplined implementation pass in a clean context
 - **Review** — a post-implementation check against the brief before raising a PR
+- **Teach me** — guided learning from the codebase
+
+### Vault workflows
+
+Drop the `vault/core` layer into any Obsidian vault and get:
+- **Ingest** — add new sources to your knowledge base
+- **Lint** — audit KB structure for orphans, broken links, and pending cautions
+- **Connect** — discover cross-KB insights and write bidirectional links
+- **Compose** — draft prose in your own voice
+- **Debrief** — process first-hand notes into wiki pages
+- **Write** — structured brief → guide → output pattern
+- **Save** — commit with a 12-word summary and log entry
+- **Fetch** — async message passing via dated chat logs
+
+Both contexts also include **Grill me** and **Validate AI setup**.
 
 ---
 
-## Install instructions for humans
+## Install — coding repos
 
-1. In your code repo:
 ```bash
 mkdir -p _AI/PRPs
-ln -s ~/Dev/code-ai-layer/core _AI/core
+ln -s ~/Dev/code-ai-layer/code/core _AI/core
 ```
 
-> **Symlink vs copy:** The symlink means all your repos share one `core/` — updates to this repo propagate everywhere instantly. That's ideal for personal use where you own all the repos. For shared team repos where others shouldn't be coupled to your local path, copy the `core/` folder instead or use a git submodule.
+> **Symlink vs copy:** The symlink means all your repos share one `core/` — updates propagate instantly. That's ideal for personal use. For shared team repos, copy `code/core/` instead or use a git submodule.
 
-2. Make the AI boot file (e.g. CLAUDE.md) in the root of your code repo. At minimum it should contain:
+Make the AI boot file (e.g. `CLAUDE.md`) in your repo root:
 ```markdown
 See `_AI/core/AI.md` for project context and available workflows.
 ```
-3. Create `_AI/OVERVIEW.md` — project description, architecture, key files, and anti-patterns
-4. Create `_AI/VALIDATION.md` — the commands to run at each validation gate, e.g.:
+
+Create `_AI/OVERVIEW.md` — project description, architecture, key files, and anti-patterns.
+
+Create `_AI/VALIDATION.md` — the commands to run at each validation gate:
 ```markdown
 ## Validation gates
 1. `npm run lint` — after any JS/TS change
@@ -33,12 +55,57 @@ See `_AI/core/AI.md` for project context and available workflows.
 3. `npm test` — full suite, must pass before done
 ```
 
-### Claude Code users (optional)
+---
 
-Instead of relying on trigger phrase matching, you can install native Claude skills that delegate to the workflows:
+## Install — Obsidian vaults
+
+```bash
+mkdir -p /path/to/vault/_AI
+ln -s ~/Dev/code-ai-layer/vault/core /path/to/vault/_AI/core
+```
+
+Make the AI boot file (`CLAUDE.md` or `AGENTS.md`) in the vault root:
+```markdown
+See `_AI/core/AI.md` for vault context and available workflows.
+```
+
+Create `_AI/GOALS.md` — the vault's purpose and focus areas.
+
+Optionally create `_AI/VOICE.md` — a writing voice reference for the Compose workflow.
+
+To block accidental commits of sensitive content, install the pre-commit hook:
+```bash
+cp /path/to/vault/_AI/core/scripts/pre-commit-sensitivity-check.sh /path/to/vault/.git/hooks/pre-commit
+chmod +x /path/to/vault/.git/hooks/pre-commit
+```
+
+---
+
+## Claude Code users — native skills (optional)
+
+Instead of relying on trigger phrase matching, install native slash commands that delegate to the workflows:
 
 ```bash
 bash ~/Dev/code-ai-layer/scripts/install-skills.sh
 ```
 
-This gives you explicit `/create-prp`, `/execute-prp`, `/grill-me`, `/review`, `/teach-me`, and `/validate-ai-setup` slash commands. The skills are thin wrappers — all logic stays in the workflow files.
+This installs all skills from `shared/skills/`, `code/skills/`, and `vault/skills/` into `~/.claude/skills/`. You get:
+
+| Skill | Context |
+|-------|---------|
+| `/grill-me` | Both |
+| `/validate-ai-setup` | Both |
+| `/create-prp` | Code |
+| `/execute-prp` | Code |
+| `/review` | Code |
+| `/teach-me` | Code |
+| `/ingest` | Vault |
+| `/lint` | Vault |
+| `/connect` | Vault |
+| `/compose` | Vault |
+| `/debrief` | Vault |
+| `/write` | Vault |
+| `/save` | Vault |
+| `/fetch` | Vault |
+
+Skills are thin wrappers — all logic stays in the workflow files inside the symlinked `core/`.
