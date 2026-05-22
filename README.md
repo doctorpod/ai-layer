@@ -38,7 +38,7 @@ See `_AI/core/AI.md` for project context and available workflows.
 Instead of relying on trigger phrase matching, you can install native Claude skills that delegate to the workflows:
 
 ```bash
-ln -s ~/Dev/code-ai-layer/skills ~/.claude/skills/code-ai-layer
+bash ~/Dev/code-ai-layer/scripts/install-skills.sh
 ```
 
 This gives you explicit `/create-prp`, `/execute-prp`, `/grill-me`, `/review`, `/teach-me`, and `/validate-ai-setup` slash commands. The skills are thin wrappers — all logic stays in the workflow files.
