@@ -78,6 +78,7 @@ Step-by-step implementation plan in dependency order:
 - Use keywords: `create`, `modify`, `add`, `remove`, `migrate`, `move`
 - One step = one logical change
 - Include: migrations, model changes, service changes, query changes, controller changes, view changes, locale strings, spec changes
+- Spec/test steps must appear **immediately before** the implementation step they cover — never after
 
 **Validation gates**
 
