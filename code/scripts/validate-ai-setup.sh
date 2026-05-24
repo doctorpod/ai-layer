@@ -5,6 +5,8 @@
 PASS="✓"
 FAIL="✗"
 errors=0
+WARN="!"
+warnings=0
 
 check() {
   local label="$1"
@@ -16,6 +18,19 @@ check() {
     echo "  $FAIL $label"
     echo "    → $fix"
     errors=$((errors + 1))
+  fi
+}
+
+warn() {
+  local label="$1"
+  local result="$2"
+  local note="$3"
+  if [ "$result" = "ok" ]; then
+    echo "  $PASS $label"
+  else
+    echo "  $WARN $label (optional)"
+    echo "    → $note"
+    warnings=$((warnings + 1))
   fi
 }
 
@@ -35,6 +50,10 @@ check "_AI/shared/ exists" "$r" "Run: bash ~/Dev/ai-layer/scripts/install-target
 
 [ -d "_AI/PRPs" ] && r="ok" || r="fail"
 check "_AI/PRPs/ directory exists" "$r" "Run: mkdir -p _AI/PRPs"
+
+# CODEX.md (optional)
+[ -f "_AI/CODEX.md" ] && r="ok" || r="missing"
+warn "_AI/CODEX.md exists" "$r" "Create _AI/CODEX.md to provide a domain glossary for AI workflows"
 
 # OVERVIEW.md
 if [ ! -f "_AI/OVERVIEW.md" ]; then
@@ -80,10 +99,13 @@ fi
 
 # Verdict
 echo ""
-if [ "$errors" -eq 0 ]; then
+if [ "$errors" -eq 0 ] && [ "$warnings" -eq 0 ]; then
   echo "All checks passed — AI layer is correctly installed."
+elif [ "$errors" -eq 0 ]; then
+  echo "Required checks passed. $warnings optional item(s) not set up (see ! above)."
 else
   echo "$errors issue(s) found — fix the above before using AI workflows."
+  [ "$warnings" -gt 0 ] && echo "$warnings optional item(s) also not set up (see ! above)."
 fi
 echo ""
 

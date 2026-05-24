@@ -49,6 +49,8 @@ See `_AI/local/AI.md` for project context and available workflows.
 
 Create `_AI/OVERVIEW.md` — project description, architecture, key files, and anti-patterns.
 
+Optionally create `_AI/CODEX.md` — personal coding preferences and domain glossary for AI workflows.
+
 Create `_AI/VALIDATION.md` — the commands to run at each validation gate. Use this format:
 ```markdown
 ## Validation gates

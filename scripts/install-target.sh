@@ -52,6 +52,7 @@ echo "     See \`_AI/local/AI.md\` for project context and available workflows."
 if [[ "$CONTEXT" == "code" ]]; then
   echo "  2. Create _AI/OVERVIEW.md — project description, architecture, key files, anti-patterns."
   echo "  3. Create _AI/VALIDATION.md — commands to run at each validation gate."
+  echo "  4. Optionally create _AI/CODEX.md — personal coding preferences."
 else
   echo "  2. Create _AI/GOALS.md — vault purpose and focus areas."
   echo "  3. Optionally create _AI/VOICE.md — writing voice reference for the Compose workflow."

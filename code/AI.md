@@ -1,5 +1,7 @@
 Read `_AI/OVERVIEW.md` first. This will give you an overview of the project. If it's missing, alert the user.
 
+Also read `_AI/CODEX.md` if it exists — it defines coding conventions for this project. If absent, proceed without it.
+
 ## Workflows
 
 Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflows/` (shared). When the user's request matches a trigger below, read and follow the corresponding workflow file.
