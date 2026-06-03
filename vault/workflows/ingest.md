@@ -68,7 +68,7 @@ If searching:
 
 ## Writing style
 
-Follow the guidelines in [[_AI/local/STYLE.md]].
+Follow the guidelines in `_AI/local/STYLE.md`.
 
 ## Page format
 
@@ -134,7 +134,7 @@ Further context or detail here (optional).
 
 The note's filename is the canonical term name (e.g. `prompt-engineering.md`). The `aliases` value is the humanised form of the filename: hyphens replaced with spaces, lowercase — unless the term is an acronym, in which case uppercase (e.g. `rag` → `"RAG"`). The italic first line is the definition; everything after the blank line is free-form.
 
-**SPATIAL**: if `SPATIAL.md` exists in this KB and the source contained location claims, check whether any named features need adding or correcting. If `SPATIAL.md` doesn't exist but the source described a physical site with named features, offer to create it. Format: see [[_AI/local/AI.md]].
+**SPATIAL**: if `SPATIAL.md` exists in this KB and the source contained location claims, check whether any named features need adding or correcting. If `SPATIAL.md` doesn't exist but the source described a physical site with named features, offer to create it. Format: see `_AI/local/AI.md`.
 
 ## Step 10: Learnings
 

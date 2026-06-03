@@ -5,7 +5,7 @@ description: Produce written output (design doc, blog post, article) section-by-
 
 # Compose Workflow
 
-Use this workflow when the user wants to produce written output — a design document, blog post, article, social media post, or any other piece. The key difference from [[write]]: I draft the prose in the user's voice; the user approves section by section by dictating reactions.
+Use this workflow when the user wants to produce written output — a design document, blog post, article, social media post, or any other piece. The key difference from `_AI/local/workflows/write.md`: I draft the prose in the user's voice; the user approves section by section by dictating reactions.
 
 ## Prerequisites: style reference
 
@@ -20,7 +20,7 @@ The user says **compose** and names the output. Check whether `brief.md` and `gu
 
 ## Step 1: Grill to establish the brief
 
-Follow [[grill-me]] to establish:
+Follow `_AI/shared/workflows/grill-me.md` to establish:
 
 - **What** — working title and format
 - **For** — audience and context
@@ -64,7 +64,7 @@ For each section in the guide, in order:
 After all descriptive paragraphs in a section are approved, ask: *does this section give the reader something they didn't have before — a pattern named, a risk flagged, an insight they couldn't have arrived at themselves?*
 
 - If yes and it's already in the approved paragraphs: proceed.
-- If yes but it's missing: use [[grill-me]] to surface it — a few targeted questions to draw out the designer's or author's insight — then draft a synthesis paragraph from the answers and put it through the normal approval loop before writing to `output.md`.
+- If yes but it's missing: use `_AI/shared/workflows/grill-me.md` to surface it — a few targeted questions to draw out the designer's or author's insight — then draft a synthesis paragraph from the answers and put it through the normal approval loop before writing to `output.md`.
 - If no takeaway is needed (e.g. a purely contextual or scene-setting section): proceed without one.
 
 This step applies most strongly to **design documents**. For blog posts, articles, or personal writing, use judgement — only prompt if the section feels like reporting rather than thinking.

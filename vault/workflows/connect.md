@@ -30,7 +30,7 @@ Each bullet is one connection. Use the full vault-relative path in the wikilink 
 
 ## Writing style
 
-Follow the guidelines in [[_AI/local/STYLE.md]].
+Follow the guidelines in `_AI/local/STYLE.md`.
 
 ## Notes
 

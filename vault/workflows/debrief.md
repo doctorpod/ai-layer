@@ -15,7 +15,7 @@ If `inbox/` is empty, proceed with a chat-based debrief — the user will tell y
 
 ## Step 1: Grill relentlessly
 
-Before writing a single word of wiki content, grill the user until you are **95–97% certain** you have the facts right. Follow the approach in [[grill-me]]: walk down each branch of the subject, resolving dependencies one-by-one before moving on to the next branch.
+Before writing a single word of wiki content, grill the user until you are **95–97% certain** you have the facts right. Follow the approach in `_AI/shared/workflows/grill-me.md`: walk down each branch of the subject, resolving dependencies one-by-one before moving on to the next branch.
 
 Rules:
 - Ask one question at a time. Wait for the answer. Resolve it. Then move to the next.
@@ -43,26 +43,9 @@ Rules:
 
 ## Step 3: Concept notes and SPATIAL.md
 
-**Closing pass (after wiki writing is complete):** scan everything written for any term, named feature, or concept that could stand as a glossary entry. Do this as a named step — don't skip it. For each candidate:
-- Search the vault by filename for an existing note matching the canonical term name
-- If a match exists and already has `categories: ["[[Glossary]]"]` in its frontmatter: skip
-- If a match exists without the category: propose adding `categories: ["[[Glossary]]"]` to its frontmatter
-- If no match: propose creating a new concept note (confirm with user before creating; one at a time)
+**Closing pass (after wiki writing is complete):** follow the concept note rules in `_AI/local/workflows/ingest.md` Step 9. Do this as a named step — don't skip it.
 
-Concept note template:
-```markdown
----
-categories: ["[[Glossary]]"]
-aliases: ["prompt engineering"]
----
-*One-sentence definition.*
-
-Further context or detail here (optional).
-```
-
-The note's filename is the canonical term name (e.g. `prompt-engineering.md`). The `aliases` value is the humanised form of the filename: hyphens replaced with spaces, lowercase — unless the term is an acronym, in which case uppercase (e.g. `rag` → `"RAG"`). The italic first line is the definition; everything after the blank line is free-form.
-
-**SPATIAL pass:** if `SPATIAL.md` exists in this KB, check whether any location claims made during the debrief need adding or correcting. If `SPATIAL.md` doesn't exist but the debrief produced location claims about a physical site, offer to create it. Format: see [[_AI/local/AI.md]].
+**SPATIAL pass:** if `SPATIAL.md` exists in this KB, check whether any location claims made during the debrief need adding or correcting. If `SPATIAL.md` doesn't exist but the debrief produced location claims about a physical site, offer to create it. Format: see `_AI/local/AI.md`.
 
 ## Step 4: Create debrief note
 
@@ -80,7 +63,7 @@ Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 
 ## Steps 5–9: Write wiki content and close
 
-> **Page format**: defined in [[ingest]] — apply it to every wiki page written from a debrief without exception.
+> **Page format**: defined in `_AI/local/workflows/ingest.md` — apply it to every wiki page written from a debrief without exception.
 
 1. Create a summary page in `wiki/` named after the subject
 2. Create or update concept pages in `wiki/` for each major idea or entity
@@ -92,7 +75,7 @@ Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 
 ## Citation rules
 
-Follow the citation rules in [[ingest]]. Every wiki claim must reference its source — either an inbox file or the synthetic debrief note from Step 4. Use `[!caution]` callouts for any claim that remains uncertain after grilling.
+Follow the citation rules in `_AI/local/workflows/ingest.md`. Every wiki claim must reference its source — either an inbox file or the synthetic debrief note from Step 4. Use `[!caution]` callouts for any claim that remains uncertain after grilling.
 
 ## Step 10: Learnings
 
