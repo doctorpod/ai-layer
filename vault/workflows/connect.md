@@ -38,3 +38,9 @@ Follow the guidelines in [[_AI/local/STYLE.md]].
 - Prefer specific page-to-page links over vague "these two projects are related" observations.
 - Every connection must be 2-way: both pages get a sentence. Never write one side without the other.
 - **Quality bar**: only write a connection if you can complete this sentence clearly and specifically: *"A reader of page A would find page B useful because..."* If the answer is vague ("they're both about design") or requires a chain of inference, skip it. Fewer sharp connections are better than many weak ones.
+
+## Step 9: Learnings
+
+Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — about the vault's KB structure, page naming patterns, or how this workflow behaved?
+
+If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `CONNECT` for `[WORKFLOW]`.

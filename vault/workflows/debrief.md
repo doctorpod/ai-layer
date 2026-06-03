@@ -93,3 +93,9 @@ Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 ## Citation rules
 
 Follow the citation rules in [[ingest]]. Every wiki claim must reference its source — either an inbox file or the synthetic debrief note from Step 4. Use `[!caution]` callouts for any claim that remains uncertain after grilling.
+
+## Step 10: Learnings
+
+Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — about the subject, this KB's structure, or how this workflow behaved?
+
+If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `DEBRIEF` for `[WORKFLOW]`.

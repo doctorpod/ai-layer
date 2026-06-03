@@ -44,3 +44,9 @@ Report all findings as a numbered list with suggested fixes. Then work through t
 
 ## Step 4: Log
 Once all findings have been dealt with, append a log with a brief summary (max 12 words) by running `bash _AI/local/scripts/log-write.sh "LINT: <brief summary>"`
+
+## Step 5: Learnings
+
+Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — recurring issue patterns, structural quirks in this KB, or gaps in what the lint script catches?
+
+If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `LINT` for `[WORKFLOW]`.
