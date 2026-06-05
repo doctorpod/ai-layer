@@ -26,6 +26,8 @@ status: watching
 opened: YYYY-MM-DD
 updated: YYYY-MM-DD
 latest: "[one-line current status]"
+tags:
+  - ai-generated
 ---
 
 ## Context

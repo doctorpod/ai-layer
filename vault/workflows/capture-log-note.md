@@ -29,7 +29,8 @@ Filename: `YYYY-MM-DD [title].md`
 ---
 date: "[[YYYY-MM-DD]]"
 time: "HH:MM"
-tags: ["ai-generated"]
+tags:
+  - ai-generated
 ---
 
 [content]

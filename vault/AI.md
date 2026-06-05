@@ -78,6 +78,9 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |
 | "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
+| "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
+| "reflect" + scope | `_AI/local/workflows/reflect.md` |
+| "threads", "capture as a thread", "update thread", "review threads" | `_AI/local/workflows/threads.md` |
 
 ## The fetch method *(optional)*
 
