@@ -1,11 +1,11 @@
 ---
-name: review
+name: reflect
 description: Review a specified scope of notes and surface patterns, observations, and open loops as a chat response.
 ---
 
-# Review Workflow
+# Reflect Workflow
 
-Triggered by: "review" + a scope (e.g. "last 3 days", "this week's log notes", "recent entries")
+Triggered by: "reflect" + a scope (e.g. "last 3 days", "this week's log notes", "recent entries")
 
 ## Step 1: Establish scope
 
@@ -19,6 +19,10 @@ If the scope is ambiguous, ask before proceeding.
 ## Step 2: Gather the notes
 
 Find and read the relevant notes. Use `date` or file timestamps to anchor time-based scopes. Read fully — don't skim.
+
+**Do not read anything inside `_AI/`.** That folder is AI layer infrastructure (workflow logs, ingestion records, config). It is not work content.
+
+For time-based scopes, use `_AI/local/scripts/list-log-notes.sh YYYY-MM-DD` (run from the vault root) to get all log notes from that date to the latest. Calculate the start date from the scope before running it.
 
 ## Step 3: Analyse
 
@@ -34,7 +38,7 @@ Only surface categories that have genuine content. One sharp observation beats a
 
 ## Step 4: Clarify
 
-If anything in the notes is ambiguous — an unclear outcome, a name without context, a thread you can't interpret — ask the user before presenting findings. Ask questions one at a time (similar to `_AI/shared/workflows/grill-me.md`, but not as relentless). Keep it brief: only ask what would materially change the findings.
+If anything in the notes is ambiguous — an unclear outcome, a name without context, a thread you can't interpret — ask the user before presenting findings. Ask questions one at a time as per `_AI/shared/workflows/grill-me.md`.
 
 ## Step 5: Respond
 
