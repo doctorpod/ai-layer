@@ -34,7 +34,7 @@ tags:
 [Background — what this is and why it matters]
 
 ## Log
-- YYYY-MM-DD: [entry]
+![[logs.base]]
 ```
 
 **Status values:**
@@ -51,7 +51,7 @@ Use when a review, debrief, or conversation surfaces something thread-worthy.
 
 1. **Scan first** — find all existing thread notes in the scoped `threads/` folder and read their `latest:` frontmatter. Do not create a duplicate; if a matching thread exists, switch to Update mode instead.
 2. **Assess** — is this genuinely worth tracking, or just noise? Prefer fewer, sharper threads over comprehensive coverage.
-3. **Create the note** — write context and an opening log entry. Set status to `watching` unless clearly otherwise.
+3. **Create the note** — write context and set status to `watching` unless clearly otherwise.
 4. **Confirm** — tell the user the filename and one-line summary.
 
 ## Mode: Update
@@ -59,7 +59,7 @@ Use when a review, debrief, or conversation surfaces something thread-worthy.
 Use when there is new information about an existing thread.
 
 1. Update the `latest:` frontmatter field.
-2. Append a dated entry to the log.
+2. Offer to capture a log note with a link to the thread if appropriate - `_AI/local/capture-log-note.md`
 3. Update the `updated` frontmatter field.
 4. Reassess status — has anything changed? Should this become `dormant`, `not-mine`, or `resolved`?
 
