@@ -52,14 +52,13 @@ When a term emerges that needs a precise, shared definition:
 ```markdown
 ---
 categories: ["[[Glossary]]"]
-aliases: ["prompt engineering"]
 ---
 *One-sentence definition.*
 
 Further context or detail here (optional).
 ```
 
-The note's filename is the canonical term name (e.g. `prompt-engineering.md`). The `aliases` value is the humanised form of the filename: hyphens replaced with spaces, lowercase — unless the term is an acronym, in which case uppercase (e.g. `rag` → `"RAG"`).
+The note's filename is the canonical term name: lowercase with spaces for normal terms (e.g. `prompt engineering.md`), UPPERCASE for acronyms (e.g. `RAG.md`). The `aliases` field is only needed for genuine alternate names or synonyms — not for display formatting, since the filename is already human-readable.
 
 **If in a code project**:
 

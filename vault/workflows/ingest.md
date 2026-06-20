@@ -139,8 +139,6 @@ Concept note template:
 ---
 categories:
   - "[[Glossary]]"
-aliases: 
-  - "prompt engineering"
 tags:
   - ai-generated
 ---
@@ -149,7 +147,7 @@ tags:
 Further context or detail here (optional).
 ```
 
-The note's filename is the canonical term name (e.g. `prompt-engineering.md`). The `aliases` value is the humanised form of the filename: hyphens replaced with spaces, lowercase — unless the term is an acronym, in which case uppercase (e.g. `rag` → `"RAG"`). The italic first line is the definition; everything after the blank line is free-form.
+The note's filename is the canonical term name: lowercase with spaces for normal terms (e.g. `prompt engineering.md`), UPPERCASE for acronyms (e.g. `RAG.md`). The `aliases` field is only needed for genuine alternate names or synonyms — not for display formatting, since the filename is already human-readable. The italic first line is the definition; everything after the blank line is free-form.
 
 **SPATIAL**: if `SPATIAL.md` exists in this KB and the source contained location claims, check whether any named features need adding or correcting. If `SPATIAL.md` doesn't exist but the source described a physical site with named features, offer to create it. Format: see `_AI/local/AI.md`.
 
