@@ -80,7 +80,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
-| "threads", "capture as a thread", "update thread", "review threads" | `_AI/local/workflows/threads.md` |
+| "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 
 ## The fetch method *(optional)*
 

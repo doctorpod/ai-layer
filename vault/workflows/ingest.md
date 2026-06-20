@@ -70,11 +70,24 @@ If searching:
 
 Follow the guidelines in `_AI/local/STYLE.md`.
 
+### Write concept pages as generic articles, not source summaries
+
+Each wiki page should read as a standalone article about the concept itself — not as a record of what the source says about it. Use the source for evidence and examples, but frame the body around the concept. The `Sources` frontmatter field is the link back to the specific source; the page body should be useful to someone who has never seen that source.
+
+Wrong: *"In this talk, Tolle explains that the ego loves its problems…"*
+Right: *"The ego maintains itself through problems. It says it wants resolution, but unconscious thinking continuously recreates the conditions that produce suffering…"*
+
+Keep the writing alive — these pages should hold attention the way a good article does, not read like a textbook. Concrete images over neutral summaries. This keeps pages open to future sources and worth reading on their own terms.
+
 ## Page format
 
 Every wiki page should follow this structure:
 
 ```markdown
+---
+tags: ["ai-generated"]
+---
+
 # Page Title
 
 **Summary**: One to two sentences describing this page.
@@ -124,8 +137,12 @@ Note: any wiki page created during ingest can itself become a glossary entry —
 Concept note template:
 ```markdown
 ---
-categories: ["[[Glossary]]"]
-aliases: ["prompt engineering"]
+categories:
+  - "[[Glossary]]"
+aliases: 
+  - "prompt engineering"
+tags:
+  - ai-generated
 ---
 *One-sentence definition.*
 

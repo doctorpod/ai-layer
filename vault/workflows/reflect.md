@@ -46,6 +46,6 @@ Deliver findings as a chat response. Keep it dense and scannable — use short h
 
 Retain the findings in context: the user may follow up by asking to capture them (e.g. as a log note) or feed them into another workflow.
 
-## Step 6: Thread capture
+## Step 6: Radar capture
 
-If the findings include open loops, offer to run the threads workflow (`_AI/local/workflows/threads.md`) in Capture mode for each one. Scan existing threads first — only propose genuinely new threads, not things already being tracked.
+If the findings include open loops, offer to run the add-to-radar workflow (`_AI/local/workflows/add-to-radar.md`) in Capture mode for each one. Scan existing radar items first — only propose genuinely new items, not things already being tracked.

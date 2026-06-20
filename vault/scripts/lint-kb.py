@@ -31,6 +31,8 @@ VAULT_ROOT = _find_vault_root()
 
 REQUIRED_FIELDS = ['**Summary**', '**Sources**', '**Last updated**']
 
+NON_WIKI_EXTS = {'.jpg', '.jpeg', '.png', '.svg', '.gif', '.webp', '.pdf', '.mp4', '.webm', '.mp3'}
+
 
 def discover_kbs():
     kbs = []
@@ -117,6 +119,8 @@ def lint_kb(kb_path, all_vault_files):
         # --- Broken path-style wikilinks ---
         for link in extract_wikilinks(text):
             if '/' in link:
+                if Path(link).suffix.lower() in NON_WIKI_EXTS:
+                    continue
                 if not resolve_path_link(link, all_vault_files):
                     link_issues.append(f"{rel} — broken link [[{link}]]")
 
