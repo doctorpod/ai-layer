@@ -8,6 +8,7 @@ Usage:
 
 Checks:
     - Format compliance per page (Summary, Sources, Last updated, ---, ## Related)
+    - Frontmatter has tags: [ai-generated]
     - Orphan pages (no inbound links from other pages in the same KB)
     - Broken cross-KB wikilinks (path-style [[a/b/c]] that resolve to nothing)
     - Pending [!caution] markers (unresolved verification items)
@@ -61,6 +62,21 @@ def find_wiki_files(kb_path):
     return sorted(wiki_dir.glob('*.md'))
 
 
+def check_frontmatter_tags(text):
+    """Return an error string if tags: ai-generated is absent, else None."""
+    if not text.startswith('---\n'):
+        return "missing frontmatter"
+    end = text.find('\n---', 4)
+    if end == -1:
+        return "malformed frontmatter (no closing ---)"
+    frontmatter = text[4:end]
+    if not re.search(r'^tags\s*:', frontmatter, re.MULTILINE):
+        return "missing 'tags' property in frontmatter"
+    if 'ai-generated' not in frontmatter:
+        return "frontmatter 'tags' missing 'ai-generated'"
+    return None
+
+
 def extract_wikilinks(text):
     return re.findall(r'\[\[([^\]|#\n]+?)(?:\|[^\]\n]*)?\]\]', text)
 
@@ -93,10 +109,26 @@ def lint_kb(kb_path, all_vault_files):
     format_issues = []
     link_issues = []
     caution_items = []
+    index_issues = []
+
+    # --- INDEX check ---
+    index_path = kb_path / 'INDEX.md'
+    if index_path.exists():
+        index_text = index_path.read_text(encoding='utf-8')
+        for f in wiki_files:
+            if f.stem not in index_text:
+                index_issues.append(f"wiki/{f.stem}.md — not listed in INDEX.md")
+    else:
+        index_issues.append("INDEX.md is missing")
 
     for f in wiki_files:
         text = f.read_text(encoding='utf-8')
         rel = str(f.relative_to(VAULT_ROOT))
+
+        # --- Frontmatter tags check ---
+        tag_error = check_frontmatter_tags(text)
+        if tag_error:
+            format_issues.append(f"{rel} — {tag_error}")
 
         # --- Format checks ---
         for field in REQUIRED_FIELDS:
@@ -133,6 +165,7 @@ def lint_kb(kb_path, all_vault_files):
         'format_issues': format_issues,
         'link_issues': link_issues,
         'caution_items': caution_items,
+        'index_issues': index_issues,
     }
 
 
@@ -146,11 +179,16 @@ def print_report(kb_path, result):
         print("  No wiki/ folder found.")
         return
 
-    total = len(result['format_issues']) + len(result['link_issues'])
+    total = len(result['format_issues']) + len(result['link_issues']) + len(result['index_issues'])
 
     if result['format_issues']:
         print(f"\nFORMAT  ({len(result['format_issues'])} issue(s))")
         for issue in result['format_issues']:
+            print(f"  • {issue}")
+
+    if result['index_issues']:
+        print(f"\nINDEX  ({len(result['index_issues'])} issue(s))")
+        for issue in result['index_issues']:
             print(f"  • {issue}")
 
     if result['link_issues']:
