@@ -109,7 +109,7 @@ Do not touch any file until the user confirms.
 
 Apply only what the user has approved. For each approved change:
 
-- **Folder move**: move the file to the proposed location. Update any `[[wikilinks]]` to the note if you can find them — search by filename.
+- **Folder move**: move the file to the proposed location. Update any `[[wikilinks]]` to the note if you can find them — search by filename. If the `obsidian` CLI is available, prefer `obsidian move file=<name> to=<path> vault=<name>` (or `rename` for renames-in-place) — it updates all `[[wikilinks]]` to the file vault-wide automatically, removing the manual search-and-fix step.
 - **Category add/change**: edit the `categories` frontmatter property. Preserve all other frontmatter.
 - **New note**: create the note with the agreed filename, frontmatter (`categories`, `gig` if inside a gig), and a minimal stub body. Do not write content — that is the user's job.
 

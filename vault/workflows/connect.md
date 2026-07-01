@@ -8,7 +8,7 @@ description: Run a cross-wiki insights pass to find and surface connections betw
 When asked to **connect** or run a **cross-wiki insights** pass:
 
 1. Read the `INDEX.md` from each knowledge base to survey the terrain. Use `find . -type d -name wiki | sed -e "s/\/wiki//"` to find knowledge bases
-2. Grep for existing `## Wider connections` sections to see what's already known
+2. Grep for existing `## Wider connections` sections to see what's already known (if the `obsidian` CLI is available, `obsidian search:context query="## Wider connections" format=json vault=<name>` does the same lookup via the live index)
 3. Load only the specific pages likely to yield *new* connections — aim for 6–10 pages, not the whole corpus
 4. Identify new connections: relationships, overlaps, tensions, or synergies between knowledge bases that aren't already recorded
 5. For each new connection, add a `## Wider connections` section (or append to an existing one) at the end of **both** pages — write one sentence per side explaining the connection from that page's perspective

@@ -13,6 +13,8 @@ python3 _AI/local/scripts/lint-kb.py <kb-path>
 
 Read the output. This catches format issues, orphan pages, broken cross-KB links, and pending `[!caution]` markers without reading all wiki files.
 
+Optional: if the `obsidian` CLI is available, `obsidian orphans vault=<name> total`, `obsidian unresolved vault=<name>`, and `obsidian backlinks path=<file> vault=<name> total` give a fast live-index cross-check alongside `lint-kb.py`'s KB-scoped checks — additive, not a replacement.
+
 ## Step 1b: Asset orphan check
 
 If an `assets/` folder exists in the KB, check for files not linked from any wiki page:

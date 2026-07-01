@@ -127,7 +127,7 @@ Link to related concepts using [[wiki-links]] throughout the text.
 Once wiki pages are written and files moved to `curated/`, do a closing pass:
 
 **Concept notes**: scan the wiki pages just written for any term, named feature, or concept that could stand as a glossary entry. For each candidate:
-- Search the vault by filename for an existing note matching the canonical term name
+- Search the vault by filename for an existing note matching the canonical term name (if the `obsidian` CLI is available, `obsidian file file="<term>" vault=<name>` resolves by name like a wikilink and errors cleanly if no match exists — faster than a filename search)
 - If a match exists and already has `categories: ["[[Glossary]]"]` in its frontmatter: skip
 - If a match exists without the category: propose adding `categories: ["[[Glossary]]"]` to its frontmatter
 - If no match: propose creating a new concept note (confirm with user before creating; one at a time)

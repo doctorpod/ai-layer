@@ -15,6 +15,10 @@ These files live in `_AI/` and are created by the vault owner during setup. Read
 
 If `_AI/GOALS.md` is missing, alert the user.
 
+## Obsidian CLI
+
+The `obsidian` CLI is available when the Obsidian app is running with this vault open. See `_AI/local/OBSIDIAN-CLI.md` for commands that are cheaper than Grep/Read/mv for search, link-graph queries, and file moves.
+
 ## Read & write access
 
 - You may READ any file recursively in the vault
