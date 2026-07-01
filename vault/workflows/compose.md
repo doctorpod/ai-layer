@@ -57,7 +57,7 @@ For each section in the guide, in order:
    - **"Good"** — move to the next paragraph
    - **"Change X"** — adjust and show the revised paragraph; repeat until approved
    - **"It should say..."** — the user dictates the passage; clean up their dictation and show the result for approval
-4. Once all paragraphs in the section are approved, run the **takeaway check** (see below), then write the full section to `output.md`, mark it done in `guide.md` with ✓, and move to the next section
+4. Once all paragraphs in the section are approved, run the **takeaway check** (see below), then write the full section to `output.md`, update `last_updated` in the `output.md` frontmatter to today's date, mark it done in `guide.md` with ✓, and move to the next section
 
 ## Takeaway check
 
@@ -85,6 +85,16 @@ bash _AI/local/scripts/log-write.sh "COMPOSE: [piece title] — [brief summary]"
   guide.md    ← I write; sections marked ✓ as approved
   output.md   ← I write approved prose; grows section by section
   assets/     ← images, maps, diagrams
+```
+
+`output.md` frontmatter template:
+
+```yaml
+---
+title: [piece title]
+status: in progress
+last_updated: YYYY-MM-DD
+---
 ```
 
 **Location:**
