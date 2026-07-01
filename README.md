@@ -27,7 +27,7 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Save** — commit with a 12-word summary and log entry
 - **Fetch** — async message passing via dated chat logs
 
-Both contexts also include **Grill me** and **Validate AI setup** (from `shared/`).
+Both contexts also include **Grill me**, **Rubber duck**, and **Validate AI setup** (from `shared/`).
 
 ---
 
@@ -99,6 +99,7 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | Skill | Routes to |
 |-------|-----------|
 | `/grill-me` | `_AI/shared/workflows/grill-me.md` |
+| `/rubber-duck` | `_AI/shared/workflows/rubber-duck.md` |
 | `/validate-ai-setup` | `_AI/shared/workflows/validate-ai-setup.md` |
 | `/create-prp` | `_AI/local/workflows/create-prp.md` |
 | `/execute-prp` | `_AI/local/workflows/execute-prp.md` |

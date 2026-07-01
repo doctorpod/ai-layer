@@ -15,4 +15,5 @@ Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflo
 | "review", "post-execution review", "check the implementation" | `_AI/local/workflows/review.md` ⚠️ fresh context required |
 | "grill me", "interview me", "question me about" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "teach me", "teach me on how this works", "help me learn" | `_AI/local/workflows/teach-me.md` |
+| "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "validate AI setup", "check AI setup", "is the AI layer installed correctly" | `_AI/shared/workflows/validate-ai-setup.md` |

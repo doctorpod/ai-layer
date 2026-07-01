@@ -79,6 +79,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "write", "guide", or "help with output" | `_AI/local/workflows/write.md` |
 | "compose" | `_AI/local/workflows/compose.md` |
 | "grill me" or "interview me" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
+| "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |
 | "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
