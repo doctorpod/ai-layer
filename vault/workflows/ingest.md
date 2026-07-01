@@ -38,6 +38,15 @@ Discuss key takeaways with the user before writing anything.
 
 In both cases: present one item, wait for the answer, resolve it, then move to the next. If a claim cannot be resolved, flag it with a `[!caution]` callout when writing (see citation rules).
 
+## Cross-KB sources
+
+A single source may have its strongest claim in one KB but generate concept pages that belong in another. When this happens:
+
+- Anchor the source page in the KB with the strongest thematic claim
+- Create concept pages in whichever KB owns that concept
+- Update `INDEX.md` in every KB touched
+- Use full-path wikilinks (`[[lib/atlas/other-kb/wiki/page-name|display name]]`) only when there is a filename clash across KBs; otherwise use the short form
+
 ## Steps 2–8 (all sources)
 
 1. Create a summary page in `wiki/` named after the source
