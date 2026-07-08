@@ -14,7 +14,9 @@ Parse the scope from the user's request. Typical forms:
 - Count-based: "last N log notes"
 - Explicit: named files or a date range
 
-If the scope is ambiguous, ask before proceeding.
+If the scope is phrased relative to a prior reflection (e.g. "since our last reflection"), find the most recent existing note with `categories: ["[[Reflections]]"]` and use its date as the start date — do not ask the user if one exists. If no such note exists yet, ask before proceeding.
+
+If the scope is otherwise ambiguous, ask before proceeding.
 
 ## Step 2: Gather the notes
 
@@ -49,3 +51,23 @@ Retain the findings in context: the user may follow up by asking to capture them
 ## Step 6: Radar capture
 
 If the findings include open loops, offer to run the add-to-radar workflow (`_AI/local/workflows/add-to-radar.md`) in Capture mode for each one. Scan existing radar items first — only propose genuinely new items, not things already being tracked.
+
+## Step 7: Capture as a reflection note
+
+If the user asks to capture the reflection (e.g. "capture this reflection", "log this"), use this frontmatter instead of the generic `capture-log-note.md` format — it carries the `[[Reflections]]` category and its schema (see `templates/reflection.md`):
+
+```
+---
+date: "[[YYYY-MM-DD]]"
+time: "HH:MM"
+categories:
+  - "[[Reflections]]"
+last_reflection: "[[<link to the previous reflection note>]]"
+tags:
+  - ai-generated
+---
+```
+
+- `last_reflection` links to the reflection note used to establish scope in Step 1 (the most recent prior one found by category). Omit the field if this is the first reflection ever captured.
+- Otherwise follow `capture-log-note.md` for filename, folder, and title conventions — only the frontmatter differs.
+- Content is the findings delivered in Step 5, preserved faithfully.
