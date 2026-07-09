@@ -31,6 +31,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
 	- Any file named `QUESTIONS.md`
 	- Any file named `SPATIAL.md`
+	- Any folder named `_greenhouse/`
 	- You may move files to any folder named `curated/`
 - If you ever need to write anywhere else, ask my permission first.
 
@@ -86,6 +87,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
+| "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 
 ## The fetch method *(optional)*
 
