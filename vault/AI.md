@@ -91,6 +91,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
+| "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
 
 ## The fetch method *(optional)*
 
