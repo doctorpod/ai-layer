@@ -12,6 +12,7 @@ These files live in `_AI/` and are created by the vault owner during setup. Read
 
 - `_AI/GOALS.md` — goals and focus areas for this vault
 - `_AI/VOICE.md` — writing voice reference, used by the compose workflow *(optional — only needed for vaults where prose drafting in the user's voice is a goal)*
+- `_AI/CONVENTIONS.md` — vault-specific operating conventions not covered elsewhere *(optional)*
 
 If `_AI/GOALS.md` is missing, alert the user.
 
