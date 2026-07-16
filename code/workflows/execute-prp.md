@@ -39,6 +39,8 @@ For each step:
 
 Never skip a validation gate. Never mark a step done while a gate is failing.
 
+Do not reference `_AI/` paths, the PRP file, or this workflow in any code, comment, docstring, or commit message you write — see `_AI/local/AI.md`. Those are planning artifacts; the shipped code must read as if they never existed.
+
 ### 4. Validation gates
 
 Run the gates at the points specified in the PRP. The validation commands for this project are defined in `_AI/VALIDATION.md`. Never skip a gate. Never mark a step done while a gate is failing.
