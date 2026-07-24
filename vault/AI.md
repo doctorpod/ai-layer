@@ -35,6 +35,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any folder named `_greenhouse/`
 	- Any folder named `_AI/postmortems/`
 	- Any file named `_AI/learnings.md`
+	- Any folder named `inbox/`, but only to create web-stub files (`tags` includes `web-stub`) — not to write full ingest source content directly
 	- You may move files to any folder named `curated/`
 - If you ever need to write anywhere else, ask my permission first.
 

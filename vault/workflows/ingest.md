@@ -11,6 +11,7 @@ Before anything else, identify the source type from the content (speaker labels,
 
 - **First-person**: interview transcript, field notes, site visit notes, personal recording, meeting notes where the user was present
 - **External**: YouTube transcript, blog post, article, book extract, podcast transcript, web content
+- **Web-stub**: frontmatter `tags` includes `web-stub` — a pointer file, not pasted source content. Fetch the `url` property live (WebFetch) before proceeding; treat the fetched page as the source content from here on, same as any other external source.
 
 If genuinely unclear, ask the user.
 
@@ -133,10 +134,28 @@ Link to related concepts using [[wiki-links]] throughout the text.
 
 ### Try a web search before flagging a claim as unverifiable
 
-Before writing a `[!caution]` callout for a **no source** claim, judge whether it's the kind a web search could plausibly settle — a factual or statistical claim, not a personal anecdote or someone's stated opinion. If so, offer the user a web search to try to verify or source it before writing the callout.
+Before writing a `[!caution]` callout for a **no source** claim, judge whether it's the kind a web search could plausibly settle — a factual or statistical claim, not a personal anecdote or someone's stated opinion. If so, offer the user a web search to try to verify or source it before writing the callout. Always surface what the search found (or didn't) to the user before it lands in the KB — a web search is assistant-initiated, so unlike every other source in this vault, nobody has vetted the page yet.
 
-- If the search finds a credible source: cite that source properly instead of (or alongside) the caution note.
-- If the search comes up empty or inconclusive: still write the caution callout, but say a search was tried and didn't turn one up — a checked-and-still-unverified claim is a stronger signal than one nobody looked into.
+Then branch on what the search turns up:
+
+- **Nothing found**: still write the `[!caution]` callout, but say a search was tried and didn't turn one up — a checked-and-still-unverified claim is a stronger signal than one nobody looked into.
+- **One fact, used once**: cite it inline instead of the caution note — `(source: [Title](URL), accessed YYYY-MM-DD)`. No new file.
+- **Multiple facts, or a source worth reusing**: don't absorb the facts into wiki content now. Write a stub file into the relevant KB's `inbox/` (filename: the page's title, matching how clippings are already named in `curated/`) and leave it queued for a proper `/ingest` pass:
+
+  ```markdown
+  ---
+  tags: ["ai-generated", "web-stub"]
+  url: https://...
+  last_accessed: YYYY-MM-DD
+  context: "[[debrief-or-session-note]]"
+  flagged_for:
+    - topic one
+    - topic two
+  ---
+  Optional free text — only for conditional caveats (source currency, quality). Often empty.
+  ```
+
+  Note the claim itself as pending against the stub, not as an established fact, until the later ingest pass writes it up properly.
 
 ## Step 9: Glossary and SPATIAL pass
 
