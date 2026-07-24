@@ -38,7 +38,7 @@ This one convention covers every mode of use:
 - **In-place edit**: the user goes back into an already-polished file and wraps just the bit they changed. No need to be told which paragraph — the marker says so.
 - **Accumulation across sessions**: the user can dictate across several sessions, each in its own `%P`/`%` block. When invoked, process every unstripped block found, not just the most recent.
 
-If a file has no `%P`/`%` block, there is nothing pending in it.
+If a file has no `%P`/`%` block, say so and ask whether the user wants the whole file body polished instead. If they confirm, treat the entire body as the scope (no markers to strip).
 
 ### 2. In-chat, ephemeral
 

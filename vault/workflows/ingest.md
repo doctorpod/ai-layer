@@ -131,6 +131,13 @@ Link to related concepts using [[wiki-links]] throughout the text.
   - **No source**: a claim has no source backing it
   - **Uncertain source quality**: poor audio, OCR errors, unclear phrasing — for external sources include a location hint (timestamp, section heading)
 
+### Try a web search before flagging a claim as unverifiable
+
+Before writing a `[!caution]` callout for a **no source** claim, judge whether it's the kind a web search could plausibly settle — a factual or statistical claim, not a personal anecdote or someone's stated opinion. If so, offer the user a web search to try to verify or source it before writing the callout.
+
+- If the search finds a credible source: cite that source properly instead of (or alongside) the caution note.
+- If the search comes up empty or inconclusive: still write the caution callout, but say a search was tried and didn't turn one up — a checked-and-still-unverified claim is a stronger signal than one nobody looked into.
+
 ## Step 9: Glossary and SPATIAL pass
 
 Once wiki pages are written and files moved to `curated/`, do a closing pass:

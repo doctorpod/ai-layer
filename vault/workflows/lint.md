@@ -39,7 +39,7 @@ For checks the script cannot do, read only the specific files needed:
 
 ## Step 3: Report and resolve sequentially
 
-Report all findings as a numbered list with suggested fixes. Then work through them one at a time:
+Report all findings as a numbered list with suggested fixes. Resolve every finding the script surfaces, regardless of whether it predates this session or was just introduced — don't gate pre-existing findings behind a separate scope check before fixing them. Then work through them one at a time:
 
 - Fix issues that don't need user input immediately and move on
 - For issues that need clarification, ask **one question**, wait for the answer, resolve it, then ask the next
