@@ -115,4 +115,4 @@ Note the Base query is file-level (`file.hasLink(this.file)`) — it can't refle
 
 ## Step 7: Learnings
 
-Reflect briefly: was there anything about this KB's structure, PRP conventions, or component-matching that would have been faster to know upfront? If yes, follow `_AI/shared/snippets/learnings.md`, substituting `LINK-COMPONENTS` for `[WORKFLOW]`.
+Follow `_AI/shared/snippets/learnings.md`, substituting `LINK-COMPONENTS` for `[WORKFLOW]`.

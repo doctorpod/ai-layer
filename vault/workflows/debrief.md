@@ -79,6 +79,4 @@ Follow the citation rules in `_AI/local/workflows/ingest.md`. Every wiki claim m
 
 ## Step 10: Learnings
 
-Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — about the subject, this KB's structure, or how this workflow behaved?
-
-If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `DEBRIEF` for `[WORKFLOW]`.
+Follow `_AI/shared/snippets/learnings.md`, substituting `DEBRIEF` for `[WORKFLOW]`.

@@ -12,6 +12,7 @@ Checks:
     - Orphan pages (no inbound links from other pages in the same KB)
     - Broken cross-KB wikilinks (path-style [[a/b/c]] that resolve to nothing)
     - Pending [!caution] markers (unresolved verification items)
+    - Orphaned assets (files in assets/ not referenced from any wiki page)
 
 Bare wikilinks ([[Name]] with no path separator) are treated as person/concept
 references and are not checked for file existence.
@@ -62,6 +63,25 @@ def find_wiki_files(kb_path):
     return sorted(wiki_dir.glob('*.md'))
 
 
+def find_orphan_assets(kb_path, wiki_files):
+    """Return asset filenames under kb_path/assets/ not referenced by name in any wiki file."""
+    assets_dir = kb_path / 'assets'
+    if not assets_dir.exists():
+        return []
+
+    wiki_text = ''
+    for f in wiki_files:
+        wiki_text += f.read_text(encoding='utf-8')
+
+    orphans = []
+    for asset in sorted(assets_dir.iterdir()):
+        if not asset.is_file():
+            continue
+        if f'assets/{asset.name}' not in wiki_text:
+            orphans.append(asset.name)
+    return orphans
+
+
 def check_frontmatter_tags(text):
     """Return an error string if tags: ai-generated is absent, else None."""
     if not text.startswith('---\n'):
@@ -110,6 +130,8 @@ def lint_kb(kb_path, all_vault_files):
     link_issues = []
     caution_items = []
     index_issues = []
+    asset_issues = [f"assets/{name} — not linked from any wiki page in this KB"
+                     for name in find_orphan_assets(kb_path, wiki_files)]
 
     # --- INDEX check ---
     index_path = kb_path / 'INDEX.md'
@@ -166,6 +188,7 @@ def lint_kb(kb_path, all_vault_files):
         'link_issues': link_issues,
         'caution_items': caution_items,
         'index_issues': index_issues,
+        'asset_issues': asset_issues,
     }
 
 
@@ -179,7 +202,7 @@ def print_report(kb_path, result):
         print("  No wiki/ folder found.")
         return
 
-    total = len(result['format_issues']) + len(result['link_issues']) + len(result['index_issues'])
+    total = len(result['format_issues']) + len(result['link_issues']) + len(result['index_issues']) + len(result['asset_issues'])
 
     if result['format_issues']:
         print(f"\nFORMAT  ({len(result['format_issues'])} issue(s))")
@@ -194,6 +217,11 @@ def print_report(kb_path, result):
     if result['link_issues']:
         print(f"\nLINKS  ({len(result['link_issues'])} issue(s))")
         for issue in result['link_issues']:
+            print(f"  • {issue}")
+
+    if result['asset_issues']:
+        print(f"\nORPHANED ASSETS  ({len(result['asset_issues'])} issue(s))")
+        for issue in result['asset_issues']:
             print(f"  • {issue}")
 
     if result['caution_items']:

@@ -11,22 +11,11 @@ When the user asks you to **lint** or **audit** a knowledge base:
 python3 _AI/local/scripts/lint-kb.py <kb-path>
 ```
 
-Read the output. This catches format issues, orphan pages, broken cross-KB links, and pending `[!caution]` markers without reading all wiki files.
+Read the output. This catches format issues, orphan pages, broken cross-KB links, orphaned assets, and pending `[!caution]` markers without reading all wiki files.
 
 Optional: if the `obsidian` CLI is available, `obsidian orphans vault=<name> total`, `obsidian unresolved vault=<name>`, and `obsidian backlinks path=<file> vault=<name> total` give a fast live-index cross-check alongside `lint-kb.py`'s KB-scoped checks — additive, not a replacement.
 
-## Step 1b: Asset orphan check
-
-If an `assets/` folder exists in the KB, check for files not linked from any wiki page:
-
-```bash
-for f in <kb-path>/assets/*; do
-  name=$(basename "$f")
-  grep -rl "assets/$name" <kb-path>/wiki/ > /dev/null 2>&1 || echo "Orphaned asset: $name"
-done
-```
-
-Report any orphans. Offer to delete them.
+If the script reports orphaned assets, offer to delete them.
 
 ## Step 2: Content checks (targeted)
 
@@ -49,6 +38,4 @@ Once all findings have been dealt with, append a log with a brief summary (max 1
 
 ## Step 5: Learnings
 
-Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — recurring issue patterns, structural quirks in this KB, or gaps in what the lint script catches?
-
-If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `LINT` for `[WORKFLOW]`.
+Follow `_AI/shared/snippets/learnings.md`, substituting `LINT` for `[WORKFLOW]`.

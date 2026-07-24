@@ -49,7 +49,7 @@ tags:
 
 Use when a review, debrief, or conversation surfaces something radar-worthy.
 
-1. **Scan first** — find all existing radar notes in the scoped `radar/` folder and read their `latest:` frontmatter. Do not create a duplicate; if a matching radar item exists, switch to Update mode instead.
+1. **Scan first** — run `python3 _AI/local/scripts/list-radar.py <radar-folder>` to see all existing radar notes with their status/latest fields in one pass. Do not create a duplicate; if a matching radar item exists, switch to Update mode instead.
 2. **Assess** — is this genuinely worth tracking, or just noise? Prefer fewer, sharper radar items over comprehensive coverage.
 3. **Create the note** — write context and set status to `watching` unless clearly otherwise.
 4. **Confirm** — tell the user the filename and one-line summary.
@@ -67,6 +67,6 @@ Use when there is new information about an existing radar item.
 
 Use when the user asks to review radar items, or as a closing step in the `review` workflow.
 
-1. Read all radar notes in scope.
+1. Run `python3 _AI/local/scripts/list-radar.py <radar-folder>` to get status/updated/latest for every item in scope. Only open an individual note's `## Context` if its status or staleness is genuinely ambiguous from the summary line alone.
 2. Respond in chat with a scannable summary — status, `latest:` value, and any radar items that look stale or ready to close.
 3. Invite the user to update or close any items.

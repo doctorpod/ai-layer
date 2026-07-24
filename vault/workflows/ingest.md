@@ -71,10 +71,9 @@ If searching:
 1. Search Wikimedia Commons first (stable, freely-licensed)
 2. Images must only be of type JPG or PNG
 3. If a suitable image found within 2–3 searches: download to `<kb>/assets/<page-name>.<ext>`
-4. Check dimensions: `sips -g pixelHeight pixelWidth <file>`
-5. If either dimension >1200px or file >500KB: `sips -Z 1200 <file>`
-6. Embed in wiki page after the `---` divider: `![[assets/<filename>]]`
-7. If no suitable image found within 2–3 searches, or concept is woolly: skip — do not force a poor or irrelevant image
+4. Run `python3 _AI/local/scripts/normalize-image.py <kb>/assets/<page-name>.<ext>` — checks dimensions/filesize and resizes in place if either exceeds the limit
+5. Embed in wiki page after the `---` divider: `![[assets/<filename>]]`
+6. If no suitable image found within 2–3 searches, or concept is woolly: skip — do not force a poor or irrelevant image
 
 ## Writing style
 
@@ -188,6 +187,4 @@ The note's filename is the canonical term name: lowercase with spaces for normal
 
 ## Step 10: Learnings
 
-Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — about this KB's structure, content patterns, frontmatter quirks, or how this workflow behaved?
-
-If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `INGEST` for `[WORKFLOW]`.
+Follow `_AI/shared/snippets/learnings.md`, substituting `INGEST` for `[WORKFLOW]`.

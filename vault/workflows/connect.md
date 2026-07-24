@@ -41,6 +41,4 @@ Follow the guidelines in `_AI/local/STYLE.md`.
 
 ## Step 9: Learnings
 
-Reflect briefly: was there anything you had to figure out during this session that would have been faster to know upfront — about the vault's KB structure, page naming patterns, or how this workflow behaved?
-
-If yes, follow the instructions at `_AI/shared/snippets/learnings.md`, substituting `CONNECT` for `[WORKFLOW]`.
+Follow `_AI/shared/snippets/learnings.md`, substituting `CONNECT` for `[WORKFLOW]`.
