@@ -17,7 +17,7 @@ Never: rephrasing, reordering, cutting or adding content, changing word choice, 
 
 If a sentence is genuinely broken — dictation garbled a clause beyond repair — do not guess at a fix. Flag it inline (e.g. `[unclear: ...]`) and leave it for the user to resolve in their own words.
 
-## Three ways to invoke it
+## Two ways to invoke it
 
 ### 1. File markers
 
@@ -43,20 +43,6 @@ If a file has no `%P`/`%` block, say so and ask whether the user wants the whole
 ### 2. In-chat, ephemeral
 
 The user dictates raw text directly into a message with no file named. The message itself is the scope — no markers needed. Polish it, hold the result, and wait for a destination: the user may give it in the same message, a later message, or may already have named it up front (e.g. "polish this into the wireframe-review log: ...").
-
-### 3. Coverage-check (conditional)
-
-Triggered when the user names a second, source document alongside the thing being polished (e.g. "polish X against Y", "check X covers Y").
-
-After the normal light-touch edit:
-1. Read the source document.
-2. Extract its key points.
-3. Compare against the polished text.
-4. Report gaps as a short bullet list in the chat — appended after presenting the polished text, never blended into the prose itself.
-
-Default: report gaps to chat only. Do not write the gap list anywhere unless the user asks.
-
-Coverage-check never fills a gap in the user's voice — it only names what's missing. If this ever needs to grow into something heavier (structured alignment scoring, multi-document synthesis), that belongs in `compose` or a review-style workflow, not here.
 
 ## Destination
 

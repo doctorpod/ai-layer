@@ -1,6 +1,10 @@
-# Vault Workflows — by scenario
+# Vault Workflows
 
-A human-facing guide, grouped by what you're trying to do rather than by trigger phrase. For the machine-readable trigger table Claude actually routes on, see `AI.md`. **If you add, rename, or remove a workflow, update both files.**
+Grouped by what you're trying to do, this is your map of the AI workflows available in this vault.
+
+- `AI.md` is the machine-facing trigger table Claude routes on — not meant for browsing.
+- This file is the human-facing companion: the same workflows, organized by scenario instead of trigger phrase.
+- Keep both in sync — if a workflow is added, renamed, or removed, update this file and `AI.md` together.
 
 ---
 
@@ -18,15 +22,20 @@ Debrief vs. capture-log-note is a judgment call: first-hand material you want fu
 
 ## Writing a piece
 
-These chain — draft, then clean, then check, roughly in this order:
+Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` folder (see `_AI/shared/snippets/piece-folder.md`). The brief itself is ad hoc — just ask for help drafting it in chat, no dedicated workflow owns that step.
 
 | Workflow | Use when |
 |---|---|
-| **Write** | General-purpose: brief → guide → output, the four-file pattern. |
-| **Compose** | Same territory, but I draft the prose *in your voice* and you approve section-by-section. |
-| **Polish** | The text is already yours — clean up spelling/punctuation/structure only, never rephrase. |
+| **Sync-guide** | Build or update `guide.md` from the brief and vault sources. Only ever touches `guide.md` — never reads or writes `output.md`, never drafts prose. |
+| **Compose** | *I* draft `output.md`, in your voice, one paragraph at a time — you approve or redirect as I go. |
+| **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |
-| **Diploma-ready** | Same diagnostic shape as sanity, but checked against the Diploma assessment rubric specifically, before showing a tutor. |
+| **Gap-check** | Compare a draft against its guide (or any named reference) and report what's missing. Diagnostic only, never edits, no verdict — just a gap list. |
+| **Diploma-ready** | Same diagnostic shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |
+
+**You write `output.md` yourself, `sync-guide` just scaffolds and stays out of it** — that's the default mode if you're not using `compose`. **Calling `sync-guide` on a piece already in progress** only ever touches `guide.md`, regardless of whether your draft so far came from typing, dictating + polish, or a `compose` session — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
+
+`polish` is unrelated to this pipeline — it's marker-driven (`%P`/`%`) and works on any vault file, whether or not a piece-folder is involved.
 
 ---
 

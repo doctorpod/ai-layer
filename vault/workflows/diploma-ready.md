@@ -5,7 +5,7 @@ description: Check a permaculture design's output doc against the Diploma assess
 
 # Diploma-Ready Workflow
 
-Use this workflow when the user wants to know whether a design (a `write.md` piece-folder — `brief.md` / `guide.md` / `output.md`) would likely pass tutor assessment, before showing it to a tutor.
+Use this workflow when the user wants to know whether a design (a piece-folder — `brief.md` / `guide.md` / `output.md`, see `_AI/shared/snippets/piece-folder.md`) would likely pass tutor assessment, before showing it to a tutor.
 
 ## The rule
 

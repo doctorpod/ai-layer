@@ -81,10 +81,11 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "ingest" + knowledge base name | `_AI/local/workflows/ingest.md` |
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |
-| "write", "guide", or "help with output" | `_AI/local/workflows/write.md` |
+| "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains guide.md from the brief and vault sources; never touches output.md |
 | "compose" | `_AI/local/workflows/compose.md` |
 | "polish" | `_AI/local/workflows/polish.md` — light copy-edit of the user's own text, never rephrases |
 | "sanity" | `_AI/local/workflows/sanity.md` — flags contradictions/confusing writing, never edits |
+| "gap check `<file>`", "gap check `<file>` against `<reference>`", "does `<file>` cover `<reference>`" | `_AI/local/workflows/gap-check.md` — checks a draft against its guide (or a named reference) and reports what's missing, never edits |
 | "grill me" or "interview me" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |

@@ -5,7 +5,7 @@ description: Produce written output (design doc, blog post, article) section-by-
 
 # Compose Workflow
 
-Use this workflow when the user wants to produce written output — a design document, blog post, article, social media post, or any other piece. The key difference from `_AI/local/workflows/write.md`: I draft the prose in the user's voice; the user approves section by section by dictating reactions.
+Use this workflow when the user wants to produce written output — a design document, blog post, article, social media post, or any other piece. The key difference from `_AI/local/workflows/sync-guide.md`: I draft the prose in the user's voice, into `output.md` itself; sync-guide only ever builds and maintains `guide.md` and never touches `output.md`. The user approves compose's prose section by section by dictating reactions.
 
 ## Prerequisites: style reference
 
@@ -20,14 +20,7 @@ The user says **compose** and names the output. Check whether `brief.md` and `gu
 
 ## Step 1: Grill to establish the brief
 
-Follow `_AI/shared/workflows/grill-me.md` to establish:
-
-- **What** — working title and format
-- **For** — audience and context
-- **Angle** — point of view, argument, or tone
-- **Draw from** — which wiki pages, knowledge bases, or vault sources
-- **Must haves** — key points that must appear
-- **Must nots** — things to avoid
+Follow `_AI/shared/workflows/grill-me.md` to establish the brief.md fields — see `_AI/shared/snippets/piece-folder.md`.
 
 One question at a time. Resolve each before moving on.
 
@@ -79,27 +72,7 @@ bash _AI/local/scripts/log-write.sh "COMPOSE: [piece title] — [brief summary]"
 
 ## File structure
 
-```
-[piece-folder]/
-  brief.md    ← I write from grilling; the user approves
-  guide.md    ← I write; sections marked ✓ as approved
-  output.md   ← I write approved prose; grows section by section
-  assets/     ← images, maps, diagrams
-```
-
-`output.md` frontmatter template:
-
-```yaml
----
-title: [piece title]
-status: in progress
-last_updated: YYYY-MM-DD
----
-```
-
-**Location:**
-- Project deliverables: inside the project folder, e.g. `projects/my-project/design-doc/`
-- General writing: in a `writing/` root folder if it exists
+Follow `_AI/shared/snippets/piece-folder.md` for the file structure, frontmatter, and location convention. Under `compose`: I write `brief.md` from grilling (user approves), I write and maintain `guide.md` (sections marked ✓ as approved), and I write approved prose into `output.md` section by section.
 
 ## Continuity across sessions
 

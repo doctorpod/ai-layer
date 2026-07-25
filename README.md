@@ -23,7 +23,8 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Connect** — discover cross-KB insights and write bidirectional links
 - **Compose** — draft prose in your own voice
 - **Debrief** — process first-hand notes into wiki pages
-- **Write** — structured brief → guide → output pattern
+- **Sync-guide** — build/maintain a piece's guide from its brief and vault sources
+- **Gap-check** — check a draft against its guide (or any reference) and report what's missing
 - **Save** — commit with a 12-word summary and log entry
 - **Fetch** — async message passing via dated chat logs
 
@@ -110,7 +111,8 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/connect` | `_AI/local/workflows/connect.md` |
 | `/compose` | `_AI/local/workflows/compose.md` |
 | `/debrief` | `_AI/local/workflows/debrief.md` |
-| `/write` | `_AI/local/workflows/write.md` |
+| `/sync-guide` | `_AI/local/workflows/sync-guide.md` |
+| `/gap-check` | `_AI/local/workflows/gap-check.md` |
 | `/save` | `_AI/local/workflows/save.md` |
 | `/fetch` | `_AI/local/workflows/fetch.md` |
 
