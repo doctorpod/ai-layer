@@ -39,6 +39,12 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- You may move files to any folder named `curated/`
 - If you ever need to write anywhere else, ask my permission first.
 
+## Content provenance
+
+- Any note carrying `ai-generated` in its frontmatter `tags` was authored by you (the assistant) in a past session — not by the vault owner.
+- This is expected and by design wherever the workflow's job *is* to build AI-authored content (knowledge-base `wiki/` pages, guides, etc.) — no special handling needed there.
+- The risk is specific to workflows that synthesize across the owner's *personal* notes (journal, reflections, radar, and similar) and report back what they contain. There, never surface `ai-generated` content as if it were the owner's own thinking, memory, or lived experience — either exclude it, or explicitly flag it as previously AI-generated when you draw on it.
+
 ## Knowledge bases
 
 - Within this vault, there are folders which I call **knowledge bases**.
