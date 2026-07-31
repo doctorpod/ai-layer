@@ -48,6 +48,10 @@ Rules:
 
 **SPATIAL pass:** if `SPATIAL.md` exists in this KB, check whether any location claims made during the debrief need adding or correcting. If `SPATIAL.md` doesn't exist but the debrief produced location claims about a physical site, offer to create it. Format: see `_AI/local/AI.md`.
 
+## Step 3b: Cross-workflow check
+
+Check whether this project has a `_wayfinder/` folder (see `_AI/local/workflows/wayfinder.md`), a `_greenhouse/` folder (see `_AI/shared/workflows/greenhouse.md`), or a `radar/` folder (see `_AI/local/workflows/add-to-radar.md`). If anything established during this debrief resolves, blocks, or informs an open wayfinder waypoint, is greenhouse-worthy (a concrete idea, deliberately parked for now), or radar-worthy (a situation worth watching), offer to update the relevant one before moving on.
+
 ## Step 4: Create debrief note
 
 Always create a debrief note and save it directly to `curated/` — it is already verified.

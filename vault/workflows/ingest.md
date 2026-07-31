@@ -185,6 +185,10 @@ The note's filename is the canonical term name: lowercase with spaces for normal
 
 **SPATIAL**: if `SPATIAL.md` exists in this KB and the source contained location claims, check whether any named features need adding or correcting. If `SPATIAL.md` doesn't exist but the source described a physical site with named features, offer to create it. Format: see `_AI/local/AI.md`.
 
+## Step 9b: Cross-workflow check
+
+Check whether this KB or project has a `_wayfinder/` folder (see `_AI/local/workflows/wayfinder.md`), a `_greenhouse/` folder (see `_AI/shared/workflows/greenhouse.md`), or a `radar/` folder (see `_AI/local/workflows/add-to-radar.md`). If anything in this source resolves, blocks, or informs an open wayfinder waypoint, is greenhouse-worthy (a concrete idea, deliberately parked for now), or radar-worthy (a situation worth watching), offer to update the relevant one before moving on.
+
 ## Step 10: Learnings
 
 Follow `_AI/shared/snippets/learnings.md`, substituting `INGEST` for `[WORKFLOW]`.
