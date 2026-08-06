@@ -42,6 +42,16 @@ Rules:
 - Always include: checkbox, Q-number, date raised, who/what to check with, and the question.
 - When an inbox note later answers a question (by Q-number or obvious content), process the answer into the wiki and delete the resolved question from `QUESTIONS.md`.
 
+### Dismissing a question
+
+If the user says a question isn't pertinent — at the moment it's raised, or later when reviewing `QUESTIONS.md` — dismiss it rather than leaving it open or deleting it. Use `- [-]` (the vault's Tasks plugin "Cancelled" status, distinct from `- [x]` Done) and append the reason:
+
+```markdown
+- [-] Q4 · 2026-08-05 · Check with Ian / LPA: has the TPO status ever been established? ✗ Dismissed 2026-08-06: not relevant to current design scope.
+```
+
+Never delete a question outright — dismiss it instead, so the reasoning stays on record.
+
 ## Step 3: Concept notes and SPATIAL.md
 
 **Closing pass (after wiki writing is complete):** follow the concept note rules in `_AI/local/workflows/ingest.md` Step 9. Do this as a named step — don't skip it.
