@@ -60,7 +60,7 @@ Never delete a question outright — dismiss it instead, so the reasoning stays 
 
 ## Step 3b: Cross-workflow check
 
-Check whether this project has a `_wayfinder/` folder (see `_AI/local/workflows/wayfinder.md`), a `_greenhouse/` folder (see `_AI/shared/workflows/greenhouse.md`), or a `radar/` folder (see `_AI/local/workflows/add-to-radar.md`). If anything established during this debrief resolves, blocks, or informs an open wayfinder waypoint, is greenhouse-worthy (a concrete idea, deliberately parked for now), or radar-worthy (a situation worth watching), offer to update the relevant one before moving on.
+Follow `_AI/shared/snippets/cross-workflow-check.md`, substituting `established during this debrief` for `[CONTEXT]`.
 
 ## Step 4: Create debrief note
 
@@ -80,17 +80,13 @@ Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 
 > **Page format**: defined in `_AI/local/workflows/ingest.md` — apply it to every wiki page written from a debrief without exception.
 
-1. Create a summary page in `wiki/` named after the subject
-2. Create or update concept pages in `wiki/` for each major idea or entity
-3. Add wikilinks `[[page-name]]` to connect related pages
-4. If you see a person's name, wikilink it — do not create a note for them
-5. Update `INDEX.md` with new pages and one-line descriptions
-6. Append a log entry: `bash _AI/local/scripts/log-write.sh "DEBRIEF: <brief summary>"`
-7. Move any inbox files to `curated/`
+Follow `_AI/shared/snippets/wiki-write-steps.md`, substituting `subject` for `[NOUN]` and `DEBRIEF` for `[WORKFLOW]`.
 
 ## Citation rules
 
 Follow the citation rules in `_AI/local/workflows/ingest.md`. Every wiki claim must reference its source — either an inbox file or the synthetic debrief note from Step 4. Use `[!caution]` callouts for any claim that remains uncertain after grilling.
+
+The multi-source trigger in `ingest.md` applies here too: if this debrief is the *second* debrief (or an ingest) to touch an existing page — a follow-up conversation about something already written up — switch that page to per-claim footnotes rather than folding the new debrief note's claims into the earlier sentences.
 
 ## Step 10: Learnings
 

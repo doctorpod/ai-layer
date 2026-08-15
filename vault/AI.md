@@ -32,6 +32,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
 	- Any file named `QUESTIONS.md`
 	- Any file named `SPATIAL.md`
+	- Any file named `DASHBOARD.md`
 	- Any folder named `_greenhouse/`
 	- Any folder named `_wayfinder/`
 	- Any folder named `_AI/postmortems/`
@@ -103,8 +104,10 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time |
+| "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
+| "write-design", "let's write section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/write-design.md` — grills on one guide.md point at a time, filters for what's actually worth writing, then extracts design-document prose from Andy's own spoken answers |
 
 ## The fetch method *(optional)*
 

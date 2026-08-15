@@ -50,13 +50,7 @@ A single source may have its strongest claim in one KB but generate concept page
 
 ## Steps 2–8 (all sources)
 
-1. Create a summary page in `wiki/` named after the source
-2. Create or update concept pages in `wiki/` for each major idea or entity
-3. Add short wiki-links `[[page-name]]` to connect related pages
-4. If you see what looks like a person's name, just make it a wikilink, don't create a note for it in the wiki
-5. Update `INDEX.md` with new pages and one-line descriptions
-6. Append a log with a brief summary (max 12 words) by running `bash _AI/local/scripts/log-write.sh "INGEST: <brief summary>"`
-7. Move the file from `inbox/` to `curated/`
+Follow `_AI/shared/snippets/wiki-write-steps.md`, substituting `source` for `[NOUN]` and `INGEST` for `[WORKFLOW]`.
 
 A single source may touch 10-15 wiki pages. That is normal.
 
@@ -115,11 +109,33 @@ Link to related concepts using [[wiki-links]] throughout the text.
 - [[related-concept-2]]
 ```
 
+The header `**Sources**:` field only works while a page has a single source — see Citation rules for what changes once a second source touches it.
+
 ## Citation rules
 
-- Every factual claim should reference its source file
-- Use the format (source: filename.pdf) after the claim
-- Flag any of the following issues using a markdown callout immediately after the affected claim:
+Every factual claim must be traceable to the source that supports it.
+
+### Single-source pages
+
+While a page draws on only one source, the header `**Sources**:` field (see Page format) already names it unambiguously. No per-sentence citation markers needed.
+
+### Multi-source pages: switch to footnotes
+
+The moment a second source touches an existing page — a later ingest pass, or a debrief — per-page attribution stops being enough, because a reader can no longer tell which sentence came from which source. Switch to per-claim footnotes:
+
+- **Retrofit first**: before adding anything new, go back over the page's existing sentences and add `[^1]` to each, tracing them to the source currently named in the `**Sources**:` field. Skipping this step leaves those sentences silently uncited the moment the header is dropped — the header was their only citation.
+- Mark the new claim(s) inline too: `...claim sentence.[^2]`
+- Define each footnote once, at the bottom of the page: `[^1]: [[source-page]]` (or the filename/URL for a source with no wiki page of its own)
+- Reuse the same `[^n]` everywhere that source is cited again — don't mint a new footnote per repetition
+- Drop the header `**Sources**:` field only once every sentence on the page carries its own footnote. The footnote list is now the sources list — keeping both risks the two drifting apart.
+
+### Never blend two sources into one sentence
+
+When a later pass adds a new source's claim to an existing page, don't fold it into an existing sentence written from a different source, even if merging would read more smoothly. Keep them as separate, separately-footnoted sentences. A merged sentence can't be traced back to either source individually — this is the main way wiki pages end up conflating claims.
+
+### Flag issues with callouts
+
+Flag any of the following issues using a markdown callout immediately after the affected claim:
 
   ```
   > [!caution] Brief synopsis of the issue
@@ -138,7 +154,7 @@ Before writing a `[!caution]` callout for a **no source** claim, judge whether i
 Then branch on what the search turns up:
 
 - **Nothing found**: still write the `[!caution]` callout, but say a search was tried and didn't turn one up — a checked-and-still-unverified claim is a stronger signal than one nobody looked into.
-- **One fact, used once**: cite it inline instead of the caution note — `(source: [Title](URL), accessed YYYY-MM-DD)`. No new file.
+- **One fact, used once**: cite it with a footnote instead of the caution note — `[^n]: [Title](URL), accessed YYYY-MM-DD`. No new file. This makes the page multi-source even though only one claim moved — apply the retrofit rule above (Citation rules) before dropping the `**Sources**:` header.
 - **Multiple facts, or a source worth reusing**: don't absorb the facts into wiki content now. Write a stub file into the relevant KB's `inbox/` (filename: the page's title, matching how clippings are already named in `curated/`) and leave it queued for a proper `/ingest` pass:
 
   ```markdown
@@ -187,7 +203,7 @@ The note's filename is the canonical term name: lowercase with spaces for normal
 
 ## Step 9b: Cross-workflow check
 
-Check whether this KB or project has a `_wayfinder/` folder (see `_AI/local/workflows/wayfinder.md`), a `_greenhouse/` folder (see `_AI/shared/workflows/greenhouse.md`), or a `radar/` folder (see `_AI/local/workflows/add-to-radar.md`). If anything in this source resolves, blocks, or informs an open wayfinder waypoint, is greenhouse-worthy (a concrete idea, deliberately parked for now), or radar-worthy (a situation worth watching), offer to update the relevant one before moving on.
+Follow `_AI/shared/snippets/cross-workflow-check.md`, substituting `in this source` for `[CONTEXT]`.
 
 ## Step 10: Learnings
 

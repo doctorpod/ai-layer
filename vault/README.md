@@ -28,12 +28,13 @@ Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` 
 |---|---|
 | **Sync-guide** | Build or update `guide.md` from the brief and vault sources. Only ever touches `guide.md` — never reads or writes `output.md`, never drafts prose. |
 | **Compose** | *I* draft `output.md`, in your voice, one paragraph at a time — you approve or redirect as I go. |
+| **Write-design** | Grill on one `guide.md` point at a time, then turn *your own* spoken answers into `output.md` prose — never AI-drafted, always extracted from what you said. |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |
 | **Gap-check** | Compare a draft against its guide (or any named reference) and report what's missing. Diagnostic only, never edits, no verdict — just a gap list. |
 | **Diploma-ready** | Same diagnostic shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |
 
-**You write `output.md` yourself, `sync-guide` just scaffolds and stays out of it** — that's the default mode if you're not using `compose`. **Calling `sync-guide` on a piece already in progress** only ever touches `guide.md`, regardless of whether your draft so far came from typing, dictating + polish, or a `compose` session — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
+**You write `output.md` yourself, `sync-guide` just scaffolds and stays out of it** — that's the default mode if you're not using `compose` or `write-design`. **Calling `sync-guide` on a piece already in progress** only ever touches `guide.md`, regardless of whether your draft so far came from typing, dictating + polish, a `compose` session, or a `write-design` session — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
 
 `polish` is unrelated to this pipeline — it's marker-driven (`%P`/`%`) and works on any vault file, whether or not a piece-folder is involved.
 
@@ -56,6 +57,7 @@ Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` 
 | **Lint** | Automated structural check — orphan pages, broken links, pending cautions — via script. |
 | **Process notes** | Convention-based: proposes folder moves and category fixes, applies on confirmation. |
 | **Connect** | Cross-knowledge-base pass to surface new connections between KBs. |
+| **State of play** | On-demand, full reconciliation sweep across a gig's live projects, radar, triage, and wayfinder waypoints — interrogates you on each, updates the underlying notes, then writes a plain-language digest to `DASHBOARD.md`. |
 | **Create summaries** | Pulls mentions from linking notes into a target note's `## Summary` section. |
 | **Link components** | Wikilinks PRP decision notes to technical component pages (code-adjacent KBs only). |
 
