@@ -23,6 +23,8 @@ Lift from the **primary source**, not from the wiki page's prose. A wiki page is
 
 If the wiki sentence can't actually be found in the source it's attributed to — the wiki has drifted, blended two sources, or the citation is stale — don't lift it anyway. Flag it to the user as a likely conflation and either fix the wiki page first or leave the point out of the guide until it's resolved. Finding one of these is a sign the fix is working, not a distraction from the guide-building task.
 
+**Concrete check before writing any citation**: if the bullet you're about to write ends in `— [[site-overview]]` (a page under `wiki/`), stop — that's the map, not the source. Resolve the footnote or `**Sources**:` field for *that specific sentence* first, and cite what it points to instead, e.g. `— [[debrief-2026-02-19-ian-parrish-interview-1]]`. A citation pointing at a `wiki/` page is always wrong in this workflow — both examples above use `[[...]]` syntax, but only a source file (a curated file or debrief note) belongs on the right side of the dash.
+
 Under each heading:
 
 **Extracted points** — one bullet per atomic claim, each with its own source:
