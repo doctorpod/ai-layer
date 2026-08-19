@@ -33,3 +33,7 @@ status: in progress
 last_updated: YYYY-MM-DD
 ---
 ```
+
+## Workflow-owned scratch files
+
+Some workflows keep additional working files inside the piece-folder beyond the four above. E.g. `_AI/local/workflows/elicit.md` keeps a `section-<N>.md` per section (threads, prompts, draft-in-progress) until it's published into `output.md`, then leaves it in place as a record. These aren't part of the core convention — see the owning workflow for format and lifecycle.
