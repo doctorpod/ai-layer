@@ -78,7 +78,7 @@ for dir in "$SKILLS_DEST"/*/; do
   name=$(basename "$dir")
   skill_file="$dir/SKILL.md"
   [[ -f "$skill_file" ]] || continue
-  if grep -q '_AI/local/workflows/\|_AI/shared/workflows/' "$skill_file" 2>/dev/null; then
+  if grep -qF "$REPO_ROOT/" "$skill_file" 2>/dev/null; then
     if [[ "$installed_names" != *" $name "* ]]; then
       rm -rf "$dir"
       echo "Removed: $name"
