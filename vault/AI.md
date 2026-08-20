@@ -107,7 +107,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
-| "elicit", "elicit section `<N>`", "let's elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — grills (live) or writes a portable prompts file (async), filters for what's actually worth writing, then extracts prose from the writer's own words |
+| "elicit", "elicit section `<N>`", "let's elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — grills live, filters for what's actually worth writing, then extracts prose from the writer's own words |
 
 ## The fetch method *(optional)*
 
