@@ -50,6 +50,14 @@ Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` 
 
 ---
 
+## Reviewing what's happened
+
+| Workflow | Use when |
+|---|---|
+| **Reflect** | Review a scope of notes (last N days, since the last reflection, etc.) and surface patterns, momentum, surprises, and open loops as a chat response. Diagnostic by default — can capture as a reflection note or feed open loops into `add-to-radar` on request. |
+
+---
+
 ## Auditing and maintaining the vault
 
 | Workflow | Use when |

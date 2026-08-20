@@ -13,7 +13,7 @@ Triggered by: "elicit", "elicit section `<N>`", "let's elicit section `<N>`", "g
 
 Piece-folder convention (`_AI/shared/snippets/piece-folder.md`): `brief.md`, `guide.md`, `output.md`, `assets/`. If `brief.md` or `guide.md` don't exist, point to compose's Steps 1–3 first.
 
-If `brief.md` indicates Diploma-relevance, also read `lib/atlas/teaching/wiki/design-assessment-form.md` once per session — grounds the Step 2 filter (Sections 1, 2.1, 3).
+If `brief.md` indicates Diploma-relevance, also read `lib/atlas/teaching/wiki/design-assessment-form.md` once per session — grounds this workflow's Step 2 filter (Sections 1 and 3; Section 2.1's brief-relevance criterion is `_AI/local/workflows/sync-guide.md`'s job now, applied before a point ever reaches `guide.md`).
 
 ## The working file
 
@@ -40,10 +40,9 @@ Otherwise, read the section's `guide.md` "Extracted points" and group related bu
 
 ## Step 2: Filter each thread
 
-Passes only if **both**:
+A thread passes only if the writer has a real basis for it — noticed it, reacted to it, holds a genuine view. Otherwise don't manufacture a personal angle — state it plainly (→ Boring facts) instead, with a recommendation only if they're actually willing to make one professionally.
 
-1. **Leads somewhere** — a concrete decision, recommendation, or observation relevant to the brief. Otherwise drop it, or, if worth keeping, state it plainly (→ Boring facts).
-2. **The writer has a real basis for it** — noticed it, reacted to it, holds a genuine view. Otherwise don't manufacture a personal angle — state it plainly (→ Boring facts) instead, with a recommendation only if they're actually willing to make one professionally.
+Brief-relevance isn't checked here — `_AI/local/workflows/sync-guide.md` filters for that before a point ever reaches `guide.md` (see its Relevance filter section for that boundary).
 
 Threads that fail go into **Boring facts** as plainly cited sentences — not questions. Mark the thread `[-]` in the Threads checklist (same convention as `debrief.md`'s dismissed questions) — a resumed session must be able to tell "dropped" apart from "not started" without re-deriving it.
 
