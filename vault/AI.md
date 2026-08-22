@@ -92,6 +92,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains guide.md from the brief and vault sources; never touches output.md |
 | "compose" | `_AI/local/workflows/compose.md` |
 | "polish" | `_AI/local/workflows/polish.md` — light copy-edit of the user's own text, never rephrases |
+| a `% scribe <instruction>` marker found in a file | `_AI/local/workflows/scribe.md` *(draft)* — carries out an inline instruction left in a file marker, writes the response back into the same block |
 | "sanity" | `_AI/local/workflows/sanity.md` — flags contradictions/confusing writing, never edits |
 | "gap check `<file>`", "gap check `<file>` against `<reference>`", "does `<file>` cover `<reference>`" | `_AI/local/workflows/gap-check.md` — checks a draft against its guide (or a named reference) and reports what's missing, never edits |
 | "grill me" or "interview me" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
