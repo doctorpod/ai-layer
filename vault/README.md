@@ -29,7 +29,7 @@ Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` 
 | **Sync-guide** | Build or update `guide.md` from the brief and vault sources. Only ever touches `guide.md` — never reads or writes `output.md`, never drafts prose. |
 | **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads `guide.md`'s bullets, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
-| **Scribe** *(draft)* | Leave a `% scribe <instruction>` marker inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
+| **Scribe** | Leave a `% scribe <instruction>` marker inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |
 | **Gap-check** | Compare a draft against its guide (or any named reference) and report what's missing. Diagnostic only, never edits, no verdict — just a gap list. |
 | **Diploma-ready** | Same diagnostic shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |

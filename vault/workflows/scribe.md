@@ -2,7 +2,7 @@
 name: scribe
 description: Carry out an inline instruction left in a file via a % scribe marker, and write the response back into the same block.
 ---
-# Scribe Workflow (draft)
+# Scribe Workflow
 
 Trigger: a `% scribe <instruction>` marker found in a file (while reading it for another reason, or because the user points at it / says "read again"/"again"/"repeat"/"r").
 
