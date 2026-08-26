@@ -5,7 +5,7 @@ description: Light copy-edit of the user's own dictated or typed prose — spell
 
 # Polish Workflow
 
-Use this workflow when the user wants their own dictated or typed words cleaned up without any of it becoming my prose. This is the opposite of `_AI/local/workflows/compose.md`: I never draft, I only correct the surface of what's already theirs.
+Use this workflow when the user wants their own dictated or typed words cleaned up without any of it becoming my prose. I never draft, I only correct the surface of what's already theirs.
 
 ## The guarantee
 

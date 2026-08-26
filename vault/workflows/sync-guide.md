@@ -31,6 +31,7 @@ Under each heading:
 - `"lifted sentence or clause, trimmed but not reworded" — [[primary-source]]`, where `primary-source` is the curated file, debrief note, or external source the wiki page cites for that claim — not the wiki page itself
 - If the source sentence carries a hedge, caveat, or correction (an inline qualifier like "unconfirmed," "likely a misspeak," or a `> [!caution]` callout), the bullet must carry it too. Never cite a claim while dropping the caveat attached to it in the source.
 - One citation per bullet. If a point can't be traced to a specific sentence in a specific source, it doesn't belong here — put it under Synthesis, or leave it out until a source exists.
+- **State tags**: every new Extracted point gets one appended after its citation: `"lifted sentence" — [[primary-source]]` `PENDING`. A point carries one of `PENDING` (default, set when this workflow writes the bullet), `USED` (the writer has drawn on it in `output.md`), or `REJECTED` (the writer checked and decided they don't have a real basis for it — see the Relevance filter section below for that boundary). This workflow only ever writes `PENDING`; moving a point to `USED` or `REJECTED` is the writer's own call, made by hand on `guide.md` directly, never inferred or set by a workflow. `_AI/local/workflows/gap-check.md` skips `REJECTED` points when comparing a draft against the guide. Synthesis bullets don't get a tag — they're already the writer's own reasoning, so there's no personal-basis call left to make.
 
 **Synthesis** — reasoning, design implications, or Andy's own read, built on top of the extracted points above but not lifted from any source. No citation, because none exists — that absence is the label. Keep this visually separate from Extracted points; never let a synthesis bullet sit unmarked among sourced ones.
 
@@ -44,7 +45,7 @@ Before a claim earns an Extracted point, it has to pass one test: does it lead s
 
 This filter applies to candidate Extracted points only. Synthesis bullets aren't sourced from `curated/` in the first place, so nothing to filter.
 
-This is narrower than `_AI/local/workflows/elicit.md`'s own filter — elicit separately checks whether the *writer* has a real basis for a surviving point (noticed it, reacted to it, holds a genuine view). That's a live judgement call made during grilling; this workflow never grills, so it only ever applies the relevance half. Anything that reaches `guide.md` has already earned its place on relevance grounds — elicit doesn't need to re-check that.
+This is narrower than the writer's own filter, applied later and by hand — whether they have a real basis for a surviving point (noticed it, reacted to it, holds a genuine view), marked directly on `guide.md` via its PENDING/USED/REJECTED state tags. Anything that reaches `guide.md` has already earned its place on relevance grounds; that later personal-basis call is a separate, manual step this workflow doesn't need to make.
 
 ## Tracking what's been triaged
 
@@ -83,4 +84,4 @@ Same citation rule applies on a sync as on a build: trace each new bullet to its
 
 ## What this workflow doesn't do
 
-Doesn't check a draft against the guide — that's `_AI/local/workflows/gap-check.md`. Doesn't judge whether the writer has a personal basis for a point — see the Relevance filter section above for that boundary with `_AI/local/workflows/elicit.md`.
+Doesn't check a draft against the guide — that's `_AI/local/workflows/gap-check.md`. Doesn't judge whether the writer has a personal basis for a point — that's the writer's own call, made directly on `guide.md` via its PENDING/USED/REJECTED state tags, not a filter this workflow applies.

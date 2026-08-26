@@ -36,4 +36,4 @@ last_updated: YYYY-MM-DD
 
 ## Workflow-owned scratch files
 
-Some workflows keep additional working files inside the piece-folder beyond the four above. E.g. `_AI/local/workflows/elicit.md` keeps a `section-<N>.md` per section (threads, prompts, draft-in-progress) until it's published into `output.md`, then leaves it in place as a record. `_AI/local/workflows/sync-guide.md` keeps `triaged.md`, a running list of which `curated/` files it's already considered for this piece. These aren't part of the core convention — see the owning workflow for format and lifecycle.
+Some workflows keep additional working files inside the piece-folder beyond the four above. E.g. `_AI/local/workflows/sync-guide.md` keeps `triaged.md`, a running list of which `curated/` files it's already considered for this piece. These aren't part of the core convention — see the owning workflow for format and lifecycle.

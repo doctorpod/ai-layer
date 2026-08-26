@@ -25,7 +25,8 @@ Prose the instruction applies to. Can span several paragraphs.
 
 ## Doing the work
 
-1. The instruction can be anything — a question, an edit request, "polish", etc. If it names another workflow (e.g. "polish"), follow that workflow's own rules/guarantee for the edit itself.
-2. If the instruction implies a direct fix (typo, punctuation, small correction), make it in place in the prose. Don't duplicate the corrected prose into `% **comments**` — that's redundant.
-3. `% **comments**` is for what doesn't belong in the prose itself: brief notes, flagged issues, structural observations left for the user to decide on. Bullet points. No fluff, no restating what the fix already shows.
-4. If a file has multiple `% scribe` blocks, process each one found.
+1. If the file being edited sits in a piece-folder (`_AI/shared/snippets/piece-folder.md`), its `guide.md`/`brief.md` siblings are fair game as context for the instruction — check for them. No piece-folder, no problem: proceed from the file alone.
+2. The instruction can be anything — a question, an edit request, "polish", etc. If it names another workflow (e.g. "polish"), follow that workflow's own rules/guarantee for the edit itself.
+3. If the instruction implies a direct fix (typo, punctuation, small correction), make it in place in the prose. Don't duplicate the corrected prose into `% **comments**` — that's redundant.
+4. `% **comments**` is for what doesn't belong in the prose itself: brief notes, flagged issues, structural observations left for the user to decide on. Bullet points. No fluff, no restating what the fix already shows.
+5. If a file has multiple `% scribe` blocks, process each one found.

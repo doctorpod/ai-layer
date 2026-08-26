@@ -59,10 +59,6 @@ check "_AI/logs/ directory exists" "$r" "Run: mkdir -p _AI/logs"
 [ -f "_AI/GOALS.md" ] && r="ok" || r="fail"
 check "_AI/GOALS.md exists" "$r" "Create _AI/GOALS.md describing the goals and focus areas for this vault"
 
-# VOICE.md (optional)
-[ -f "_AI/VOICE.md" ] && r="ok" || r="missing"
-warn "_AI/VOICE.md exists" "$r" "Create _AI/VOICE.md to enable prose drafting in your voice (compose workflow)"
-
 # CONVENTIONS.md (optional)
 [ -f "_AI/CONVENTIONS.md" ] && r="ok" || r="missing"
 warn "_AI/CONVENTIONS.md exists" "$r" "Create _AI/CONVENTIONS.md to document vault-specific operating conventions"

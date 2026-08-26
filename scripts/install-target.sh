@@ -55,5 +55,4 @@ if [[ "$CONTEXT" == "code" ]]; then
   echo "  4. Optionally create _AI/CODEX.md — personal coding preferences."
 else
   echo "  2. Create _AI/GOALS.md — vault purpose and focus areas."
-  echo "  3. Optionally create _AI/VOICE.md — writing voice reference for the Compose workflow."
 fi

@@ -77,8 +77,6 @@ See `_AI/local/AI.md` for vault context and available workflows.
 
 Create `_AI/GOALS.md` — the vault's purpose and focus areas.
 
-Optionally create `_AI/VOICE.md` — a writing voice reference for the Compose workflow.
-
 To block accidental commits of sensitive content, install the pre-commit hook:
 ```bash
 cp _AI/local/scripts/pre-commit-sensitivity-check.sh .git/hooks/pre-commit
@@ -109,7 +107,6 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/ingest` | `_AI/local/workflows/ingest.md` |
 | `/lint` | `_AI/local/workflows/lint.md` |
 | `/connect` | `_AI/local/workflows/connect.md` |
-| `/compose` | `_AI/local/workflows/compose.md` |
 | `/debrief` | `_AI/local/workflows/debrief.md` |
 | `/sync-guide` | `_AI/local/workflows/sync-guide.md` |
 | `/gap-check` | `_AI/local/workflows/gap-check.md` |

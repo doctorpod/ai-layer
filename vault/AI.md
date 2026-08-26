@@ -11,7 +11,6 @@
 These files live in `_AI/` and are created by the vault owner during setup. Read them for context before starting work:
 
 - `_AI/GOALS.md` — goals and focus areas for this vault
-- `_AI/VOICE.md` — writing voice reference, used by the compose workflow *(optional — only needed for vaults where prose drafting in the user's voice is a goal)*
 - `_AI/CONVENTIONS.md` — vault-specific operating conventions not covered elsewhere *(optional)*
 
 If `_AI/GOALS.md` is missing, alert the user.
@@ -90,7 +89,6 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |
 | "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains guide.md from the brief and vault sources; never touches output.md |
-| "compose" | `_AI/local/workflows/compose.md` |
 | "polish" | `_AI/local/workflows/polish.md` — light copy-edit of the user's own text, never rephrases |
 | a `% scribe <instruction>` marker found in a file | `_AI/local/workflows/scribe.md` *(draft)* — carries out an inline instruction left in a file marker, writes the response back into the same block |
 | "sanity" | `_AI/local/workflows/sanity.md` — flags contradictions/confusing writing, never edits |
@@ -108,7 +106,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
-| "elicit", "elicit section `<N>`", "let's elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — grills live, filters for what's actually worth writing, then extracts prose from the writer's own words |
+| "elicit", "elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — one-shot brainstorm of angles and questions from `guide.md`'s bullets, to spark writing; never drafts prose, never touches `output.md` |
 
 ## The fetch method *(optional)*
 

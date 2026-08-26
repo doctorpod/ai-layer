@@ -19,7 +19,7 @@ Compares a document against a reference and reports what's missing. Read-only â€
 
 ## Step 2: Compare
 
-Read both in full. Extract the reference's key points or required sections. Check each against the target: covered, thin, or missing.
+Read both in full. Extract the reference's key points or required sections â€” if the reference is a `guide.md`, skip any point carrying a `REJECTED` state tag (see `_AI/local/workflows/sync-guide.md`'s State tags), it was deliberately excluded. Check each remaining point against the target: covered, thin, or missing.
 
 ## Step 3: Report
 
