@@ -3,7 +3,7 @@ Every piece of writing lives in a named folder with four predictable contents:
 ```
 [piece-folder]/
   brief.md     ← the seed
-  themes/      ← quote/theme/synthesis scaffold, built from the brief (INDEX.md + one file per theme)
+  guide/       ← quote/theme/synthesis scaffold, built from the brief (INDEX.md + one file per theme)
   output.md    ← the finished prose
   assets/      ← images, maps, diagrams
 ```

@@ -1,6 +1,6 @@
 ---
 name: gap-check
-description: Check a draft against its themes (or another named reference), report what's missing, and record coverage on the checked themes.
+description: Check a draft against its guide (or another named reference), report what's missing, and record coverage on the checked themes.
 ---
 
 # Gap Check
@@ -14,8 +14,8 @@ Compares a document against a reference and reports what's missing. Never edits 
 - **Target**: the document being checked (usually `output.md`).
 - **Reference**: what it's checked against.
   - If the user names one, use it.
-  - If they don't, and the target sits in a piece-folder, default to that folder's `themes/` — every theme note inside it.
-  - If the piece-folder still has a flat `guide.md` instead of `themes/` (not yet migrated — see `sync-guide.md`), use that, treating each `PENDING`/`USED`/`REJECTED`-tagged bullet as the reference item.
+  - If they don't, and the target sits in a piece-folder, default to that folder's `guide/` — every theme note inside it.
+  - If the piece-folder still has a flat `guide.md` file instead of a `guide/` folder (not yet migrated — see `sync-guide.md`), use that, treating each `PENDING`/`USED`/`REJECTED`-tagged bullet as the reference item.
   - If neither applies, ask.
 
 ## Step 2: Compare themes

@@ -1,13 +1,13 @@
 ---
 name: sync-guide
-description: Build and maintain a piece's themes/ folder from its brief and the vault sources it draws on.
+description: Build and maintain a piece's guide/ folder from its brief and the vault sources it draws on.
 ---
 
 # Sync Guide
 
 Triggered by: "sync guide", "sync the guide", "update the guide", "build the guide"
 
-Builds a piece's `themes/` folder from `brief.md` by triaging its `Draw from` KBs' `curated/` folders against a relevance filter, and keeps it in sync as new material lands. This workflow only ever touches `themes/` — it never reads or writes `output.md`, and it doesn't set up the brief itself.
+Builds a piece's `guide/` folder from `brief.md` by triaging its `Draw from` KBs' `curated/` folders against a relevance filter, and keeps it in sync as new material lands. This workflow only ever touches `guide/` — it never reads or writes `output.md`, and it doesn't set up the brief itself.
 
 See `_AI/shared/snippets/piece-folder.md` for the file structure, brief.md fields, and location convention.
 
@@ -19,7 +19,7 @@ If `brief.md`'s `Format` field names a structured framework (e.g. GOBRADIMET), i
 
 ## The theme model
 
-`themes/` holds one file per **theme** — a small cluster of related **quotes** (1–3, usually 1), scoped to a single `Outline` section, plus optional **synthesis**. It is **extractive, not abstractive**: a quote is a lifted (verbatim or lightly trimmed) span, carried over with its own citation — never a freshly-composed sentence inspired by one. Freshly-composed sentences are where inaccuracy creeps in; copied ones can't drift from their source.
+`guide/` holds one file per **theme** — a small cluster of related **quotes** (1–3, usually 1), scoped to a single `Outline` section, plus optional **synthesis**. It is **extractive, not abstractive**: a quote is a lifted (verbatim or lightly trimmed) span, carried over with its own citation — never a freshly-composed sentence inspired by one. Freshly-composed sentences are where inaccuracy creeps in; copied ones can't drift from their source.
 
 Lift from the **primary source**, not from the wiki page's prose. A wiki page is a map to sources, not itself a source — its own sentences can already be a synthesis across multiple sources, and lifting one faithfully just carries that synthesis into the theme with a false stamp of fidelity. Use the wiki page to find *which* source backs a claim (its footnote if the page cites more than one source, or its header `**Sources**:` field if it cites only one), then go read that source and lift from there.
 
@@ -32,7 +32,7 @@ If the wiki sentence can't actually be found in the source it's attributed to �
 ```markdown
 ---
 categories: "[[Themes]]"
-guide: "[[full/path/to/piece-folder/themes/INDEX|alias]]"
+guide: "[[full/path/to/piece-folder/guide/INDEX|alias]]"
 section: <Outline heading text>
 status: pending
 coverage:
@@ -50,7 +50,7 @@ tags:
 ```
 
 - Filename: a short descriptive phrase naming the theme (3–8 words), not the source.
-- `guide:` uses the full path to the piece's `themes/INDEX.md`, never a bare `[[INDEX]]` — the filename is reused across the vault.
+- `guide:` uses the full path to the piece's `guide/INDEX.md`, never a bare `[[INDEX]]` — the filename is reused across the vault.
 - One citation per quote. If a point can't be traced to a specific sentence in a specific source, it doesn't belong in Quotes — put it under Synthesis instead, or leave it out until a source exists.
 - If the source sentence carries a hedge, caveat, or correction, the quote must carry it too.
 - `status` is `pending` (default), `used` (the writer has drawn on it in `output.md`), or `rejected` (the writer checked and decided they don't have a real basis for it). This workflow only ever writes `pending` on a new theme. Moving a theme to `used` or `rejected` is the writer's own call, made by hand, never inferred or set by this workflow.
@@ -65,7 +65,7 @@ Before a claim earns a quote, it has to pass one test: does it lead somewhere �
 
 This filter applies to candidate quotes only. Synthesis isn't sourced from `curated/` in the first place, so nothing to filter.
 
-This is narrower than the writer's own filter, applied later and by hand — whether they have a real basis for a surviving theme (noticed it, reacted to it, holds a genuine view), marked directly via `status`. Anything that reaches `themes/` has already earned its place on relevance grounds.
+This is narrower than the writer's own filter, applied later and by hand — whether they have a real basis for a surviving theme (noticed it, reacted to it, holds a genuine view), marked directly via `status`. Anything that reaches `guide/` has already earned its place on relevance grounds.
 
 ## Clustering a new quote into a theme
 
@@ -88,7 +88,7 @@ Never merge two existing themes into one, and never split one theme into two —
 - 2026-08-19 · [[Ian Parrish interview 3 - transcript]]
 ```
 
-One line per curated file: filename and the date it was triaged, nothing else. Existing theme citations already show what was accepted from a given file; anything from a triaged file not cited anywhere in `themes/` was considered and dropped — no reason needs recording separately.
+One line per curated file: filename and the date it was triaged, nothing else. Existing theme citations already show what was accepted from a given file; anything from a triaged file not cited anywhere in `guide/` was considered and dropped — no reason needs recording separately.
 
 Rules:
 - A file is either untouched or fully triaged, never partway. Read it once, extract every atomic claim it contains, run each through the Relevance filter and Clustering above, then append the file to `triaged.md`. Don't stop partway through a file just because the section you're populating already has enough.
@@ -103,21 +103,21 @@ Order the batch largest/densest first — interview transcripts and long article
 
 Triage and write up one file completely before moving to the next, appending to `triaged.md` as each finishes. Stopping between files at the end of a batch loses nothing — only stopping mid-file does.
 
-## Building (no themes/ yet)
+## Building (no guide/ yet)
 
-Read the brief, including its `Outline`. Create `themes/INDEX.md` if it doesn't exist:
+Read the brief, including its `Outline`. Create `guide/INDEX.md` if it doesn't exist:
 
 ```markdown
 ---
 aliases:
   - guide - <piece name>
 ---
-![[themes.base]]
+![[guide.base]]
 ```
 
-No per-section scaffolding needed — `themes.base` groups by each theme's `section` field automatically. Then triage every file in each Draw-from KB's `curated/` (per "Tracking what's been triaged" and "Batching a large backlog" above), running each extractable claim through the Relevance filter and Clustering above, filing it under whichever `Outline` section it belongs to.
+No per-section scaffolding needed — `guide.base` groups by each theme's `section` field automatically. Then triage every file in each Draw-from KB's `curated/` (per "Tracking what's been triaged" and "Batching a large backlog" above), running each extractable claim through the Relevance filter and Clustering above, filing it under whichever `Outline` section it belongs to.
 
-## Syncing (themes/ exists)
+## Syncing (guide/ exists)
 
 On request: check `triaged.md`, then triage the files not yet listed there — following "Batching a large backlog" above if there are many — and cluster any newly-passing quotes per "Clustering a new quote into a theme." If nothing in the newly-triaged files passes the Relevance filter, say so rather than manufacturing a theme to fill the update.
 
@@ -125,7 +125,7 @@ Same citation rule applies on a sync as on a build.
 
 ## Migrating a piece from the old flat `guide.md`
 
-Read `guide.md` in full. For each section, split its Extracted points into themes per "Clustering a new quote into a theme" above (existing adjacent bullets citing the same narrow fact are usually one theme already) — carry over each bullet's existing `PENDING`/`USED`/`REJECTED` tag as that theme's `status` (a theme is `used` only if every bullet folded into it was `USED`; if mixed, split rather than blend). Carry Synthesis bullets to whichever theme they reason about, or their own synthesis-only theme if section-wide. Drop the section's `Assets` line and its `✓`/`⚠` marker — the marker is superseded by `status`/`coverage` in `themes.base`; assets are tracked via the `assets/` folder instead. Once every section is migrated, delete `guide.md`.
+Read `guide.md` in full. For each section, split its Extracted points into themes per "Clustering a new quote into a theme" above (existing adjacent bullets citing the same narrow fact are usually one theme already) — carry over each bullet's existing `PENDING`/`USED`/`REJECTED` tag as that theme's `status` (a theme is `used` only if every bullet folded into it was `USED`; if mixed, split rather than blend). Carry Synthesis bullets to whichever theme they reason about, or their own synthesis-only theme if section-wide. Drop the section's `Assets` line and its `✓`/`⚠` marker — the marker is superseded by `status`/`coverage` in `guide.base`; assets are tracked via the `assets/` folder instead. Once every section is migrated, delete the old `guide.md` file.
 
 ## What this workflow doesn't do
 
