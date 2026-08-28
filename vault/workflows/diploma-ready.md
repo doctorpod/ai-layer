@@ -5,11 +5,11 @@ description: Check a permaculture design's output doc against the Diploma assess
 
 # Diploma-Ready Workflow
 
-Use this workflow when the user wants to know whether a design (a piece-folder — `brief.md` / `guide.md` / `output.md`, see `_AI/shared/snippets/piece-folder.md`) would likely pass tutor assessment, before showing it to a tutor.
+Use this workflow when the user wants to know whether a design (a piece-folder — `brief.md` / `guide/` / `output.md`, see `_AI/shared/snippets/piece-folder.md`) would likely pass tutor assessment, before showing it to a tutor.
 
 ## The rule
 
-Same shape as `sanity.md`: read-only, diagnostic. Never edit `output.md`, `guide.md`, or anything else. Name gaps; don't fill them.
+Same shape as `sanity.md`: read-only, diagnostic. Never edit `output.md`, `guide/`, or anything else. Name gaps; don't fill them.
 
 ## Step 1: Establish scope
 
@@ -21,7 +21,7 @@ Read `lib/atlas/teaching/wiki/design-assessment-form.md` fresh, every run — do
 
 ## Step 3: Detect the framework
 
-Read `output.md` (and `guide.md` if the framework isn't obvious from the output alone) to determine which path applies:
+Read `output.md` to determine which path applies. If the framework isn't obvious from the output alone, check `brief.md`'s `Outline` field (the resolved framework breakdown, if the piece has one) before falling back to `guide/`'s theme notes — or the flat `guide.md`, for a piece not yet migrated to `guide/`:
 
 - **Section 2.1** — the design follows a process framework (SADIM, OBREDIM, CEAP, or similar)
 - **Section 2.2** — the design follows the Design Web
