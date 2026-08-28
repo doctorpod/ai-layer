@@ -22,19 +22,19 @@ Debrief vs. capture-log-note is a judgment call: first-hand material you want fu
 
 ## Writing a piece
 
-Every piece lives in the same `brief.md` / `guide.md` / `output.md` / `assets/` folder (see `_AI/shared/snippets/piece-folder.md`). The brief itself is ad hoc — just ask for help drafting it in chat, no dedicated workflow owns that step.
+Every piece lives in the same `brief.md` / `themes/` / `output.md` / `assets/` folder (see `_AI/shared/snippets/piece-folder.md`). The brief itself is ad hoc — just ask for help drafting it in chat, no dedicated workflow owns that step.
 
 | Workflow | Use when |
 |---|---|
-| **Sync-guide** | Build or update `guide.md` from the brief and vault sources. Only ever touches `guide.md` — never reads or writes `output.md`, never drafts prose. |
-| **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads `guide.md`'s bullets, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
+| **Sync-guide** | Build or update the piece's `themes/` folder from the brief and vault sources. Only ever touches `themes/` — never reads or writes `output.md`, never drafts prose. |
+| **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads `guide.md`'s bullets, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. *(Not yet updated for `themes/` — still assumes the old flat `guide.md`.)* |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Scribe** | Leave a `% scribe <instruction>` marker inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |
-| **Gap-check** | Compare a draft against its guide (or any named reference) and report what's missing. Diagnostic only, never edits, no verdict — just a gap list. |
-| **Diploma-ready** | Same diagnostic shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |
+| **Gap-check** | Compare a draft against its `themes/` (or any named reference) and report what's missing. Never edits target or reference content, but does record a coverage verdict on each checked theme, every run. No overall score — just a gap list. |
+| **Diploma-ready** | Same read-only-target shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. *(Still reads `guide.md` directly — not yet updated for `themes/`.)* |
 
-**You always write `output.md` yourself — `sync-guide` scaffolds and stays out of it.** **Calling `sync-guide` on a piece already in progress** only ever touches `guide.md`, regardless of whether your draft so far came from typing, dictating + polish, or ideas sparked by `elicit` — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
+**You always write `output.md` yourself — `sync-guide` scaffolds and stays out of it.** **Calling `sync-guide` on a piece already in progress** only ever touches `themes/`, regardless of whether your draft so far came from typing, dictating + polish, or ideas sparked by `elicit` — it can't clash with any of them. When you want to know whether the draft actually covers the themes, that's a separate step: call `gap-check` explicitly.
 
 `polish` and `scribe` are unrelated to this pipeline — both are marker-driven and work on any vault file, whether or not a piece-folder is involved.
 

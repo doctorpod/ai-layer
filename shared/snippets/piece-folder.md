@@ -3,7 +3,7 @@ Every piece of writing lives in a named folder with four predictable contents:
 ```
 [piece-folder]/
   brief.md     ← the seed
-  guide.md     ← section-by-section scaffold, built from the brief
+  themes/      ← quote/theme/synthesis scaffold, built from the brief (INDEX.md + one file per theme)
   output.md    ← the finished prose
   assets/      ← images, maps, diagrams
 ```
@@ -16,6 +16,8 @@ Every piece of writing lives in a named folder with four predictable contents:
 - **Draw from** — which knowledge bases or vault pages to pull from
 - **Must haves** — key points that must appear
 - **Must nots** — things to avoid
+- **Format** — structure or framework the piece follows, if any (e.g. "headed sections loosely following GOBRADIMET")
+- **Outline** — required if `Format` names a structured framework: the resolved list of section headings, each tagged with its position in that framework. Omit entirely for freeform pieces. See `_AI/local/workflows/sync-guide.md`, which reads this to know what sections to build.
 
 The user writes this. A workflow may help draft it on request — by asking questions or tidying rough notes into these fields — but does not own it.
 
