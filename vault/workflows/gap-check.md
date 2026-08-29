@@ -25,7 +25,7 @@ This verdict is independent of the theme's own `status` field. A theme marked `u
 
 ## Step 3: Check assets
 
-List every file in the piece-folder's `assets/`. For each, check whether target references or embeds it (`![[filename]]`, a plain link, or an explicit mention). Report any with no reference.
+Run `python3 _AI/local/scripts/check-assets.py <piece-folder> <target>`. It flags any asset whose filename doesn't appear anywhere in the target — that's a strong signal, not proof, since an asset can still be referenced by description alone with no filename in sight. Give each `unreferenced` result a quick glance against the target before reporting it as a real gap.
 
 ## Step 4: Report
 
@@ -37,7 +37,7 @@ No verdict, no score. Don't fix anything. Don't write the gap list itself anywhe
 
 ## Step 5: Recording coverage
 
-Every run: write the Step 2 verdict into each checked theme's `coverage` frontmatter field (`full`, `thin`, or `missing`). Skip `rejected` themes entirely — never write their `coverage`. Never touch `status` — that stays the writer's own call, exactly as `sync-guide.md` leaves it alone.
+Every run: batch-write the Step 2 verdicts in one call — `python3 _AI/local/scripts/write-coverage.py <guide-folder> <theme-file>=<verdict> [<theme-file>=<verdict> ...]` — one `<theme-file>=<verdict>` pair per theme checked in Step 2. Don't include `rejected` themes in the call; the script also refuses to write `coverage` onto one if it slips through. Never touch `status` — that stays the writer's own call, exactly as `sync-guide.md` leaves it alone.
 
 ## What this workflow doesn't do
 
