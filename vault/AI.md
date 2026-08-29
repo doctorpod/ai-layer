@@ -87,12 +87,15 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "validate AI setup", "check AI setup" | `_AI/shared/workflows/validate-ai-setup.md` |
 | "ingest" + knowledge base name | `_AI/local/workflows/ingest.md` |
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
+| "process notes" + scope | `_AI/local/workflows/process-notes.md` — proposes folder moves and category fixes against vault conventions, applies on confirmation |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |
+| "update the summary in `<note>`", "update summary", "refresh the summary for `<note>`" | `_AI/local/workflows/create-summaries.md` — pulls mentions from linking notes into a target note's Summary section |
 | "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains a piece's `guide/` folder from the brief and vault sources; never touches output.md |
 | "polish" | `_AI/local/workflows/polish.md` — light copy-edit of the user's own text, never rephrases |
 | a `% scribe <instruction>` marker found in a file | `_AI/local/workflows/scribe.md` — carries out an inline instruction left in a file marker, writes the response back into the same block |
 | "sanity" | `_AI/local/workflows/sanity.md` — flags contradictions/confusing writing, never edits |
 | "gap check `<file>`", "gap check `<file>` against `<reference>`", "does `<file>` cover `<reference>`" | `_AI/local/workflows/gap-check.md` — checks a draft against its `guide/` (or a named reference) and reports what's missing; never edits target or reference content, but does record a coverage verdict on each checked theme, every run |
+| "diploma ready", "is this diploma ready", "check against the diploma rubric" | `_AI/local/workflows/diploma-ready.md` — checks a design's `output.md` against the fixed Diploma assessment rubric, Yes/Nearly/Not Yet verdict, never edits |
 | "grill me" or "interview me" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |
@@ -105,6 +108,8 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time |
 | "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
+| "handoff" | `_AI/shared/workflows/handoff.md` — save a handoff document so this conversation can be resumed later |
+| "resume" | `_AI/shared/workflows/resume.md` — resume from a saved handoff document |
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
 | "elicit", "elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — one-shot brainstorm of angles and questions from a section's `guide/` theme notes, to spark writing; never drafts prose, never touches `output.md` |
 

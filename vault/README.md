@@ -27,7 +27,7 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 | Workflow | Use when |
 |---|---|
 | **Sync-guide** | Build or update the piece's `guide/` folder from the brief and vault sources. Only ever touches `guide/` — never reads or writes `output.md`, never drafts prose. |
-| **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads the section's theme notes in `guide/` (or `guide.md`'s bullets, for a piece not yet migrated), throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
+| **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads the section's theme notes in `guide/`, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Scribe** | Leave a `% scribe <instruction>` marker inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |

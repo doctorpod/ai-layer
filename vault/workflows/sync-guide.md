@@ -105,7 +105,9 @@ Triage and write up one file completely before moving to the next, appending to 
 
 ## Building (no guide/ yet)
 
-Read the brief, including its `Outline`. Create `guide/INDEX.md` if it doesn't exist:
+Read the brief, including its `Outline`. Check whether a `guide.base` file exists anywhere in the vault (Obsidian resolves the embed below by filename, not path, so it doesn't matter where) — it's created once by hand, not by this workflow. If it's missing, warn the user the embed won't render until they add it, then proceed anyway; the embed is inert, not broken, in the meantime.
+
+Create `guide/INDEX.md` if it doesn't exist:
 
 ```markdown
 ---
@@ -122,10 +124,6 @@ No per-section scaffolding needed — `guide.base` groups by each theme's `secti
 On request: check `triaged.md`, then triage the files not yet listed there — following "Batching a large backlog" above if there are many — and cluster any newly-passing quotes per "Clustering a new quote into a theme." If nothing in the newly-triaged files passes the Relevance filter, say so rather than manufacturing a theme to fill the update.
 
 Same citation rule applies on a sync as on a build.
-
-## Migrating a piece from the old flat `guide.md`
-
-Read `guide.md` in full. For each section, split its Extracted points into themes per "Clustering a new quote into a theme" above (existing adjacent bullets citing the same narrow fact are usually one theme already) — carry over each bullet's existing `PENDING`/`USED`/`REJECTED` tag as that theme's `status` (a theme is `used` only if every bullet folded into it was `USED`; if mixed, split rather than blend). Carry Synthesis bullets to whichever theme they reason about, or their own synthesis-only theme if section-wide. Drop the section's `Assets` line and its `✓`/`⚠` marker — the marker is superseded by `status`/`coverage` in `guide.base`; assets are tracked via the `assets/` folder instead. Once every section is migrated, delete the old `guide.md` file.
 
 ## What this workflow doesn't do
 

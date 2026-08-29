@@ -21,7 +21,7 @@ Read `lib/atlas/teaching/wiki/design-assessment-form.md` fresh, every run — do
 
 ## Step 3: Detect the framework
 
-Read `output.md` to determine which path applies. If the framework isn't obvious from the output alone, check `brief.md`'s `Outline` field (the resolved framework breakdown, if the piece has one) before falling back to `guide/`'s theme notes — or the flat `guide.md`, for a piece not yet migrated to `guide/`:
+Read `output.md` to determine which path applies. If the framework isn't obvious from the output alone, check `brief.md`'s `Outline` field (the resolved framework breakdown, if the piece has one) before falling back to `guide/`'s theme notes:
 
 - **Section 2.1** — the design follows a process framework (SADIM, OBREDIM, CEAP, or similar)
 - **Section 2.2** — the design follows the Design Web

@@ -15,7 +15,7 @@ Use this workflow when the user wants a body of their own writing checked for in
 
 Parse whatever scope the user gives at call time — there is no default. Typical forms:
 
-- **A named document**: "sanity this document", "sanity `guide.md`"
+- **A named document**: "sanity this document", "sanity `output.md`"
 - **Multiple named documents**
 - **A time or count range**: "sanity all my log notes from the last three weeks", "sanity the last 5 entries"
 

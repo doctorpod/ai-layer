@@ -15,14 +15,13 @@ Compares a document against a reference and reports what's missing. Never edits 
 - **Reference**: what it's checked against.
   - If the user names one, use it.
   - If they don't, and the target sits in a piece-folder, default to that folder's `guide/` — every theme note inside it.
-  - If the piece-folder still has a flat `guide.md` file instead of a `guide/` folder (not yet migrated — see `sync-guide.md`), use that, treating each `PENDING`/`USED`/`REJECTED`-tagged bullet as the reference item.
   - If neither applies, ask.
 
 ## Step 2: Compare themes
 
-Read every theme note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap). For each remaining theme, treat its Quotes and Synthesis together as one unit — matching `status`'s per-theme atomicity — and check it against the target: **covered**, **thin**, or **missing**.
+Read every theme note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap). For each remaining theme, treat its Quotes and Synthesis together as one unit — matching `status`'s per-theme atomicity — and check it against the target: **full**, **thin**, or **missing**.
 
-This verdict is independent of the theme's own `status` field. A theme marked `used` can still come back `thin` or `missing` if `output.md` has since changed — that drift is exactly what this check exists to catch. A theme marked `pending` coming back `covered` is also worth surfacing — it may mean the writer forgot to update `status`, or covered it unknowingly.
+This verdict is independent of the theme's own `status` field. A theme marked `used` can still come back `thin` or `missing` if `output.md` has since changed — that drift is exactly what this check exists to catch. A theme marked `pending` coming back `full` is also worth surfacing — it may mean the writer forgot to update `status`, or covered it unknowingly.
 
 ## Step 3: Check assets
 
@@ -31,7 +30,7 @@ List every file in the piece-folder's `assets/`. For each, check whether target 
 ## Step 4: Report
 
 Chat response only, by default — two short lists:
-- One line per theme gap: the theme's name, and whether it's `thin` or `missing` in the target (skip anything `covered`, unless it's a `pending` theme that turned up covered — flag that too, differently, as noted above).
+- One line per theme gap: the theme's name, and whether it's `thin` or `missing` in the target (skip anything `full`, unless it's a `pending` theme that turned up `full` — flag that too, differently, as noted above).
 - One line per unused asset.
 
 No verdict, no score. Don't fix anything. Don't write the gap list itself anywhere unless the user asks — this is about the chat report only; recording `coverage` (Step 5) happens regardless.

@@ -11,8 +11,6 @@ Triggered by: "elicit", "elicit section `<N>`", "grill me on section `<N>` of th
 
 Piece-folder convention (`_AI/shared/snippets/piece-folder.md`): `brief.md`, `guide/`, `output.md`. If `brief.md` doesn't exist yet, that's an ad hoc conversation (see `_AI/local/workflows/sync-guide.md`'s own Prerequisite note). If `brief.md` exists but `guide/` doesn't (and there's no flat `guide.md` either), point to `_AI/local/workflows/sync-guide.md` to build it first.
 
-If the piece-folder still has a flat `guide.md` instead of a `guide/` folder (not yet migrated — see `sync-guide.md`), read its bullets in scope instead of theme notes; everything else below applies the same way.
-
 ## Doing the work
 
 1. Read the theme notes in scope — every theme in the named `guide/` section, or the specific theme notes pointed to. Each theme's Quotes and Synthesis together are the material to work from.
