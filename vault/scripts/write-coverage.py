@@ -29,11 +29,15 @@ COVERAGE_LINE_RE = re.compile(r'^coverage:.*$', re.MULTILINE)
 
 
 def _find_vault_root():
-    d = Path(__file__).resolve().parent
-    while d != d.parent:
-        if (d / 'CLAUDE.md').exists():
-            return d
-        d = d.parent
+    # Try the invocation path before the symlink-resolved one: the AI layer is
+    # usually symlinked into a vault, and .resolve() follows that link out into
+    # the ai-layer repo — which has its own CLAUDE.md and would win wrongly.
+    for start in (Path(__file__).absolute(), Path(__file__).resolve()):
+        d = start.parent
+        while d != d.parent:
+            if (d / 'CLAUDE.md').exists():
+                return d
+            d = d.parent
     raise RuntimeError(f"Could not find vault root — no CLAUDE.md found above {__file__}")
 
 

@@ -17,9 +17,19 @@ Compares a document against a reference and reports what's missing. Never edits 
   - If they don't, and the target sits in a piece-folder, default to that folder's `guide/` — every theme note inside it.
   - If neither applies, ask.
 
+## Step 1a: Scoped runs
+
+Usually the whole target is in play. Sometimes it isn't — most often a `% scribe` marker (`scribe.md`) sitting under, or naming, a single section. On a scoped run:
+
+- **Read scope = write scope.** Compare (Step 2) and record `coverage` (Step 5) for *only* the theme notes whose `section:` frontmatter falls inside the part you actually read. Never write a verdict for a theme whose section you didn't look at — it would land as `missing` purely for being out of scope.
+- Match theme to section on the `section:` field (e.g. `section: 03 What I Saw`).
+- Nothing else changes: still skip `rejected`, still leave `status` alone, still a chat report.
+
+This is by design: `coverage` is a per-theme progress signal, and each theme belongs to exactly one section, so a section-scoped run and a whole-doc run write the same value for any theme they share.
+
 ## Step 2: Compare themes
 
-Read every theme note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap). For each remaining theme, treat its Quotes and Synthesis together as one unit — matching `status`'s per-theme atomicity — and check it against the target: **full**, **thin**, or **missing**.
+Read every theme note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap; on a scoped run, also skip any whose `section:` is outside the scope — see Step 1a). For each remaining theme, treat its Quotes and Synthesis together as one unit — matching `status`'s per-theme atomicity — and check it against the target: **full**, **thin**, or **missing**.
 
 This verdict is independent of the theme's own `status` field. A theme marked `used` can still come back `thin` or `missing` if `output.md` has since changed — that drift is exactly what this check exists to catch. A theme marked `pending` coming back `full` is also worth surfacing — it may mean the writer forgot to update `status`, or covered it unknowingly.
 
@@ -32,6 +42,8 @@ Run `python3 _AI/local/scripts/check-assets.py <piece-folder> <target>`. It flag
 Chat response only, by default — two short lists:
 - One line per theme gap: the theme's name, and whether it's `thin` or `missing` in the target (skip anything `full`, unless it's a `pending` theme that turned up `full` — flag that too, differently, as noted above).
 - One line per unused asset.
+
+When a gap points at a specific passage in the target, cite its line number with a short quote to anchor it — not a paragraph or section number ("¶2", "the third para"). Line numbers are exact and clickable. This holds wherever the report lands, including a scribe `% **comments**` block.
 
 No verdict, no score. Don't fix anything. Don't write the gap list itself anywhere unless the user asks — this is about the chat report only; recording `coverage` (Step 5) happens regardless.
 

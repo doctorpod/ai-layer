@@ -38,6 +38,6 @@ Only surface what's genuinely there. One sharp finding beats a padded list.
 
 ## Step 4: Report
 
-Deliver findings as a chat response — a short numbered list, each with a one-line pointer to where it is (file + section/quote) and what's wrong. Default: chat only, nothing written anywhere. If the user asks to capture the findings (e.g. as a log note, or fed into `_AI/local/workflows/add-to-radar.md`), do that on request — not automatically.
+Deliver findings as a chat response — a short numbered list, each with a one-line pointer to where it is (file and line number, plus a short quote to anchor it) and what's wrong. Point at line numbers, not paragraph or section numbers ("¶2", "the third para") — they're exact and clickable. This holds wherever the findings land, including a scribe `% **comments**` block. Default: chat only, nothing written anywhere. If the user asks to capture the findings (e.g. as a log note, or fed into `_AI/local/workflows/add-to-radar.md`), do that on request — not automatically.
 
 Do not fix anything found. If a finding is itself a spelling/punctuation issue, that's out of scope here — mention it only if it's tangled up in a content problem worth flagging anyway.

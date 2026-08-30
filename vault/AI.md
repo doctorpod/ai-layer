@@ -29,6 +29,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any folder named `assets/`
 	- Any file named `INDEX.md`
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
+	- The `coverage` frontmatter field *only* on guide theme notes (`categories: "[[Themes]]"`), and *only* via the gap-check workflow's `write-coverage.py` — never any other field, never `status`
 	- Any file named `QUESTIONS.md`
 	- Any file named `SPATIAL.md`
 	- Any file named `DASHBOARD.md`
