@@ -106,6 +106,7 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/teach-me` | `_AI/local/workflows/teach-me.md` |
 | `/ingest` | `_AI/local/workflows/ingest.md` |
 | `/lint` | `_AI/local/workflows/lint.md` |
+| `/normalise` | `_AI/local/workflows/normalise.md` |
 | `/connect` | `_AI/local/workflows/connect.md` |
 | `/debrief` | `_AI/local/workflows/debrief.md` |
 | `/sync-guide` | `_AI/local/workflows/sync-guide.md` |

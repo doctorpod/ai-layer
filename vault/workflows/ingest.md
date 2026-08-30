@@ -66,6 +66,54 @@ Follow `_AI/shared/snippets/wiki-write-steps.md`, substituting `source` for `[NO
 
 A single source may touch 10-15 wiki pages. That is normal.
 
+## Step 2a: Page sizing and existing-home check
+
+Wiki pages drift toward being source-shaped — one page per idea the source happens to raise, structured the way the source structured it. Source-shaped pages are too specific to be linked to by later sources and other pages. Two checks and a format rule keep pages generic and re-linkable. Apply them every time Step 2 of `wiki-write-steps.md` would create or update a concept page.
+
+### Check for an existing home before creating a page
+
+Before creating any new wiki page, search the target KB's `wiki/` for a page whose core claim already covers the new material (use the `obsidian` CLI, or grep the one-line descriptions in `INDEX.md`).
+
+- **Found one**: don't create a new page. Add a footnoted paragraph to the existing page using the multi-source citation rules below. This is now the common case, not the exception — most ingest passes should be *enriching* existing pages, not spawning new ones. Pages generalise as they accrete sources.
+- **Nothing fits**: create a new page.
+
+Because existing pages will now routinely gain a second, third, fourth source, the "retrofit `[^1]` to the page's existing sentences" step in the citation rules fires on almost every pass. Do not skip it.
+
+**Merge bar**: only fold new material into an existing page when it supports the *same claim*, not merely the same topic. "Also about hedges" is not enough. If the new material makes a genuinely different claim, it needs its own page even if the subject overlaps — that guards against premature generalisation.
+
+### State the page's point in one sentence
+
+Before creating a page, complete this sentence about it:
+
+> This page says that ______.
+
+- It must be a **claim** — something that could be true or false.
+- **Can't complete it?** You have a topic or a summary, not a concept. Don't create the page — the material belongs as a section or paragraph on a page that does make a claim.
+- **Does the completed sentence name a source, a date, or a specific project?** The page is tied too tightly to where it came from. Rewrite the sentence as a general claim, create the page under that general title, and demote the specific detail into the body as an instance (see Page format → `## Evidence`).
+
+Example: about to create `Bob Newington's tree advice` — "This page says that Bob Newington advised removing the leylandii." Names a person and an event. Generalise: "This page says that fast-growing conifers crowd out native planting and are usually worth removing." Title it `Conifers and native planting`; Bob's advice becomes one footnoted bullet in the Evidence section.
+
+### The per-source summary page is a pointer, not an article
+
+`wiki-write-steps.md` Step 1 calls for a summary page named after the source (or, in a debrief, the subject). Under this scheme that page carries **no prose of its own**. It is a short pointer:
+
+```markdown
+# <Source or subject name>
+
+**Summary**: What this source is and what it fed into.
+**Sources**: [[the-curated-source-file]]
+**Last updated**: YYYY-MM-DD
+
+---
+
+This source contributed to:
+
+- [[concept-page-a]] — one line on what it added
+- [[concept-page-b]] — one line on what it added
+```
+
+All substantive content lives on the concept pages it links to. Don't restate their claims here.
+
 ## Step 2b: Image search (per new wiki page)
 
 For each wiki page created in Step 2, assess whether the concept is **concrete** or **woolly**:
@@ -94,9 +142,11 @@ Right: *"The ego maintains itself through problems. It says it wants resolution,
 
 Keep the writing alive — these pages should hold attention the way a good article does, not read like a textbook. Concrete images over neutral summaries. This keeps pages open to future sources and worth reading on their own terms.
 
+Step 2a and the `## Evidence` section in Page format make this structural rather than advisory: the generic claim and the source-specific detail live in separate parts of the page. "Generic" does not mean "short" — one idea per page, but that idea is unpacked in full, lively prose. The dryness risk is real only if pages shrink to stubs; they should not.
+
 ## Page format
 
-Every wiki page should follow this structure:
+Every concept page has a two-part shape: the durable idea first, written source-free; then an `## Evidence` section where specific sources are tracked. Full structure:
 
 ```markdown
 ---
@@ -111,17 +161,38 @@ tags: ["ai-generated"]
 
 ---
 
-Main content goes here. Use clear headings and short paragraphs.
+The durable idea, explained in clear, lively prose with short paragraphs and
+concrete images. Written with no reference to any source — this is the part that
+stays true regardless of which sources come and go. One idea per page (Step 2a),
+unpacked in full, with enough substance to be worth landing on cold.
 
 Link to related concepts using [[wiki-links]] throughout the text.
+
+## Evidence
+
+Where specific sources support, illustrate, or complicate the idea above. One
+bullet per instance, each traced to its source:
+
+- Bob Newington advised removing the north-boundary leylandii on his 2026 visit.[^1]
+- The Kearsney Abbey planting notes describe the same crowding-out under a mature yew.[^2]
 
 ## Related
 
 - [[related-concept-1]]
 - [[related-concept-2]]
+
+[^1]: [[debrief-2026-06-12-bob-newington-visit]]
+[^2]: [[kearsney-abbey-planting-notes]]
 ```
 
-The header `**Sources**:` field only works while a page has a single source — see Citation rules for what changes once a second source touches it.
+The two-part shape is a diagnostic. If the `## Evidence` section is all there is — no
+durable idea above it — the page is source-shaped and needs generalising (Step 2a).
+If the idea above has nothing under `## Evidence`, it is unsupported.
+
+The header `**Sources**:` field only works while a page has a single source — see Citation
+rules for what changes once a second source touches it. On a single-source page the
+`## Evidence` bullets need no footnotes (the header covers them); footnotes kick in when
+the second source arrives. The two-part shape itself applies from the first source.
 
 ## Citation rules
 
@@ -213,6 +284,17 @@ Further context or detail here (optional).
 The note's filename is the canonical term name: lowercase with spaces for normal terms (e.g. `prompt engineering.md`), UPPERCASE for acronyms (e.g. `RAG.md`). The `aliases` field is only needed for genuine alternate names or synonyms — not for display formatting, since the filename is already human-readable. The italic first line is the definition; everything after the blank line is free-form.
 
 **SPATIAL**: if `SPATIAL.md` exists in this KB and the source contained location claims, check whether any named features need adding or correcting. If `SPATIAL.md` doesn't exist but the source described a physical site with named features, offer to create it. Format: see `_AI/local/AI.md`.
+
+## Step 9a: Page-sizing review
+
+For each wiki page **created or touched in this pass**, check whether it is still the right size:
+
+- **List what links to it** — `obsidian` CLI backlinks, or grep the KB for `[[page-name]]`.
+- **Inbound links point for clearly different reasons** → the page is too broad. Propose splitting it into one page per claim people are actually linking to, and say which inbound links move where.
+- **One inbound link, and it comes from the page's own source** → the page is source-shaped and orphaned. Propose merging it up into a broader parent page and redirecting the link.
+- **Propose only.** Don't restructure unprompted — same rule as concept notes in Step 9. One proposal at a time; wait for the user.
+
+A full sweep of an existing KB's back-catalogue is out of scope here — that's the `/normalise` workflow. This step only covers pages this pass has already disturbed.
 
 ## Step 9b: Cross-workflow check
 

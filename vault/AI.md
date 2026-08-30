@@ -88,6 +88,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "validate AI setup", "check AI setup" | `_AI/shared/workflows/validate-ai-setup.md` |
 | "ingest" (optionally naming a knowledge base) | `_AI/local/workflows/ingest.md` |
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
+| "normalise" or "sizing pass" + knowledge base name | `_AI/local/workflows/normalise.md` — periodic pass over a KB's `wiki/` for near-duplicate, over-broad, and source-shaped pages; propose-only |
 | "process notes" + scope | `_AI/local/workflows/process-notes.md` — proposes folder moves and category fixes against vault conventions, applies on confirmation |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |
 | "update the summary in `<note>`", "update summary", "refresh the summary for `<note>`" | `_AI/local/workflows/create-summaries.md` — pulls mentions from linking notes into a target note's Summary section |

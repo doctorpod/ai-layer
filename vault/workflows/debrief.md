@@ -68,7 +68,7 @@ Always create a debrief note and save it directly to `curated/` — it is alread
 
 Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 
-**If no inbox notes exist**: write a compact factual summary of everything established during the debrief — verified facts in plain prose, dense and complete. This is the primary citable source for wiki pages.
+**If no inbox notes exist**: write a compact factual summary of everything established during the debrief — verified facts in plain prose, dense and complete. This is the primary citable source for wiki pages. Keep it a full prose summary even though wiki content is now spread across many small concept pages (ingest.md Step 2a): *because* it is spread thin, this note is the one place the whole picture stays coherent. Don't trim it to match the wiki's granularity.
 
 **If inbox notes exist**: write a shorter document capturing only what the grilling *added* — clarifications, corrections, additional context, and anything the user said that wasn't in the raw notes. The inbox note remains the primary record; this captures the verified delta. Label it clearly at the top:
 
@@ -79,6 +79,7 @@ Filename: `debrief-YYYY-MM-DD-[brief-description].md`
 ## Steps 5–9: Write wiki content and close
 
 > **Page format**: defined in `_AI/local/workflows/ingest.md` — apply it to every wiki page written from a debrief without exception.
+> **Page sizing**: the existing-home check, the one-sentence sizing test, the two-part concept-page shape, and the pointer-style summary page (ingest.md Step 2a) all apply to debriefs too.
 
 Follow `_AI/shared/snippets/wiki-write-steps.md`, substituting `subject` for `[NOUN]` and `DEBRIEF` for `[WORKFLOW]`.
 
