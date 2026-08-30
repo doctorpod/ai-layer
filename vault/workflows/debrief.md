@@ -9,9 +9,9 @@ Use this workflow when the user has first-hand material to process — a site vi
 
 ## Step 0: Establish the source
 
-Check `inbox/` for any notes, field notes, or transcripts the user has dropped in. Read them fully before proceeding.
+Check the single `inbox/` at the vault root for any notes, field notes, or transcripts the user has dropped in for *this* debrief. The inbox is shared across every KB and may hold unrelated items, so don't assume everything in it is in scope — match by filename, content, or the user pointing you at a specific file. Read the relevant ones fully before proceeding.
 
-If `inbox/` is empty, proceed with a chat-based debrief — the user will tell you directly.
+If nothing in `inbox/` is relevant, proceed with a chat-based debrief — the user will tell you directly.
 
 ## Step 1: Grill relentlessly
 

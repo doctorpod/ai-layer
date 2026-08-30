@@ -36,7 +36,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any folder named `_wayfinder/`
 	- Any folder named `_AI/postmortems/`
 	- Any file named `_AI/learnings.md`
-	- Any folder named `inbox/`, but only to create web-stub files (`tags` includes `web-stub`) — not to write full ingest source content directly
+	- The single `inbox/` at the vault root, but only to create web-stub files (`tags` includes `web-stub`) — not to write full ingest source content directly
 	- You may move files to any folder named `curated/`
 - If you ever need to write anywhere else, ask my permission first.
 
@@ -51,8 +51,8 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 - Within this vault, there are folders which I call **knowledge bases**.
 - You will help me build specific domain knowledge within these folders.
 - Knowledge bases are any folder containing a `wiki/` subfolder — the lint script discovers them automatically.
+- New sources are not filed per-KB. They all go into a single `inbox/` at the vault root; the ingest workflow routes each one to the KB it belongs in (see `_AI/local/workflows/ingest.md`, Step 0a).
 - Knowledge bases contain the following subfolders and files:
-	- `inbox/` — I put stuff here for you to ingest
 	- `curated/` — You move files here once ingested
 	- `wiki/` — You build a wiki here
 	- `assets/` — Images downloaded during ingest; gitignored
@@ -85,7 +85,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | Trigger | Workflow |
 |---|---|
 | "validate AI setup", "check AI setup" | `_AI/shared/workflows/validate-ai-setup.md` |
-| "ingest" + knowledge base name | `_AI/local/workflows/ingest.md` |
+| "ingest" (optionally naming a knowledge base) | `_AI/local/workflows/ingest.md` |
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
 | "process notes" + scope | `_AI/local/workflows/process-notes.md` — proposes folder moves and category fixes against vault conventions, applies on confirmation |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |

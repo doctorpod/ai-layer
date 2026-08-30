@@ -4,4 +4,4 @@
 4. If you see what looks like a person's name, just make it a wikilink — don't create a note for it in the wiki
 5. Update `INDEX.md` with new pages and one-line descriptions
 6. Append a log with a brief summary (max 12 words) by running `bash _AI/local/scripts/log-write.sh "[WORKFLOW]: <brief summary>"`
-7. Move the processed file(s) from `inbox/` to `curated/`
+7. Move the processed file(s) from the vault-root `inbox/` to the anchor KB's `curated/`

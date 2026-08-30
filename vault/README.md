@@ -13,7 +13,7 @@ Grouped by what you're trying to do, this is your map of the AI workflows availa
 | Workflow | Use when |
 |---|---|
 | **Debrief** | You have first-hand material — a site visit, a conversation, a memory, a thought you've worked out. Accuracy is paramount; the source is you. |
-| **Ingest** | You've dropped something external into `inbox/` — an article, transcript, YouTube video, book extract, or web-stub. |
+| **Ingest** | You've dropped something external into the vault-root `inbox/` — an article, transcript, YouTube video, book extract, or web-stub. Ingest routes it to the right KB. |
 | **Capture log note** | You just want something logged to today's dated note — no wiki processing, no classification, just written down. |
 
 Debrief vs. capture-log-note is a judgment call: first-hand material you want fully processed into wiki pages goes through debrief; a quick note-to-self goes through capture-log-note.

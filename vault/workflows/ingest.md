@@ -1,9 +1,9 @@
 ---
 name: ingest
-description: Ingest new sources from inbox/ by classifying and processing them.
+description: Ingest new sources from the vault-root inbox/ by classifying, routing to a KB, and processing them.
 ---
 
-The user has added one or more new sources to `inbox/` and has asked you to ingest:
+The user has added one or more new sources to the single `inbox/` at the vault root and has asked you to ingest:
 
 ## Step 0: Classify the source
 
@@ -14,6 +14,18 @@ Before anything else, identify the source type from the content (speaker labels,
 - **Web-stub**: frontmatter `tags` includes `web-stub` — a pointer file, not pasted source content. Fetch the `url` property live (WebFetch) before proceeding; treat the fetched page as the source content from here on, same as any other external source.
 
 If genuinely unclear, ask the user.
+
+## Step 0a: Route each source to a knowledge base
+
+The `inbox/` is a single folder at the vault root — sources land there with no KB assigned. Before ingesting, work out where each one belongs:
+
+- Identify the KB whose thematic scope covers the source's strongest claim. Skim candidate `INDEX.md` files if the fit isn't obvious.
+- If several sources are waiting, list them and propose an anchor KB for each, then confirm with the user before processing any.
+- If the user named a KB when invoking the workflow, treat that as the anchor for the source(s) they mean — still sanity-check the fit.
+- A `web-stub` may carry a `kb:` frontmatter hint from whoever created it. Treat it as a suggestion, not a decision.
+- If a source's strongest claim fits no existing KB, say so — don't force it. It may need a new KB (needs the user's go-ahead) or may not belong in the wiki system at all.
+
+This step only fixes where the *source page* is anchored and which `curated/` the file ends up in. Concept pages the source generates can still land in other KBs — see Cross-KB sources below.
 
 ## Step 0b: Advertisement check (external sources only)
 
@@ -43,7 +55,7 @@ In both cases: present one item, wait for the answer (or search result), resolve
 
 A single source may have its strongest claim in one KB but generate concept pages that belong in another. When this happens:
 
-- Anchor the source page in the KB with the strongest thematic claim
+- Anchor the source page in the KB chosen in Step 0a
 - Create concept pages in whichever KB owns that concept
 - Update `INDEX.md` in every KB touched
 - Use full-path wikilinks (`[[lib/atlas/other-kb/wiki/page-name|display name]]`) only when there is a filename clash across KBs; otherwise use the short form
@@ -155,7 +167,7 @@ Then branch on what the search turns up:
 
 - **Nothing found**: still write the `[!caution]` callout, but say a search was tried and didn't turn one up — a checked-and-still-unverified claim is a stronger signal than one nobody looked into.
 - **One fact, used once**: cite it with a footnote instead of the caution note — `[^n]: [Title](URL), accessed YYYY-MM-DD`. No new file. This makes the page multi-source even though only one claim moved — apply the retrofit rule above (Citation rules) before dropping the `**Sources**:` header.
-- **Multiple facts, or a source worth reusing**: don't absorb the facts into wiki content now. Write a stub file into the relevant KB's `inbox/` (filename: the page's title, matching how clippings are already named in `curated/`) and leave it queued for a proper `/ingest` pass:
+- **Multiple facts, or a source worth reusing**: don't absorb the facts into wiki content now. Write a stub file into the vault-root `inbox/` (filename: the page's title, matching how clippings are already named in `curated/`) and leave it queued for a proper `/ingest` pass:
 
   ```markdown
   ---
@@ -163,6 +175,7 @@ Then branch on what the search turns up:
   url: https://...
   last_accessed: YYYY-MM-DD
   context: "[[debrief-or-session-note]]"
+  kb: target-kb-folder-name   # optional hint for the ingest pass; omit if unsure
   flagged_for:
     - topic one
     - topic two

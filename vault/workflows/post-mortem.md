@@ -38,7 +38,7 @@ Map the root cause to one of these targets and produce the actual concrete chang
 | Checklist tweak | `templates/` | No — draft only |
 | Vault structure tweak | folders, `CLAUDE.md`, `AI.md` | No — draft only |
 | Gap in an existing KB | `wiki/`, `INDEX.md` within that KB | Usually yes, once agreed |
-| Brand-new KB | new top-level folder + `inbox/` | No, folder scaffold needs permission — contents inside are writable once it exists |
+| Brand-new KB | new top-level folder with `wiki/` + `curated/` (new sources go in the shared vault-root `inbox/`) | No, folder scaffold needs permission — contents inside are writable once it exists |
 
 "Directly writable" follows the write-access rules in `AI.md`. Most targets aren't on that list — the default is: draft the change, show it, don't apply it unasked.
 
