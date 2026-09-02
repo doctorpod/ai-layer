@@ -116,6 +116,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "resume" | `_AI/shared/workflows/resume.md` — resume from a saved handoff document |
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
 | "elicit", "elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — one-shot brainstorm of angles and questions from a section's `guide/` theme notes, to spark writing; never drafts prose, never touches `output.md` |
+| "beats", "beats section `<N>`", "beat sheet for `<section>`" | `_AI/local/workflows/beats.md` — ordered beat sheet from a section's `guide/` theme notes, or a scribe-wrapped passage; writes a **Beats** framework block to draft against, doesn't alter existing prose |
 
 ## The fetch method *(optional)*
 
