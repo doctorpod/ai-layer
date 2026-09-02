@@ -114,6 +114,8 @@ This source contributed to:
 
 All substantive content lives on the concept pages it links to. Don't restate their claims here.
 
+This applies to **every KB — project KBs as well as the atlas**. A project's source pages are pointers too, not narrative write-ups. Existing full-prose source pages are not converted retroactively by an ordinary ingest or debrief; that's a job for `/normalise`, so a KB part-way through the transition will hold both styles for a while.
+
 ## Step 2b: Image search (per new wiki page)
 
 For each wiki page created in Step 2, assess whether the concept is **concrete** or **woolly**:

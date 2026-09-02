@@ -1,6 +1,6 @@
 ---
 name: normalise
-description: Periodic sizing pass over a KB's wiki — find near-duplicate, over-broad, and source-shaped pages and propose merges or splits.
+description: Periodic sizing pass over a KB's wiki — find near-duplicate, over-broad, source-shaped, and full-prose source pages and propose merges, splits, or conversions.
 ---
 
 # Normalise Workflow
@@ -15,7 +15,7 @@ One KB per run. If the user named one, use it. If not, list the KBs (folders con
 
 Read every page in the KB's `wiki/`, plus its `INDEX.md`, before proposing anything.
 
-## Step 1: Find the three problems
+## Step 1: Find the problems
 
 **Propose only — never restructure without the user confirming each change, one at a time.**
 
@@ -40,6 +40,13 @@ A page with one inbound link that comes from its own source, or a page whose bod
 
 - Propose merging it up into a broader parent page, or generalising it into a real concept page if the parent doesn't exist yet.
 - If nothing links to it and nothing should, propose deleting it.
+
+### 4. Full-prose source pages
+
+A per-source (or per-subject) summary page that carries its own narrative write-up instead of being a short pointer (ingest.md Step 2a). Distinct from #3: this is the source's own summary page, not a concept page — the fix is to redistribute its prose, not generalise it.
+
+- Propose converting it: move each claim onto the concept page it belongs to (creating or enriching per Step 2a), and leave the source page as a pointer — summary, source link, and a bulleted list of the concept pages it fed.
+- Preserve citations on every claim that moves.
 
 ## Step 2: Apply, one at a time
 

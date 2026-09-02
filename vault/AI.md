@@ -5,6 +5,7 @@
 - Logs live in `_AI/logs/`
 - Scripts live in `_AI/local/scripts/`
 - Workflows live in `_AI/local/workflows/` (vault-specific) and `_AI/shared/workflows/` (shared)
+- `_AI/local/README.md` is the human-facing companion to this file — the same workflows, organized by scenario instead of trigger phrase. Point the vault owner there if they're looking for "what can I do" rather than naming a specific workflow.
 
 ## Setup files
 
@@ -94,7 +95,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "update the summary in `<note>`", "update summary", "refresh the summary for `<note>`" | `_AI/local/workflows/create-summaries.md` — pulls mentions from linking notes into a target note's Summary section |
 | "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains a piece's `guide/` folder from the brief and vault sources; never touches output.md |
 | "polish" | `_AI/local/workflows/polish.md` — light copy-edit of the user's own text, never rephrases |
-| a `% scribe <instruction>` marker found in a file | `_AI/local/workflows/scribe.md` — carries out an inline instruction left in a file marker, writes the response back into the same block |
+| a `% scribe <instruction>` or `%s <instruction>` marker found in a file | `_AI/local/workflows/scribe.md` — carries out an inline instruction left in a file marker, writes the response back into the same block |
 | "sanity" | `_AI/local/workflows/sanity.md` — flags contradictions/confusing writing, never edits |
 | "gap check `<file>`", "gap check `<file>` against `<reference>`", "does `<file>` cover `<reference>`" | `_AI/local/workflows/gap-check.md` — checks a draft against its `guide/` (or a named reference) and reports what's missing; never edits target or reference content, but does record a coverage verdict on each checked theme, every run |
 | "diploma ready", "is this diploma ready", "check against the diploma rubric" | `_AI/local/workflows/diploma-ready.md` — checks a design's `output.md` against the fixed Diploma assessment rubric, Yes/Nearly/Not Yet verdict, never edits |

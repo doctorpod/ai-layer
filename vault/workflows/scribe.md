@@ -17,6 +17,7 @@ Prose the instruction applies to. Can span several paragraphs.
 %
 ```
 
+- `%s <instruction>` is an accepted short form of the opening fence — treat `%s` exactly as `% scribe`. Either spelling must start at column 0 (no leading whitespace), so a `%s` format token sitting mid-line isn't mistaken for a marker. The opening fence carries the instruction on its own line; `% **comments**` and the closing `%` still sit alone.
 - `% scribe`, `% **comments**`, and the closing `%` each sit alone on their own line
 - `% **comments**` gets a blank line above it, to stand out from the prose
 - `% **comments**` doesn't need to exist yet — add it (with the blank line) before the closing `%` when responding.
