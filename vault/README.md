@@ -28,6 +28,7 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 |---|---|
 | **Sync-guide** | Build or update the piece's `guide/` folder from the brief and vault sources. Only ever touches `guide/` — never reads or writes `output.md`, never drafts prose. |
 | **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads the section's theme notes in `guide/`, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
+| **Beats** | Know what a section must cover but not what order the writing should move in. Reads the section's theme notes (or a `scribe`-wrapped passage) and lays out an ordered beat sheet — each beat phrased as the *move* it makes, not just its topic — written as a framework block under the section heading for you to draft against and delete. One pass; never alters existing prose. |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Scribe** | Leave a `% scribe <instruction>` marker (or the short form `%s <instruction>`, at column 0) inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
 | **Sanity** | Check your own writing for contradictions or passages that don't hold together. Diagnostic only, never edits. |
@@ -35,6 +36,8 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 | **Diploma-ready** | Same read-only-target shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |
 
 **You always write `output.md` yourself — `sync-guide` scaffolds and stays out of it.** **Calling `sync-guide` on a piece already in progress** only ever touches `guide/`, regardless of whether your draft so far came from typing, dictating + polish, or ideas sparked by `elicit` — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
+
+`elicit` and `beats` both read a section's theme notes and stop, but do different jobs: `elicit` throws out angles and questions to spark a sentence; `beats` gives the section a spine — an ordered list of moves — before any sentence is drafted. `beats` writes a framework block into `output.md` under the heading; `elicit` never touches it.
 
 `polish` and `scribe` are unrelated to this pipeline — both are marker-driven and work on any vault file, whether or not a piece-folder is involved.
 
