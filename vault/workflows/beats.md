@@ -38,24 +38,25 @@ Read-only on `guide/`: never write `status` or `coverage` on the theme notes —
 
 A single **Beats** block.
 
-- **Standalone**: written into `output.md` directly under the section's heading, for the user to draft against and delete. Replace any existing Beats block for that section — never leave two. If `output.md` or that heading doesn't exist yet, show the block in chat instead of creating them.
-- **From a `% scribe` marker**: into that block's `% **comments**`, per scribe's own convention.
+- **Standalone**: written into `output.md` directly under the section's heading, for the user to draft against and delete. Each beat starts with a `[ ]` task checkbox, so the user can tick beats off as they get written. Replace any existing Beats block for that section — never leave two. If `output.md` or that heading doesn't exist yet, show the block in chat instead of creating them.
+- **From a `% scribe` marker**: into that block's `% **comments**`, per scribe's own convention — no checkboxes there (a comments block is deleted wholesale, not worked through).
 
 Format:
 
 ```
 **Beats** — section 6 (framework; delete once written)
 
-1. **Principle: habitat is mostly hidden** — most insect life is larval, out of sight; it's the rough stuff that counts.  ← [[Insect life cycle — mostly larval, out of sight]]
-2. **Refine: variety beats quantity** — lumps and bumps, a mosaic of microclimates.  ← [[Habitat design principles — heterogeneity and a sand pile]]
-3. **Reality: the site is neat** — little organic debris; the log pile and bug hotel are the exceptions.  ← [[Volunteer-installed wildlife infrastructure]], site observation
-4. **To action: cheap additions** — a sand pile; bug-hotel rules.  ← [[Habitat design principles — heterogeneity and a sand pile]], [[Bug hotel design — natural materials, spacing, and letting it rot]]
-5. **Land the gap: water** — no water body anywhere; hands back to the cistern idea.  ← [[Water bodies — the clearest insect-habitat opportunity]]  *(connective — ties to the section opening)*
+1. [ ] **Principle: habitat is mostly hidden** — most insect life is larval, out of sight; it's the rough stuff that counts.  ← [[Insect life cycle — mostly larval, out of sight]]
+2. [ ] **Refine: variety beats quantity** — lumps and bumps, a mosaic of microclimates.  ← [[Habitat design principles — heterogeneity and a sand pile]]
+3. [ ] **Reality: the site is neat** — little organic debris; the log pile and bug hotel are the exceptions.  ← [[Volunteer-installed wildlife infrastructure]], site observation
+4. [ ] **To action: cheap additions** — a sand pile; bug-hotel rules.  ← [[Habitat design principles — heterogeneity and a sand pile]], [[Bug hotel design — natural materials, spacing, and letting it rot]]
+5. [ ] **Land the gap: water** — no water body anywhere; hands back to the cistern idea.  ← [[Water bodies — the clearest insect-habitat opportunity]]  *(connective — ties to the section opening)*
 
 Not beats: [[Masonry bees — present three years]] — fold into the bees paragraph. [[Pond design — avoid a straight, uniform edge]] — a detail inside beat 4 if a pond is ever proposed.
 ```
 
 Rules for the block:
+- `1. [ ] ` = in the standalone (`output.md`) block, every beat is a checkbox task the user ticks off as they draft. Keep the number too — beats cross-reference by number. Omit the `[ ]` in a `% **comments**` block.
 - `**bold** ` = what the beat does (function + short label). Plain text after the em-dash = the gist.
 - `← ` = the source note(s) as `[[wikilinks]]`, plus non-note sources ("site observation", "brief") in plain text.
 - `*(...)*` = notes to self: a gap/connective beat, a sequencing risk, a call the user needs to make.
