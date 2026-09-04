@@ -47,7 +47,7 @@ Discuss key takeaways with the user before writing anything.
 
 **First-person sources** — go through uncertain claims **one at a time**: misheard proper nouns, ambiguous numbers, unclear context due to transcription quality.
 
-**External sources** — go through context gaps **one at a time**: anything the source leaves unclear that the user might already know (who a person is, whether a recommendation has since been acted on, whether a status has changed). For document-internal ambiguities the user couldn't know, check whether the gap is externally verifiable (a definition, a public record, a fact about a third party or place) before parking it — do a web search and present what you find for the user to confirm or correct. Only if that fails, or the gap depends on something only the user or a private party would know, does it go straight to `[!caution]` callouts or `QUESTIONS.md`.
+**External sources** — go through context gaps **one at a time**: anything the source leaves unclear that the user might already know (who a person is, whether a recommendation has since been acted on, whether a status has changed). For document-internal ambiguities the user couldn't know, check whether the gap is externally verifiable (a definition, a public record, a fact about a third party or place) before parking it — do a web search and present what you find for the user to confirm or correct. Only if that fails, or the gap depends on something only the user or a private party would know, does it go straight to `[!caution]` callouts or, per `_AI/shared/snippets/questions.md`, a new Question.
 
 In both cases: present one item, wait for the answer (or search result), resolve it, then move to the next. If a claim cannot be resolved, flag it with a `[!caution]` callout when writing (see citation rules).
 
@@ -257,6 +257,10 @@ Then branch on what the search turns up:
   ```
 
   Note the claim itself as pending against the stub, not as an established fact, until the later ingest pass writes it up properly.
+
+### Assistant-generated inferences: surmise
+
+The above covers claims already present in source material with no source backing them. A different case is a sentence the assistant generates itself to bridge a gap in the explanation — not paraphrasing or condensing any source. Follow `_AI/shared/snippets/surmise.md` for that case.
 
 ## Step 9: Glossary and SPATIAL pass
 

@@ -27,30 +27,9 @@ Rules:
 - If a claim still cannot be resolved (needs checking with a person or on site, or the search comes up empty or unreliable), do not guess — log it as an outstanding question (see Step 2).
 - Do not stop early. If something feels vague, push on it.
 
-## Step 2: Maintain QUESTIONS.md
+## Step 2: Maintain Questions
 
-If any questions cannot be resolved during the debrief, add them to `QUESTIONS.md` at the project root. Create the file if it doesn't exist.
-
-Format:
-```markdown
-- [ ] Q1 · YYYY-MM-DD · Ask [person]: [question]
-- [ ] Q2 · YYYY-MM-DD · Check on site: [question]
-```
-
-Rules:
-- Q-numbers are sequential and never reused — check the file for the last number used and continue from there.
-- Always include: checkbox, Q-number, date raised, who/what to check with, and the question.
-- When an inbox note later answers a question (by Q-number or obvious content), process the answer into the wiki and delete the resolved question from `QUESTIONS.md`.
-
-### Dismissing a question
-
-If the user says a question isn't pertinent — at the moment it's raised, or later when reviewing `QUESTIONS.md` — dismiss it rather than leaving it open or deleting it. Use `- [-]` (the vault's Tasks plugin "Cancelled" status, distinct from `- [x]` Done) and append the reason:
-
-```markdown
-- [-] Q4 · 2026-08-05 · Check with Ian / LPA: has the TPO status ever been established? ✗ Dismissed 2026-08-06: not relevant to current design scope.
-```
-
-Never delete a question outright — dismiss it instead, so the reasoning stays on record.
+Follow `_AI/shared/snippets/questions.md` for creating and maintaining Questions.
 
 ## Step 3: Concept notes and SPATIAL.md
 
