@@ -70,4 +70,4 @@ Chat response only, by default:
 
 **Worth reading**: any pages surfaced in Step 7b, next to the gap they relate to (omit this line if none matched)
 
-If the user asks to capture the findings (e.g. as a log note, or as new `QUESTIONS.md` items for gaps that need input from someone else), do that on request — not automatically.
+If the user asks to capture the findings (e.g. as a log note, or as new Questions for gaps that need input from someone else — see `_AI/shared/snippets/questions.md`), do that on request — not automatically.

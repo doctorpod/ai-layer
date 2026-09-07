@@ -32,7 +32,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any file named `INDEX.md`
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
 	- The `coverage` frontmatter field *only* on guide theme notes (`categories: "[[Themes]]"`), and *only* via the gap-check workflow's `write-coverage.py` — never any other field, never `status`
-	- Any file named `QUESTIONS.md`
+	- Any `questions/` folder (see `_AI/shared/snippets/questions.md`)
 	- Any file named `SPATIAL.md`
 	- Any file named `DASHBOARD.md`
 	- Any folder named `_greenhouse/`
@@ -62,7 +62,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- `INDEX.md` — You keep this updated
 	- `AI.md` — Optional: specific instructions for this knowledge base
 	- concept notes — any note with `categories: ["[[Glossary]]"]` frontmatter; queryable via Dataview
-	- `QUESTIONS.md` — Optional: outstanding questions requiring follow-up
+	- `questions/` — Optional: atomic, status-tracked Question files (see `_AI/shared/snippets/questions.md`)
 	- `SPATIAL.md` — Optional: named-feature location index *(only for KBs with a physical site)*
 
 ### SPATIAL.md format
