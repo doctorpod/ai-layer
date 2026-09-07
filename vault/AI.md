@@ -37,6 +37,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any file named `DASHBOARD.md`
 	- Any folder named `_greenhouse/`
 	- Any folder named `_wayfinder/`
+	- The vault-root `standards/` folder (assessment rubrics that workflows check against) — but only edit a rubric when the user has explicitly said to; never fold new material into one as a side effect of another workflow
 	- Any folder named `_AI/postmortems/`
 	- Any file named `_AI/learnings.md`
 	- The single `inbox/` at the vault root, but only to create web-stub files (`tags` includes `web-stub`) — not to write full ingest source content directly
