@@ -26,7 +26,7 @@ import re
 from pathlib import Path
 
 DATE_RE = re.compile(r'^(\d{4}-\d{2}-\d{2})')
-EXCLUDE_NAMES = {'README.md', 'INDEX.md', 'QUESTIONS.md', 'DECISIONS.md', 'MEMORY.md', 'AI.md', 'STYLE.md', 'SPATIAL.md', 'VOICE.md'}
+EXCLUDE_NAMES = {'README.md', 'INDEX.md', 'DECISIONS.md', 'MEMORY.md', 'AI.md', 'STYLE.md', 'SPATIAL.md', 'VOICE.md'}
 EXCLUDE_FOLDERS = {'.obsidian', '.git', '_AI', 'assets', 'attachments', 'curated', 'wiki', 'templates'}
 
 
