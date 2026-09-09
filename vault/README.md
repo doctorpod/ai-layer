@@ -15,9 +15,9 @@ Grouped by what you're trying to do, this is your map of the AI workflows availa
 | **Debrief** | You have first-hand material — a site visit, a conversation, a memory, a thought you've worked out. Accuracy is paramount; the source is you. |
 | **Ingest** | You've dropped something external into the vault-root `inbox/` — an article, transcript, YouTube video, book extract, or web-stub. Ingest routes it to the right KB. |
 | **Capture log note** | You just want something logged to today's dated note — no wiki processing, no classification, just written down. |
-| **Minute** | Something happened and several notes should now move because of it — not just logged, but propagated. Captures a log note, then works through radar, questions, wiki, wayfinder, greenhouse and concept notes, updating each where it applies. |
+| **Minute** | A logistics or status change — "John moved the meeting to Wednesday" — that several tracking notes should now reflect. Captures a log note, then works through radar, questions, wayfinder and greenhouse, updating each where it applies. Doesn't touch the wiki — durable knowledge goes through debrief. |
 
-Debrief vs. capture-log-note is a judgment call: first-hand material you want fully processed into wiki pages goes through debrief; a quick note-to-self goes through capture-log-note. `minute` shares capture-log-note's capture step, then fans the update out across every synthesised surface that should reflect it.
+Debrief vs. capture-log-note is a judgment call: first-hand material you want fully processed into wiki pages goes through debrief; a quick note-to-self goes through capture-log-note. `minute` shares capture-log-note's capture step, then propagates the change across the tracking surfaces (radar, questions, wayfinder, greenhouse) — but stops at the wiki, which stays debrief-only.
 
 ---
 

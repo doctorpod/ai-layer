@@ -108,7 +108,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
-| "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture something as a log note, then propagate it to every synthesised surface (radar, questions, wiki, wayfinder, greenhouse) that should reflect it |
+| "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture a logistics or status change as a log note, then propagate it across the tracking surfaces (radar, questions, wayfinder, greenhouse); wiki changes are out of scope — those go through debrief |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
