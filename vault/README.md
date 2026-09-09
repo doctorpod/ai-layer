@@ -15,8 +15,9 @@ Grouped by what you're trying to do, this is your map of the AI workflows availa
 | **Debrief** | You have first-hand material — a site visit, a conversation, a memory, a thought you've worked out. Accuracy is paramount; the source is you. |
 | **Ingest** | You've dropped something external into the vault-root `inbox/` — an article, transcript, YouTube video, book extract, or web-stub. Ingest routes it to the right KB. |
 | **Capture log note** | You just want something logged to today's dated note — no wiki processing, no classification, just written down. |
+| **Minute** | Something happened and several notes should now move because of it — not just logged, but propagated. Captures a log note, then works through radar, questions, wiki, wayfinder, greenhouse and concept notes, updating each where it applies. |
 
-Debrief vs. capture-log-note is a judgment call: first-hand material you want fully processed into wiki pages goes through debrief; a quick note-to-self goes through capture-log-note.
+Debrief vs. capture-log-note is a judgment call: first-hand material you want fully processed into wiki pages goes through debrief; a quick note-to-self goes through capture-log-note. `minute` shares capture-log-note's capture step, then fans the update out across every synthesised surface that should reflect it.
 
 ---
 
@@ -49,6 +50,7 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 |---|---|
 | **Add to radar** | A situation worth watching — no action implied, just awareness. |
 | **Greenhouse** | A concrete idea you like and want to do — deliberately not now. |
+| **Wayfinder** | A project too woolly or too big to just start — unknown order, several open decisions, more than one session. Maps it into a destination plus small decisions (waypoints) you resolve one at a time. Distinct from radar (watch, no action), greenhouse (understood, parked), and post-mortem (already went wrong). |
 | **Post-mortem** | Something went wrong; investigate why and propose a specific fix. (Greenhouse is one *possible outcome* of a post-mortem, not a substitute for it.) |
 
 ---
@@ -66,6 +68,7 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 | Workflow | Use when |
 |---|---|
 | **Lint** | Automated structural check — orphan pages, broken links, pending cautions — via script. |
+| **Normalise** | Periodic sizing pass over a KB's `wiki/` — finds near-duplicate, over-broad, source-shaped, and full-prose pages and proposes merges, splits, or conversions. Propose-only. |
 | **Process notes** | Convention-based: proposes folder moves and category fixes, applies on confirmation. |
 | **Connect** | Cross-knowledge-base pass to surface new connections between KBs. |
 | **State of play** | On-demand, full reconciliation sweep across a gig's live projects, radar, triage, and wayfinder waypoints — interrogates you on each, updates the underlying notes, then writes a plain-language digest to `DASHBOARD.md`. |

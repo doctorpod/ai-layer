@@ -29,10 +29,11 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- `_AI/logs/`
 	- Any folder named `wiki/`
 	- Any folder named `assets/`
+	- Any folder named `questions/` (see `_AI/shared/snippets/questions.md`)
+	- Any folder named `radar/`
 	- Any file named `INDEX.md`
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
 	- The `coverage` frontmatter field *only* on guide theme notes (`categories: "[[Themes]]"`), and *only* via the gap-check workflow's `write-coverage.py` — never any other field, never `status`
-	- Any `questions/` folder (see `_AI/shared/snippets/questions.md`)
 	- Any file named `SPATIAL.md`
 	- Any file named `DASHBOARD.md`
 	- Any folder named `_greenhouse/`
@@ -107,6 +108,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
+| "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture something as a log note, then propagate it to every synthesised surface (radar, questions, wiki, wayfinder, greenhouse) that should reflect it |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
