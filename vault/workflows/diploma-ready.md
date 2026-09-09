@@ -21,17 +21,33 @@ Read `standards/diploma-design.md` fresh, every run — don't rely on a cached m
 
 If `standards/diploma-design.md` doesn't exist, stop and tell the user — this workflow can't run without it.
 
+**Self-validate the structure.** Before walking the rubric, confirm every heading this workflow depends on is present, matched by exact text:
+
+- `## Framework check (do this first)`
+- `## Clear beginning`
+- `## Part 1 — Design skills`
+- `## Part 2 — Applying the design`
+- `## Part 3 — Learning and reflection`
+- `## Minor criteria`
+- `## Craft checklist`
+- `## Part 3 elicitation prompts`
+- `## Verdict`
+
+If any is missing or reworded, **stop** and tell the user the rubric is missing a section this workflow needs — name the ones you couldn't find. Don't run a partial assessment: a reworded heading usually means the rubric has been restructured and this workflow needs updating to match it.
+
 ## Step 3: Detect the framework
 
 Work through the rubric's **Framework check** section against `output.md`. If the framework isn't obvious from the output alone, check `brief.md`'s `Outline` field (the resolved framework breakdown, if the piece has one) before falling back to `guide/`'s theme notes. The framework determines which branch of the rubric's Part 2 applies (process-framework vs Design Web). If genuinely unclear which framework was used, ask before proceeding.
 
 ## Step 4: Work through the rubric
 
-For every check in the rubric — Framework, Part 1, the matching Part 2 branch, Part 3, Minor criteria, and Craft checks — mark **present / thin / missing** against `output.md`, with a one-line pointer to where it's satisfied (or a note that it's absent).
+Walk the rubric in its own order: the Framework check first (it decides which Part 2 branch applies), then the **Clear beginning** block, **Part 1**, the matching **Part 2** branch, **Part 3**, the **Minor criteria** table, and the **Craft checklist** table. The rubric's groups mirror the three parts of the Individual Design Assessment Form — hold that grouping so Step 7 can report against it.
+
+For every check, mark **present / thin / missing** against `output.md`, with a one-line pointer to where it's satisfied (or a note that it's absent). For the two tables, work the `Check` column against the standard in the `What a reader looks for` column; ignore the `Auto-fixable` column — that's for a different workflow.
 
 Honour what the rubric says about each group. In particular: Part 3 is checked for **presence and separation only** — whether evaluation and reflection both exist and are kept distinct — never for whether the reflection is honest or deep. Say so in the report rather than implying a real check happened.
 
-Do not invent checks the rubric doesn't contain, and don't skip ones it does.
+Do not invent checks the rubric doesn't contain, and don't skip ones it does. The **Part 3 elicitation prompts** and **Portfolio-level criteria** sections are not part of the walk — the first is a drafting aid for another workflow, the second is context only (see Step 5).
 
 ## Step 5: Verdict
 
@@ -52,19 +68,21 @@ These are reading for the apprentice, not part of the rubric — never treat mat
 
 ## Step 7: Report
 
-Chat response only, by default:
+Chat response only, by default. Shape the report as the **Individual Design Assessment Form, pre-filled** — the guidebook explicitly invites an apprentice to fill that form in themselves before submitting, and this report is that self-assessment. Mark each check as a tutor would: a tick (**✓**) where it's satisfied, a query (**?**) where it's thin, **absent** where it's missing — each with the one-line pointer from Step 4.
 
-**Framework detected**: process framework (which one) / Design Web
+**Clear beginning**: ✓ / gaps — which of title, apprentice name, design dates, Diploma start date, tutor name are present
 
-**Part 1**: present / thin / missing, one line each
+**Framework detected**: process framework (which one) / Design Web — ✓ / ? on named-explicitly and intended-from-the-start
 
-**Part 2**: present / thin / missing, one line each (matching branch)
+**Part 1 — Design skills** (form Section 1): each check, ✓ / ? / absent, one line each
 
-**Part 3**: present / thin / missing — with the presence-and-separation-only caveat
+**Part 2 — Applying the design** (form Section 2, matching branch): each check, ✓ / ? / absent, one line each
 
-**Minor & craft**: the notable gaps only
+**Part 3 — Learning and reflection** (form Section 3): each check, ✓ / ? / absent — and state the caveat in the report: this is **presence and separation only**, whether evaluation and reflection both exist and are kept distinct, not whether either is honest or deep
 
-**Verdict**: Yes Ready / Nearly Ready / Not Yet Ready, with the gaps driving it, and the portfolio-scope note
+**Minor & craft**: the notable gaps only, from the two tables
+
+**Ready for Presentation**: Yes Ready / Nearly Ready / Not Yet Ready — the rubric's Verdict scale, never a score or percentage — with the specific gaps driving it, ranked by how much a tutor would weigh each (a missing Part 3 element outweighs thin captions), and the note that this single-design check says nothing about portfolio diversity, progression across the ten designs, or implementation count
 
 **Worth reading**: any pages from Step 6, next to the gap they relate to (omit if none)
 
