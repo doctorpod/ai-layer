@@ -11,7 +11,9 @@ Triggered by: "capture log note", "capture as a log note", or "log this"
 
 Try to derive the correct log folder from context — recently mentioned files, the knowledge base being discussed, or the subject matter of the content. Look for a `log/` subfolder near relevant project or gig folders, and place the note inside a `YYYY/` subfolder matching the current year.
 
-If you cannot confidently determine the location, ask the user before proceeding.
+If no `log/` folder exists anywhere relevant, stop and tell the user this vault doesn't appear to use log files — don't invent one or fall back to another surface (e.g. the journal) on your own judgement.
+
+If `log/` folders exist but it's ambiguous which one applies, ask the user which to use.
 
 ## Step 2: Get current timestamp
 
