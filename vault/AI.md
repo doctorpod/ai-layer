@@ -83,6 +83,10 @@ All directions are relative to the church building.
 **vestry** — south flank of the church, eastern end. Shows signs of subsidence; a growing crack in the wall.
 ```
 
+## Workflow principles
+
+When writing or revising a workflow, check it against `_AI/shared/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
+
 ## Workflows
 
 When my request matches a trigger below, read and follow the corresponding workflow file.

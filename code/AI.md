@@ -6,6 +6,10 @@ Also read `_AI/CODEX.md` if it exists — it defines coding conventions for this
 
 `_AI/` is a planning workspace invisible to the shipped codebase — it does not ship, and nothing in it should ever be referenced from something that does. When writing or editing code, comments, docstrings, commit messages, or strings, never reference `_AI/` paths, PRP files, workflow names (e.g. `execute-prp`, `grill-me`), or these instructions. If a rationale from a PRP or `_AI/OVERVIEW.md` is worth preserving in code, restate it in the comment on its own terms — don't cite the source file.
 
+## Workflow principles
+
+When writing or revising a workflow, check it against `_AI/shared/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
+
 ## Workflows
 
 Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflows/` (shared). When the user's request matches a trigger below, read and follow the corresponding workflow file.

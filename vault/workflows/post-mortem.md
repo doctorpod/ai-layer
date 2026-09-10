@@ -42,6 +42,8 @@ Map the root cause to one of these targets and produce the actual concrete chang
 
 "Directly writable" follows the write-access rules in `AI.md`. Most targets aren't on that list — the default is: draft the change, show it, don't apply it unasked.
 
+If the tweak targets a workflow, check the drafted change against `_AI/shared/PRINCIPLES.md` before proposing it — a fix that reduces recurrence by transgressing a principle isn't a fix. If the root cause is a principle that's wrong or missing, say so and propose the change to `PRINCIPLES.md` itself, on the user's explicit say-so.
+
 ### Exception: sourcing generic reference material
 
 A vault's normal rules may exclude generic web material (only org-specific or personally-synthesised knowledge belongs). A post-mortem-driven KB fix is allowed to break that rule *only* when the note carries a `postmortem:` frontmatter field pointing back to this record — the provenance is what justifies the exception. Don't source generic material for any other reason.
