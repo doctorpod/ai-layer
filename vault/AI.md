@@ -107,6 +107,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "gap check `<file>`", "gap check `<file>` against `<reference>`", "does `<file>` cover `<reference>`" | `_AI/local/workflows/gap-check.md` — checks a draft against its `guide/` (or a named reference) and reports what's missing; never edits target or reference content, but does record a coverage verdict on each checked theme, every run |
 | "diploma ready", "is this diploma ready", "check against the diploma rubric" | `_AI/local/workflows/diploma-ready.md` — checks a design's `output.md` against the fixed Diploma assessment rubric, Yes/Nearly/Not Yet verdict, never edits |
 | "grill me" or "interview me" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
+| "readback", "let me read this back to you", "check my understanding of" | `_AI/shared/workflows/readback.md` — you explain something in your own words; corrected against the real evidence until it's accurate |
 | "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |
 | "save" | `_AI/local/workflows/save.md` |

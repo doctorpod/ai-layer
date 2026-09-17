@@ -105,6 +105,7 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 |-------|-----------|
 | `/grill-me` | `_AI/shared/workflows/grill-me.md` |
 | `/rubber-duck` | `_AI/shared/workflows/rubber-duck.md` |
+| `/readback` | `_AI/shared/workflows/readback.md` |
 | `/validate-ai-setup` | `_AI/shared/workflows/validate-ai-setup.md` |
 | `/create-prp` | `_AI/local/workflows/create-prp.md` |
 | `/execute-prp` | `_AI/local/workflows/execute-prp.md` |
