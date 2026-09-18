@@ -21,6 +21,7 @@ Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflo
 | "create a PRP", "plan [ticket]", "write a PRP" | `_AI/local/workflows/create-prp.md` — synthesizes `prp.md` from captured decisions; no interview |
 | "execute PRP", "implement PRP", "run PRP" | `_AI/local/workflows/execute-prp.md` ⚠️ fresh context required |
 | "review", "post-execution review", "check the implementation" | `_AI/local/workflows/review.md` ⚠️ fresh context required |
+| "QA failure", "log a QA failure", "QA report", "this failed QA" | `_AI/local/workflows/qa-failure.md` ⚠️ fresh context required — record the failure against the PRP and apply a scoped fix |
 | "grill me", "interview me", "question me about" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "readback", "let me read this back to you", "check my understanding of" | `_AI/shared/workflows/readback.md` — you explain something in your own words; corrected against the real evidence until it's accurate |
 | "teach me", "teach me on how this works", "help me learn" | `_AI/local/workflows/teach-me.md` |
