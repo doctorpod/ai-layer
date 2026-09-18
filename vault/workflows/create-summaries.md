@@ -23,9 +23,11 @@ This is Obsidian's live link index, not a text search — it won't catch plain-p
 
 ## Step 2: Work out what's new
 
-Read the target note's existing `## Summary` section (you're about to edit it anyway, so this costs nothing extra). Collect every link target already present under that heading.
+Read the target note's existing `## Summary` section (you're about to edit it anyway, so this costs nothing extra).
 
-Any backlink from Step 1 whose filename doesn't appear as a link target there is **new**. Anything that does appear is already summarised — skip it.
+**Dated sources** (filename is a `YYYY-MM-DD` daily note): find the latest date already linked anywhere under the Summary — that's the high-water mark. Any dated backlink from Step 1 falling after it is **new**; anything on or before it is **already covered and out of scope**, whether or not it happens to be linked. Don't diff against link targets for these — a date that's already been summarised in prose without a link is a past editorial call, not a gap, and re-litigating it on every run just produces false positives. This does mean a genuine miss from before the high-water mark stays missed; that's the accepted trade for not re-auditing settled history each time.
+
+**Undated sources** (no date in the filename): the high-water mark doesn't apply — there's no timeline position to compare. Collect every link target already present under the Summary heading; any undated backlink not among them is new.
 
 ## Step 3: Determine the extraction lens
 
