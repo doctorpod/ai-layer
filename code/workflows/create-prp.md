@@ -18,6 +18,7 @@ Determine the slug from the user's invocation. Look for `_AI/PRPs/<slug>/DECISIO
 - **If the slug is ambiguous or unstated**, list in-progress folders under `_AI/PRPs/` and ask the user which to use.
 - **If `DECISIONS.md` is present**, read it. Also read the glossary named by the pointer line at the top of `DECISIONS.md` (tolerate its absence — the user may have chosen "none").
 - **If `DECISIONS.md` is absent**, synthesize from the current conversation context. If context is thin, suggest running `grill-me` first to capture decisions before proceeding.
+- **Check for `init.md`** in the same topic folder. If it's absent, proceed with no signal — this is expected and not a flag. If it's present, search it for a heading whose text contains "acceptance criteria" (case-insensitive) and extract everything under that heading verbatim for use in Step 3. If `init.md` is present but no such heading is found, record a pending flag to raise at Step 2 — don't raise it here.
 
 ## Step 1: Parking-lot gate
 
@@ -33,6 +34,8 @@ Present to the user:
 
 Confirm with the user. Adjust based on feedback. This is the **one and only** checkpoint — do not conduct a relentless interview.
 
+If Step 0 recorded a present-but-empty-AC-section flag, fold it into this same checkpoint rather than opening a second one: ask inline, "`init.md` found, but no Acceptance Criteria section detected — does this ticket have ACs to carry forward?"
+
 ## Step 3: Generate `prp.md`
 
 Write `prp.md` into `_AI/PRPs/<slug>/`. Use this structure:
@@ -44,6 +47,10 @@ Write `prp.md` into `_AI/PRPs/<slug>/`. Use this structure:
 **Why** — the business reason
 
 **Success criteria** — how will we know it's done? (observable, testable)
+
+**Acceptance criteria (from ticket, verbatim)**
+
+The AC text extracted from `init.md` in Step 0, carried through unchanged. Omit this section entirely — no placeholder, no "N/A" — when Step 0 extracted nothing.
 
 **Context**
 
@@ -81,6 +88,7 @@ Before saving `prp.md`, verify:
 - Does the blueprint match the project's architecture (as described in `_AI/OVERVIEW.md`)?
 - Are all validation gates executable by the agent?
 - Is the confidence score honest?
+- If the PRP has an "Acceptance criteria" section, does every verbatim AC map to at least one Implementation blueprint step? If a gap is resolvable by a mechanical blueprint edit, revise the blueprint now — no second user round-trip. If a gap needs real judgment, add an unchecked item to `QUESTIONS.md` and treat the PRP as not-yet-finalized, per the Step 1 parking-lot rule.
 
 ## Step 5: Completion
 

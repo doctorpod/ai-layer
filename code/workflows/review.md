@@ -29,6 +29,8 @@ Read it in full.
 
 Read the PRP at the path provided. Hold the success criteria and implementation blueprint in mind while reviewing the diff.
 
+Also read `DECISIONS.md` from the same directory as the PRP, tolerating its absence.
+
 ### 3. Run the full validation suite
 
 Run all validation gates defined in `_AI/VALIDATION.md`. All must pass. If any fail, stop and report — do not continue the review.
@@ -39,6 +41,8 @@ For each item in the PRP's implementation blueprint, verify it is present in the
 
 Check the diff against the anti-patterns defined in `_AI/OVERVIEW.md`.
 
+If the PRP has an "Acceptance criteria" section, check each verbatim AC for contradiction against the diff or `DECISIONS.md` — does the implementation actively override what the AC says? This is scoped to contradictions only; a missing AC (never implemented) is not this check's concern — that gap is caught upstream, during PRP creation.
+
 ### 5. Report
 
 Produce a structured report:
@@ -46,6 +50,8 @@ Produce a structured report:
 **Tests**: pass / fail (list failures if any)
 
 **Coverage vs PRP**: list each blueprint step and whether it was implemented
+
+**AC conflicts**: none / list — contradictions found between a verbatim AC and the diff or `DECISIONS.md`. This is a flag for human judgment, not a gate: it does not, by itself, change the Verdict below.
 
 **Issues found**:
 - Critical: must fix before PR (wrong architecture, failing tests, missing functionality)
