@@ -60,6 +60,7 @@ Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` fo
 | Workflow | Use when |
 |---|---|
 | **Reflect** | Review a scope of notes (last N days, since the last reflection, etc.) and surface patterns, momentum, surprises, and open loops as a chat response. Diagnostic by default — can capture as a reflection note or feed open loops into `add-to-radar` on request. |
+| **Gratitude** | You want to write gratitude entries. Prompts come from your recent journal notes; each entry gets feedback and a light polish (never rephrased), and approved entries are appended to today's daily note, which is created from your daily template if it doesn't exist. |
 
 ---
 

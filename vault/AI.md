@@ -115,6 +115,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture a logistics or status change as a log note, then propagate it across the tracking surfaces (radar, questions, wayfinder, greenhouse); wiki changes are out of scope — those go through debrief |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
+| "gratitude", "help me write gratitude entries", "gratitude prompts" | `_AI/local/workflows/gratitude.md` — prompts grounded in recent journal notes, polishes each entry, appends approved entries to today's daily note (creating it from the daily template if missing) |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time |
