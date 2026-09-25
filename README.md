@@ -34,7 +34,9 @@ Both contexts also include **Grill me**, **Rubber duck**, and **Validate AI setu
 
 ## Principles
 
-`shared/PRINCIPLES.md` holds the invariants every workflow must obey — read-only means read-only, every wiki claim traces to a source, hand-owned files change only on an explicit say-so, and so on. It's checked against when a workflow is written or revised, not walked at runtime. Kept deliberately short (~ten).
+`docs/PRINCIPLES.md` holds the invariants every workflow must obey — read-only means read-only, every wiki claim traces to a source, hand-owned files change only on an explicit say-so, and so on. It's checked against when a workflow is written or revised, not walked at runtime. Kept deliberately short (~ten).
+
+Design-time documentation for people writing workflows — principles, patterns — lives in [`docs/`](docs/).
 
 ---
 

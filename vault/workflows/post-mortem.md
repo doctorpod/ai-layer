@@ -42,7 +42,7 @@ Map the root cause to one of these targets and produce the actual concrete chang
 
 "Directly writable" follows the write-access rules in `AI.md`. Most targets aren't on that list — the default is: draft the change, show it, don't apply it unasked.
 
-If the tweak targets a workflow, check the drafted change against `_AI/shared/PRINCIPLES.md` before proposing it — a fix that reduces recurrence by transgressing a principle isn't a fix. If the root cause is a principle that's wrong or missing, say so and propose the change to `PRINCIPLES.md` itself, on the user's explicit say-so.
+If the tweak targets a workflow, check the drafted change against `_AI/docs/PRINCIPLES.md` before proposing it — a fix that reduces recurrence by transgressing a principle isn't a fix. If the root cause is a principle that's wrong or missing, say so and propose the change to `PRINCIPLES.md` itself, on the user's explicit say-so.
 
 ### Exception: sourcing generic reference material
 

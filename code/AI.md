@@ -8,7 +8,7 @@ Also read `_AI/CODEX.md` if it exists — it defines coding conventions for this
 
 ## Workflow principles
 
-When writing or revising a workflow, check it against `_AI/shared/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
+When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
 
 ## Workflows
 

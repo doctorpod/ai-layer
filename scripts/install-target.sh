@@ -9,6 +9,7 @@ usage() {
   echo "Run from the root of the target project. Creates:"
   echo "  _AI/local  -> $REPO_ROOT/{code|vault}"
   echo "  _AI/shared -> $REPO_ROOT/shared"
+  echo "  _AI/docs   -> $REPO_ROOT/docs"
   exit 1
 }
 
@@ -34,7 +35,7 @@ if [[ -e "_AI/local" && ! -L "_AI/local" ]]; then
   echo "ERROR: _AI/local exists and is not a symlink. Remove it manually and re-run."
   exit 1
 fi
-ln -sf "$REPO_ROOT/$CONTEXT" _AI/local
+ln -sfn "$REPO_ROOT/$CONTEXT" _AI/local
 echo "Linked: _AI/local -> $REPO_ROOT/$CONTEXT"
 
 # Create _AI/shared
@@ -42,8 +43,16 @@ if [[ -e "_AI/shared" && ! -L "_AI/shared" ]]; then
   echo "ERROR: _AI/shared exists and is not a symlink. Remove it manually and re-run."
   exit 1
 fi
-ln -sf "$REPO_ROOT/shared" _AI/shared
+ln -sfn "$REPO_ROOT/shared" _AI/shared
 echo "Linked: _AI/shared -> $REPO_ROOT/shared"
+
+# Create _AI/docs
+if [[ -e "_AI/docs" && ! -L "_AI/docs" ]]; then
+  echo "ERROR: _AI/docs exists and is not a symlink. Remove it manually and re-run."
+  exit 1
+fi
+ln -sfn "$REPO_ROOT/docs" _AI/docs
+echo "Linked: _AI/docs -> $REPO_ROOT/docs"
 
 echo ""
 echo "Done. Next steps:"

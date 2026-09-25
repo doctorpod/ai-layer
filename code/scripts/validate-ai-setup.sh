@@ -48,6 +48,9 @@ check "_AI/local/AI.md exists" "$r" "Check that _AI/local is correctly symlinked
 [ -d "_AI/shared" ] && r="ok" || r="fail"
 check "_AI/shared/ exists" "$r" "Run: bash ~/Dev/ai-layer/scripts/install-target.sh --code"
 
+[ -d "_AI/docs" ] && r="ok" || r="fail"
+check "_AI/docs/ exists" "$r" "Run: bash ~/Dev/ai-layer/scripts/install-target.sh --code"
+
 [ -d "_AI/PRPs" ] && r="ok" || r="fail"
 check "_AI/PRPs/ directory exists" "$r" "Run: mkdir -p _AI/PRPs"
 
