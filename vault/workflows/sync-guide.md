@@ -19,6 +19,8 @@ If `brief.md`'s `Format` field names a structured framework (e.g. GOBRADIMET), i
 
 ## The theme model
 
+This workflow is the *extracting* gatherer: its theme notes satisfy the gathered-material contract in `_AI/shared/snippets/piece-folder.md`, so any workflow that reads `guide/` can use them without knowing how they were made.
+
 `guide/` holds one file per **theme** — a small cluster of related **quotes** (1–3, usually 1), scoped to a single `Outline` section, plus optional **synthesis**. It is **extractive, not abstractive**: a quote is a lifted (verbatim or lightly trimmed) span, carried over with its own citation — never a freshly-composed sentence inspired by one. Freshly-composed sentences are where inaccuracy creeps in; copied ones can't drift from their source.
 
 Lift from the **primary source**, not from the wiki page's prose. A wiki page is a map to sources, not itself a source — its own sentences can already be a synthesis across multiple sources, and lifting one faithfully just carries that synthesis into the theme with a false stamp of fidelity. Use the wiki page to find *which* source backs a claim (its footnote if the page cites more than one source, or its header `**Sources**:` field if it cites only one), then go read that source and lift from there.
@@ -88,7 +90,7 @@ Never merge two existing themes into one, and never split one theme into two —
 - 2026-08-19 · [[Ian Parrish interview 3 - transcript]]
 ```
 
-One line per curated file: filename and the date it was triaged, nothing else. Existing theme citations already show what was accepted from a given file; anything from a triaged file not cited anywhere in `guide/` was considered and dropped — no reason needs recording separately.
+One line per curated file: filename and the date it was triaged, nothing else. The same file may also hold `interview`'s `thread` lines if a part uses both gatherers; this workflow ignores them. Existing theme citations already show what was accepted from a given file; anything from a triaged file not cited anywhere in `guide/` was considered and dropped — no reason needs recording separately.
 
 Rules:
 - A file is either untouched or fully triaged, never partway. Read it once, extract every atomic claim it contains, run each through the Relevance filter and Clustering above, then append the file to `triaged.md`. Don't stop partway through a file just because the section you're populating already has enough.

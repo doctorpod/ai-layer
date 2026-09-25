@@ -1,27 +1,27 @@
 ---
 name: gap-check
-description: Check a draft against its guide (or another named reference), report what's missing, and record coverage on the checked themes.
+description: Check a draft against its guide (or another named reference), report what's missing, and record coverage on the checked notes.
 ---
 
 # Gap Check
 
 Triggered by: "gap check `<file>`", "gap check `<file>` against `<reference>`", "check gaps in `<file>`", "does `<file>` cover `<reference>`"
 
-Compares a document against a reference and reports what's missing. Never edits target or reference content — the one write it makes is `coverage` on the checked theme notes (see Step 5), every run, not opt-in.
+Compares a document against a reference and reports what's missing. Never edits target or reference content — the one write it makes is `coverage` on the checked gathered notes (see Step 5), every run, not opt-in.
 
 ## Step 1: Establish target and reference
 
 - **Target**: the document being checked (usually `output.md`).
 - **Reference**: what it's checked against.
   - If the user names one, use it.
-  - If they don't, and the target sits in a piece-folder, default to that folder's `guide/` — every theme note inside it.
+  - If they don't, and the target sits in a piece-folder, default to that folder's `guide/` — every gathered note inside it.
   - If neither applies, ask.
 
 ## Step 1a: Scoped runs
 
 Usually the whole target is in play. Sometimes it isn't — most often a `% scribe` marker (`scribe.md`) sitting under, or naming, a single section. On a scoped run:
 
-- **Read scope = write scope.** Compare (Step 2) and record `coverage` (Step 5) for *only* the theme notes whose `section:` frontmatter falls inside the part you actually read. Never write a verdict for a theme whose section you didn't look at — it would land as `missing` purely for being out of scope.
+- **Read scope = write scope.** Compare (Step 2) and record `coverage` (Step 5) for *only* the gathered notes whose `section:` frontmatter falls inside the part you actually read. Never write a verdict for a theme whose section you didn't look at — it would land as `missing` purely for being out of scope.
 - Match theme to section on the `section:` field (e.g. `section: 03 What I Saw`).
 - Nothing else changes: still skip `rejected`, still leave `status` alone, still a chat report.
 
@@ -29,7 +29,7 @@ This is by design: `coverage` is a per-theme progress signal, and each theme bel
 
 ## Step 2: Compare themes
 
-Read every theme note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap; on a scoped run, also skip any whose `section:` is outside the scope — see Step 1a). For each remaining theme, treat its Quotes and Synthesis together as one unit — matching `status`'s per-theme atomicity — and check it against the target: **full**, **thin**, or **missing**.
+Read every gathered note in the reference (skip any with `status: rejected` — deliberately excluded, not a gap; on a scoped run, also skip any whose `section:` is outside the scope — see Step 1a). For each remaining theme, treat the note's whole body as one unit — matching `status`'s per-theme atomicity — and check it against the target: **full**, **thin**, or **missing**.
 
 This verdict is independent of the theme's own `status` field. A theme marked `used` can still come back `thin` or `missing` if `output.md` has since changed — that drift is exactly what this check exists to catch. A theme marked `pending` coming back `full` is also worth surfacing — it may mean the writer forgot to update `status`, or covered it unknowingly.
 

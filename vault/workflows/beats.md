@@ -1,6 +1,6 @@
 ---
 name: beats
-description: Read a set of guide theme notes and lay out a beat sheet — an ordered list of moves the section makes — for the user to draft prose against.
+description: Read a set of guide notes and lay out a beat sheet — an ordered list of moves the section makes — for the user to draft prose against.
 ---
 
 # Beats Workflow
@@ -11,18 +11,18 @@ A **beat** is one discrete move in the section — set up, refine, complicate, p
 
 ## Prerequisites
 
-Piece-folder convention (`_AI/shared/snippets/piece-folder.md`): `brief.md`, `guide/`, `output.md`. If `brief.md` doesn't exist yet, that's an ad hoc conversation. If `brief.md` exists but `guide/` doesn't, point to `_AI/local/workflows/sync-guide.md` to build it first.
+Piece-folder convention (`_AI/shared/snippets/piece-folder.md`): `brief.md`, `guide/`, `output.md`. If `brief.md` doesn't exist yet, that's an ad hoc conversation. If `brief.md` exists but `guide/` doesn't, point to a gatherer to fill it first — `_AI/local/workflows/sync-guide.md` (extract from sources) or `_AI/local/workflows/interview.md` (elicit from the writer).
 
 ## Scope
 
 Two ways in:
 
-- **Whole section, from the guide notes** — standalone. Read every theme note (not `INDEX.md`) whose `section:` frontmatter matches the named section (skip any `status: rejected`, as `gap-check` does). Or, if the user names specific theme notes, use just those.
+- **Whole section, from the guide notes** — standalone. Read every gathered note (see the material contract in `_AI/shared/snippets/piece-folder.md`; not `INDEX.md`) whose `section:` frontmatter matches the named section (skip any `status: rejected`, as `gap-check` does). Or, if the user names specific notes, use just those.
 - **Part of a section, from draft material** — invoked from a `% scribe` marker wrapping rough draft prose, pasted note-stubs, or a half-assembled passage. The wrapped body defines the part. Work the beats for *that material*, pulling in the section's guide notes as supporting context.
 
 ## Doing the work
 
-1. Read everything in scope — each theme note's Quotes and Synthesis together are the unit; plus the wrapped body, if invoked from scribe.
+1. Read everything in scope — each note's whole body is the unit, however it was gathered; plus the wrapped body, if invoked from scribe.
 2. Decide the beats. This is the work, and it is not one-note-one-beat:
    - **Merge** — several notes that make one move become one beat.
    - **Demote** — a note that's a detail, not a move, becomes a sub-point under the beat it belongs to.

@@ -33,7 +33,10 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any folder named `radar/`
 	- Any file named `INDEX.md`
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
-	- The `coverage` frontmatter field *only* on guide theme notes (`categories: "[[Themes]]"`), and *only* via the gap-check workflow's `write-coverage.py` — never any other field, never `status`
+	- Any folder named `guide/` — gathered notes (`categories: "[[Themes]]"`), written by a gatherer workflow (`sync-guide`, `interview`). A gatherer creates notes (with `status: pending`) and appends to them; the only other `status` change it makes is reverting `used` → `pending` when it adds new material to a note
+	- The `coverage` frontmatter field on gathered notes in `guide/`, *only* via the gap-check workflow's `write-coverage.py` — gap-check writes no other field, never `status`
+	- `triaged.md` and `timeline.md` in a piece-folder (see `_AI/shared/snippets/piece-folder.md`) — written only by the workflows that own them
+	- The **Beats** block in a piece-folder's `output.md`, written only by the beats workflow — never the prose around it
 	- Any file named `SPATIAL.md`
 	- Any file named `DASHBOARD.md`
 	- Any folder named `_greenhouse/`
@@ -126,6 +129,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
 | "elicit", "elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — one-shot brainstorm of angles and questions from a section's `guide/` theme notes, to spark writing; never drafts prose, never touches `output.md` |
 | "beats", "beats section `<N>`", "beat sheet for `<section>`" | `_AI/local/workflows/beats.md` — ordered beat sheet from a section's `guide/` theme notes, or a scribe-wrapped passage; writes a **Beats** framework block to draft against, doesn't alter existing prose |
+| "interview `<part>`", "start an interview", "resume the interview" | `_AI/local/workflows/interview.md` — one thread at a time, answers checked against a timeline and saved verbatim as gathered notes in the part's `guide/`; never drafts prose, never touches `output.md` |
 
 ## The fetch method *(optional)*
 
