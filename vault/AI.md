@@ -90,6 +90,8 @@ All directions are relative to the church building.
 
 When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
 
+When revising a writing workflow (sync-guide, interview, elicit, beats, polish, scribe, sanity, gap-check, diploma-ready) — e.g. via post-mortem — update its matching page(s) in `_AI/docs/writing/` in the same pass and bump their `checked:` date.
+
 ## Workflows
 
 When my request matches a trigger below, read and follow the corresponding workflow file.

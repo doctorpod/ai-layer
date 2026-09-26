@@ -4,7 +4,7 @@ Grouped by what you're trying to do, this is your map of the AI workflows availa
 
 - `AI.md` is the machine-facing trigger table Claude routes on — not meant for browsing.
 - This file is the human-facing companion: the same workflows, organized by scenario instead of trigger phrase.
-- Keep both in sync — if a workflow is added, renamed, or removed, update this file and `AI.md` together.
+- Keep both in sync — if a workflow is added, renamed, or removed, update this file and `AI.md` together. For the writing workflows, also update the matching page(s) in `_AI/docs/writing/` and bump their `checked:` date.
 
 ---
 
@@ -24,6 +24,8 @@ Debrief vs. capture-log-note is a judgment call: first-hand material you want fu
 ## Writing a piece
 
 Every piece lives in the same `brief.md` / `guide/` / `output.md` / `assets/` folder (see `_AI/shared/snippets/piece-folder.md`). The brief itself is ad hoc — just ask for help drafting it in chat, no dedicated workflow owns that step.
+
+Full docs — the lifecycle of a piece, a page per workflow, and the concepts they share — start at `_AI/docs/writing/README.md`.
 
 | Workflow | Use when |
 |---|---|
