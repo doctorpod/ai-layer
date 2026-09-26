@@ -16,7 +16,7 @@ A **beat** is one move the section makes (set up, refine, complicate, pivot, ill
 ```
 **Beats** — section 02 Observation (framework; delete once written)
 
-1. [ ] **Set up: the site looks dry** — sloping, well-drained turf across most of the plot.  ← [[South bed shaded by the neighbour's hedge until noon]]
+1. [ ] **Set up: the site looks dry** — sloping, well-drained turf across most of the plot; only the hedge's shade limits the south bed.  ← site observation, [[South bed shaded by the neighbour's hedge until noon]]
 2. [ ] **Complicate: except the north gate** — standing water November to March.  ← [[Wet corner by the north gate floods every winter]]
 3. [ ] **Pivot: water as a resource** — the one reliable water on site; hands on to the design section.  *(connective — no note covers this)*
 

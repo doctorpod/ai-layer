@@ -58,7 +58,7 @@ On a later sync it does the same for files not yet in the log. If nothing new pa
 
 You've written the brief for `projects/hollin-lane/design-doc/parts/client/`, with `Draw from: the hollin-lane knowledge base` and a GOBRADIMET outline. You say "build the guide for the Hollin Lane client part".
 
-There's no `guide/` yet, so it creates `guide/INDEX.md`. It finds three untriaged curated files and triages them one at a time. From `debrief-2026-03-14-site-walk` it lifts the line about the north-gate corner flooding and files it as a new note, `Wet corner by the north gate floods every winter`, under `02 Observation`. A remark about the car park's opening hours fails the relevance filter and is dropped. From the transcript it creates `Fruit for the school kitchen, not a showpiece` under `01 Goals`. Each file gets a line in `triaged.md`.
+There's no `guide/` yet, so it creates `guide/INDEX.md`. It finds two untriaged curated files and triages them one at a time. From `debrief-2026-03-14-site-walk` it lifts the line about the north-gate corner flooding and files it as a new note, `Wet corner by the north gate floods every winter`, under `02 Observation`. A remark about the car park's opening hours fails the relevance filter and is dropped. From the transcript it creates `Fruit for the school kitchen, not a showpiece` under `01 Goals`. Each file gets a line in `triaged.md`.
 
 Weeks later a new debrief records the wet corner staying wet into April. You've already marked the wet-corner note `used`. The next sync appends the new quote, puts the note back to `pending`, and tells you why.
 

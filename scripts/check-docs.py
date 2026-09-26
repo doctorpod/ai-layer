@@ -7,8 +7,9 @@ Usage (from the repo root):
 
 Checks:
     Stale    a page lists a source in its `sources:` frontmatter whose last
-             commit is dated after the page's `checked:` date, or which has
-             uncommitted changes
+             commit is dated after the page's `checked:` date (or on that date
+             but after the page's own last commit), or which has uncommitted
+             changes
     Missing  a page with no `sources:` or `checked:`, a listed source that
              doesn't exist, or an in-scope workflow with no page
     Links    a [[wikilink]] that resolves to no file, or to more than one
@@ -83,6 +84,19 @@ def _rel(path):
     return path.relative_to(REPO_ROOT).as_posix()
 
 
+def _committed_after_page(source, page):
+    """Tiebreak for a source committed on the page's `checked:` date: was it
+    committed after the page itself? An uncommitted or never-committed page is
+    mid-check, so its `checked:` date stands."""
+    page_rel = _rel(page)
+    if _git('status', '--porcelain', '--', page_rel):
+        return False
+    page_time = _git('log', '-1', '--format=%ct', '--', page_rel)
+    if not page_time:
+        return False
+    return int(_git('log', '-1', '--format=%ct', '--', source)) > int(page_time)
+
+
 def check_sources():
     stale, missing = [], []
     for page in _doc_pages():
@@ -99,6 +113,8 @@ def check_sources():
                 stale.append(f'{_rel(page)} — {source} has uncommitted changes')
             elif last_commit > checked:
                 stale.append(f'{_rel(page)} — {source} changed {last_commit}, checked {checked}')
+            elif last_commit == checked and _committed_after_page(source, page):
+                stale.append(f'{_rel(page)} — {source} changed {last_commit} after the page was last committed')
     return stale, missing
 
 

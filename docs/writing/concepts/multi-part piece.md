@@ -25,7 +25,7 @@ projects/hollin-lane/design-doc/
 - Parts can share material by reference. A part's [[piece brief]] can name another part's `guide/` in its `Draw from` field rather than copying the notes across.
 - A piece with only one deliverable stays a plain piece folder at the root. You only need `parts/` when there's more than one.
 
-**Why split a piece?** Different parts are usually gathered in different ways. In the running example, the Hollin Lane client document is built from site-walk and interview sources with [[sync-guide workflow|sync-guide]], while the reflection section comes from your own memory through [[interview workflow|interview]]. Keeping them apart gives each its own brief, [[brief outline|outline]] and guide.
+**Why split a piece?** Different parts are usually gathered in different ways. In the running example, the Hollin Lane client document is built from the site-walk debrief and the client's transcript with [[sync-guide workflow|sync-guide]], while the reflection section comes from your own memory through [[interview workflow|interview]]. Keeping them apart gives each its own brief, [[brief outline|outline]] and guide.
 
 ## Related
 

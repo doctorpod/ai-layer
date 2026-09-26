@@ -29,7 +29,7 @@ One line per `curated/` file: the date and the file, nothing else. A file is eit
 
 ```markdown
 - 2026-09-12 · thread 1 · [[01 choosing the framework]] · closed
-- 2026-09-19 · thread 3 · working with volunteers · dropped
+- 2026-09-12 · thread 3 · working with volunteers · dropped
 ```
 
 One line per thread, ever, written the first time it's closed or dropped. A reopened thread doesn't get a second line. [[interview workflow|interview]] never proposes a logged thread as a new one. See [[interview thread]].

@@ -50,7 +50,7 @@ You say "beats section 02" on the Hollin Lane client part. It reads the three `0
 ```
 **Beats** — section 02 Observation (framework; delete once written)
 
-1. [ ] **Set up: the site looks dry** — …  ← [[South bed shaded by the neighbour's hedge until noon]]
+1. [ ] **Set up: the site looks dry** — …  ← site observation, [[South bed shaded by the neighbour's hedge until noon]]
 2. [ ] **Complicate: except the north gate** — …  ← [[Wet corner by the north gate floods every winter]]
 3. [ ] **Pivot: water as a resource** — …  *(connective — no note covers this)*
 
