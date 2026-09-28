@@ -81,6 +81,40 @@ else
   check "_AI/VALIDATION.md has ## Validation gates" "$r" "Add a '## Validation gates' heading to _AI/VALIDATION.md"
 fi
 
+# RELATED.md (optional)
+# Prints each "- Path:" value, trimmed, unquoted from backticks, with a leading ~ expanded.
+related_paths() {
+  local line p
+  while IFS= read -r line || [ -n "$line" ]; do
+    case "$line" in
+      "- Path:"*) ;;
+      *) continue ;;
+    esac
+    p="${line#- Path:}"
+    p="${p#"${p%%[![:space:]]*}"}"
+    p="${p%"${p##*[![:space:]]}"}"
+    p="${p#\`}"
+    p="${p%\`}"
+    case "$p" in
+      "~"|"~/"*) p="$HOME${p#\~}" ;;
+    esac
+    echo "$p"
+  done < "$1"
+}
+
+if [ -L "_AI/RELATED.md" ] && [ ! -e "_AI/RELATED.md" ]; then
+  check "_AI/RELATED.md symlink resolves" "fail" "Re-point the symlink: ln -sf <vault>/<group folder>/RELATED.md _AI/RELATED.md"
+elif [ -f "_AI/RELATED.md" ]; then
+  check "_AI/RELATED.md readable" "ok" ""
+  while IFS= read -r p; do
+    [ -n "$p" ] || continue
+    [ -e "$p" ] && r="ok" || r="missing"
+    warn "_AI/RELATED.md path resolves: $p" "$r" "Fix the Path: line in RELATED.md, or create the missing location"
+  done <<EOF
+$(related_paths "_AI/RELATED.md")
+EOF
+fi
+
 # AI boot file
 boot_found=""
 boot_wired=""

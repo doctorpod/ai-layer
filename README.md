@@ -68,6 +68,11 @@ Create `_AI/VALIDATION.md` — the commands to run at each validation gate. Use 
 3. `npm test` — full suite, must pass before done
 ```
 
+Optionally, if this repo belongs to a group of related repos with a sister vault, symlink the group's `RELATED.md` from the vault (format in `shared/snippets/related.md`):
+```bash
+ln -s <vault>/<group folder>/RELATED.md _AI/RELATED.md
+```
+
 ---
 
 ## Install — Obsidian vaults
@@ -90,6 +95,8 @@ To block accidental commits of sensitive content, install the pre-commit hook:
 cp _AI/local/scripts/pre-commit-sensitivity-check.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
+
+If the vault is the sister vault for a group of related repos, keep the group's `RELATED.md` in the vault folder for that group (see `shared/snippets/related.md`).
 
 ---
 

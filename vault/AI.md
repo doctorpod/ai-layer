@@ -24,6 +24,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 ## Read & write access
 
 - You may READ any file recursively in the vault
+- A `RELATED.md` inside a vault folder lists the repos and vaults linked to that area (format in `_AI/shared/snippets/related.md`). When working in or near that folder, read it; you may READ the locations it lists, even outside the vault. It grants no write access.
 - Your WRITE access is limited to:
 	- `_AI/chats/`
 	- `_AI/logs/`

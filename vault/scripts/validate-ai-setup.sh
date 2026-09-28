@@ -94,6 +94,39 @@ else
 fi
 check "Pre-commit sensitivity hook installed" "$r" "Run: cp _AI/local/scripts/pre-commit-sensitivity-check.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
 
+# RELATED.md files (optional)
+# Prints each "- Path:" value, trimmed, unquoted from backticks, with a leading ~ expanded.
+related_paths() {
+  local line p
+  while IFS= read -r line || [ -n "$line" ]; do
+    case "$line" in
+      "- Path:"*) ;;
+      *) continue ;;
+    esac
+    p="${line#- Path:}"
+    p="${p#"${p%%[![:space:]]*}"}"
+    p="${p%"${p##*[![:space:]]}"}"
+    p="${p#\`}"
+    p="${p%\`}"
+    case "$p" in
+      "~"|"~/"*) p="$HOME${p#\~}" ;;
+    esac
+    echo "$p"
+  done < "$1"
+}
+
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  while IFS= read -r p; do
+    [ -n "$p" ] || continue
+    [ -e "$p" ] || warn "RELATED.md path resolves — $f: $p" "missing" "Fix the Path: line in $f, or create the missing location"
+  done <<EOF
+$(related_paths "$f")
+EOF
+done <<EOF
+$(find . -name RELATED.md -not -path './_AI/*' -not -path './.git/*')
+EOF
+
 # Verdict
 echo ""
 if [ "$errors" -eq 0 ] && [ "$warnings" -eq 0 ]; then
