@@ -47,11 +47,9 @@ When the user writes an entry:
 2. **Optional deepening.** Ask one or two questions that could make the entry more specific (who, which moment, what it meant). Make clear the entry is fine as it stands. Point out anything that could be a separate entry, or that ties into a bigger thread, without taking over the entry.
 3. **Polish.** Follow the rules in `_AI/local/workflows/polish.md`: fix spelling, punctuation and obvious dictation artifacts only. Don't rephrase, reorder, cut or change word choice. If a missing conjunction or article makes a sentence hard to read, add the smallest word that fixes it. **List every change made**, even small ones.
 4. **Wikilinks.** Suggest a `[[link]]` only when the note already exists in the vault (check first). Say which links were added and offer to remove them.
-5. **Show the result** in a code block as it would appear in the note:
+5. **Show the result** in a code block as it would appear in the note. That means the entry paragraph on its own, with no heading:
 
    ```markdown
-   ## Gratitude
-
    <entry>
    ```
 
@@ -76,12 +74,11 @@ If the template can't be found, ask before creating a bare note.
 
 ### 5b: Append
 
-- If the note has no `## Gratitude` heading, add one at the end of the file with a blank line before it, then a blank line and the entry as a paragraph.
-- If the heading already exists, add the entry as a new paragraph at the end of that section, separated by a blank line and placed before the next heading if there is one.
-- Check the file ends with a newline before appending, so the heading doesn't join onto the last line.
+- Append the entry as a plain paragraph at the end of the file, with a blank line before it. Don't add a `## Gratitude` heading or any other heading. The entry sits in the day's note like any other paragraph.
+- Check the file ends with a newline before appending, so the entry doesn't join onto the last line.
 
 Show the tail of the file to confirm the write, and say where the entry went.
 
 ## Step 6: Continue or close
 
-Offer another prompt or another entry. Later entries in the same session go under the same heading. Don't prompt forever: after an entry is appended, one short offer is enough.
+Offer another prompt or another entry. Later entries in the same session are each appended as their own paragraph. Don't prompt forever: after an entry is appended, one short offer is enough.
