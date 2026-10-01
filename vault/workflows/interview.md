@@ -113,7 +113,7 @@ Ask one question at a time, write it to the note as `## Q<n> (Claude)`, and wait
 *(Dictation duplicated; de-duplicated and lightly polished — punctuation only.)*
 ```
 
-Once saved, an answer is never edited — not to fix a fact, not to tidy a phrase.
+Answers and conclusions are append-only: once saved, never edited or replaced — not to fix a fact, not to tidy a phrase.
 
 **Check the answer against the record.** After each answer, compare its factual claims (dates, who did what, what happened first) with the timeline and the sources behind it. Correct, don't teach: point at the specific dated entry or source line, never just "that's not right", and don't tell the owner what to conclude from it. When the record contradicts an answer, or is silent where the answer is confident, write an `## Evidence check (Claude)` section straight after the answer: what the record shows, each point with its date and source, and anything the record can't confirm said plainly as unconfirmed. The answer stands as given — a wrong memory is part of the record too. A follow-up question can put the evidence to the owner.
 
@@ -164,7 +164,6 @@ A closed thread reopens when the owner comes back to it — a new answer, a corr
 
 - Never drafts prose, and never reads or writes `output.md`.
 - Never tags thread notes `ai-generated`; labels Claude's sections instead.
-- Never edits a saved answer, and never replaces an old conclusion.
 - Never creates `guide/INDEX.md`.
 - Never sets `status` to `used` or `rejected` (the writer's call), and never touches `coverage` (`gap-check`'s field).
 - Doesn't call other workflows. It checks answers the way `readback` does and tidies dictation within `polish`'s limits, but those are its own steps, not handoffs.

@@ -50,12 +50,10 @@ Apply the baseline prompt above, plus these explicit review rules:
 4. **Prefer direct, boring, maintainable code over hacky or magical code.**
    - Treat brittle, ad-hoc, or "magic" behavior as a code-quality problem.
    - Be skeptical of generic mechanisms that hide simple data-shape assumptions.
-   - Flag thin abstractions, identity wrappers, or pass-through helpers that add indirection without buying clarity.
+   - Flag shallow modules and pass-through methods (Ousterhout): indirection that buys no clarity.
 
 5. **Push hard on type and boundary cleanliness when they affect maintainability.**
-   - Question unnecessary optionality, `unknown`, `any`, or cast-heavy code when a clearer type boundary could exist.
-   - Prefer explicit typed models or shared contracts over loosely-shaped ad-hoc objects.
-   - If a branch relies on silent fallback to paper over an unclear invariant, ask whether the boundary should be made explicit instead.
+   - Make illegal states unrepresentable; parse, don't validate. Question optionality, `unknown`, `any`, casts, ad-hoc object shapes, and silent fallbacks that paper over the real invariant.
 
 6. **Keep logic in the canonical layer and reuse existing helpers.**
    - Call out feature logic leaking into shared paths or implementation details leaking through APIs.
@@ -78,7 +76,7 @@ For every meaningful change, ask:
 - Did a previously cohesive module become more coupled, more stateful, or harder to scan?
 - Is this logic living in the right file and layer?
 - Did this change enlarge a file or component past a healthy size boundary?
-- Are there repeated conditionals that signal a missing model or missing helper?
+- Are there repeated switches (Fowler) that signal a missing model or missing helper?
 - Is the implementation direct and legible, or does it rely on special cases and incidental control flow?
 - Is this abstraction actually earning its keep, or is it just a wrapper?
 - Did the diff introduce casts, optionality, or ad-hoc object shapes that obscure the real invariant?
@@ -96,7 +94,6 @@ Escalate findings when you see:
 - One-off booleans, nullable modes, or flags that complicate existing control flow.
 - Feature-specific logic leaking into general-purpose modules.
 - Generic "magic" handling that hides simple structure and makes the code harder to reason about.
-- Thin wrappers or identity abstractions that add indirection without simplifying anything.
 - Unnecessary casts, `any`, `unknown`, or optional params that muddy the real contract.
 - Copy-pasted logic instead of extracted helpers.
 - Narrow edge-case handling implemented in the middle of an already busy function.
@@ -112,18 +109,15 @@ Escalate findings when you see:
 When you identify a code-quality problem, prefer suggestions like:
 
 - Delete a whole layer of indirection rather than polishing it.
-- Reframe the state model so conditionals disappear instead of getting centralized.
 - Change the ownership boundary so the feature becomes a natural extension of an existing abstraction.
 - Turn special-case logic into a simpler default flow with fewer exceptions.
 - Extract a helper or pure function.
 - Split a large file into smaller focused modules.
 - Move feature-specific logic behind a dedicated abstraction.
-- Replace condition chains with a typed model or explicit dispatcher.
+- Replace conditional with polymorphism (Fowler), a typed model, or an explicit dispatcher, so conditionals disappear rather than get centralized.
 - Separate orchestration from business logic.
 - Collapse duplicate branches into a single clearer flow.
-- Delete wrappers that do not meaningfully clarify the API.
 - Reuse the existing canonical helper instead of introducing a near-duplicate.
-- Make type boundaries more explicit so the control flow gets simpler.
 - Move the logic to the package/module/layer that already owns the concept.
 - Parallelize independent work when that also simplifies the orchestration.
 - Restructure related updates into a more atomic flow when partial state would be harder to reason about.

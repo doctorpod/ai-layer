@@ -83,15 +83,9 @@ Because existing pages will now routinely gain a second, third, fourth source, t
 
 ### State the page's point in one sentence
 
-Before creating a page, complete this sentence about it:
+Before creating a page, state its point as a complete-phrase claim — concept-oriented, not source-oriented (Matuschak's evergreen notes). Can't state a claim? You have a topic, not a concept — the material belongs on a page that does make one. Does the claim name a source, a date, or a specific project? Generalise it, title the page after the general claim, and demote the specific detail to `## Evidence` as an instance.
 
-> This page says that ______.
-
-- It must be a **claim** — something that could be true or false.
-- **Can't complete it?** You have a topic or a summary, not a concept. Don't create the page — the material belongs as a section or paragraph on a page that does make a claim.
-- **Does the completed sentence name a source, a date, or a specific project?** The page is tied too tightly to where it came from. Rewrite the sentence as a general claim, create the page under that general title, and demote the specific detail into the body as an instance (see Page format → `## Evidence`).
-
-Example: about to create `Bob Newington's tree advice` — "This page says that Bob Newington advised removing the leylandii." Names a person and an event. Generalise: "This page says that fast-growing conifers crowd out native planting and are usually worth removing." Title it `Conifers and native planting`; Bob's advice becomes one footnoted bullet in the Evidence section.
+Example: about to create `Bob Newington's tree advice` — its claim, "Bob Newington advised removing the leylandii", names a person and an event. Generalise: "Fast-growing conifers crowd out native planting and are usually worth removing." Title it `Conifers and native planting`; Bob's advice becomes one footnoted bullet in the Evidence section.
 
 ### The per-source summary page is a pointer, not an article
 

@@ -15,14 +15,12 @@ If nothing in `inbox/` is relevant, proceed with a chat-based debrief — the us
 
 ## Step 1: Grill relentlessly
 
-Before writing a single word of wiki content, grill the user until you are **95–97% certain** you have the facts right. Follow the approach in `_AI/shared/workflows/grill-me.md`: walk down each branch of the subject, resolving dependencies one-by-one before moving on to the next branch.
+Before writing a single word of wiki content, grill the user until you are **95–97% certain** you have the facts right. Follow the approach in `_AI/shared/workflows/grill-me.md`: work depth-first — fully resolve each branch, including any undefined term, ambiguous term, or unclear context it depends on, before moving to the next.
 
 Rules:
 - Ask one question at a time. Wait for the answer. Resolve it. Then move to the next.
 - For each uncertain claim, offer your best interpretation and ask the user to confirm or correct — don't fire blank questions. Example: *"You mentioned the south wall — do you mean the boundary wall running east–west, or the wall of the building itself?"*
-- Resolve dependencies before moving on: if a claim depends on an undefined term or unclear context, resolve that first.
 - Work through every claim: are the specifics right? Names spelled correctly? Numbers verified? Dates confirmed? Context clear?
-- If a term is ambiguous, resolve it before moving on.
 - If a claim can't be resolved by the user but is externally verifiable (a definition, a public record, a company or place detail — not something only a person or the site itself could confirm), do a web search on the spot and present what you find for the user to confirm or correct. Don't write it into the wiki unconfirmed.
 - If a claim still cannot be resolved (needs checking with a person or on site, or the search comes up empty or unreliable), do not guess — log it as an outstanding question (see Step 2).
 - Do not stop early. If something feels vague, push on it.
