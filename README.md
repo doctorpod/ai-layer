@@ -9,26 +9,63 @@ Inspired by [Matt Pocock](https://www.mattpocock.com) - Thanks Matt!.
 ### Code workflows
 
 Drop the `code/` layer into any coding repo and get:
-- **Grill me** — relentless interrogation that captures decisions into a durable ADR-style record
-- **Create PRP** — synthesizes a complete implementation brief from those captured decisions
+- **Create PRP** — synthesizes a complete implementation brief from decisions captured by Grill me
 - **Execute PRP** — a disciplined implementation pass in a clean context
 - **Review** — a post-implementation check against the brief before raising a PR
+- **QA failure** — log a QA failure against a PRP, diagnose the root cause, and apply a scoped fix
+- **Strict review** — a harsh maintainability review for abstraction quality, giant files, and tangled conditionals
 - **Teach me** — guided learning from the codebase
 
 ### Vault workflows
 
 Drop the `vault/` layer into any Obsidian vault and get:
+
+**Knowledge base**
 - **Ingest** — add new sources to your knowledge base
-- **Lint** — audit KB structure for orphans, broken links, and pending cautions
-- **Connect** — discover cross-KB insights and write bidirectional links
-- **Compose** — draft prose in your own voice
 - **Debrief** — process first-hand notes into wiki pages
+- **Lint** — audit KB structure for orphans, broken links, and pending cautions
+- **Normalise** — find near-duplicate, over-broad, or source-shaped wiki pages and propose merges or splits
+- **Connect** — discover cross-KB insights and write bidirectional links
+- **Link components** — propose wikilinks from internal decision notes to the components they touch
+- **Create summaries** — update a note's Summary section from the notes that reference it
+
+**Writing**
 - **Sync-guide** — build/maintain a piece's guide from its brief and vault sources
+- **Interview** — interview the writer one thread at a time and save verbatim answers into the guide
+- **Elicit** — a one-shot brainstorm of tickler ideas and questions from a section's theme notes
+- **Beats** — lay out a beat sheet from guide notes to draft prose against
 - **Gap-check** — check a draft against its guide (or any reference) and report what's missing
+- **Sanity** — flag contradictions and non-sequiturs in your own writing, without editing it
+- **Polish** — light copy-edit of your own prose: spelling, punctuation, structure only
+- **Scribe** — carry out an inline `% scribe` instruction and write the response back in place
+
+**Tracking and planning**
+- **Capture log note** — file content as a dated log note in the right gig log folder
+- **Minute** — log a logistics or status change and propagate it across radar, questions, wayfinder, and greenhouse
+- **Add to radar** — capture, update, and review ongoing things worth tracking
+- **Wayfinder** — map a too-big project into a destination and small decisions worked through across sessions
+- **State of play** — a full reconciliation sweep across a gig, ending in a digest in `DASHBOARD.md`
+- **Process notes** — propose folder moves and categories for a scope of notes, then apply on confirmation
+
+**Reflection**
+- **Reflect** — surface patterns, observations, and open loops across a scope of notes
+- **Gratitude** — prompts grounded in recent journal notes, with approved entries appended to today's daily note
+- **Post-mortem** — find the root cause of something that went wrong and propose a workflow tweak
+
+**Specialist and housekeeping**
+- **Diploma ready** — check a permaculture design against the Diploma design rubric
 - **Save** — commit with a 12-word summary and log entry
 - **Fetch** — async message passing via dated chat logs
 
-Both contexts also include **Grill me**, **Rubber duck**, and **Validate AI setup** (from `shared/`).
+### Shared workflows
+
+Both contexts also include (from `shared/`):
+- **Grill me** — relentless interrogation that captures decisions into a durable ADR-style record
+- **Rubber duck** — talk a problem through with honest, brief pushback
+- **Readback** — check your own explanation against the evidence until it's right
+- **Greenhouse** — park early-stage ideas for later review
+- **Handoff** / **Resume** — save a conversation's state and pick it up in a later session
+- **Validate AI setup** — check the AI layer is correctly installed
 
 ---
 
