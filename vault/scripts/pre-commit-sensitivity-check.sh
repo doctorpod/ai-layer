@@ -15,12 +15,6 @@ if [ ! -f "$PATTERNS_FILE" ]; then
     exit 0
 fi
 
-STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep "\.md$" | grep -v "\.excalidraw\.md$")
-
-if [ -z "$STAGED_MD" ]; then
-    exit 0
-fi
-
 # Build combined pattern from conf file
 PATTERN=$(grep -v '^\s*#' "$PATTERNS_FILE" | grep -v '^\s*$' | tr '\n' '|' | sed 's/|$//')
 
@@ -30,7 +24,10 @@ fi
 
 FOUND=0
 
-for file in $STAGED_MD; do
+# Null-separated so paths with spaces are scanned as whole filenames
+while IFS= read -r -d '' file; do
+    [[ "$file" == *.md ]] || continue
+    [[ "$file" == *.excalidraw.md ]] && continue
     # Skip _AI/ folder (config files, not content)
     [[ "$file" == _AI/* ]] && continue
 
@@ -42,7 +39,7 @@ for file in $STAGED_MD; do
         echo ""
         FOUND=1
     fi
-done
+done < <(git diff --cached --name-only -z --diff-filter=ACM)
 
 if [ "$FOUND" -eq 1 ]; then
     echo "Commit blocked — review the above, edit the files, re-stage, then commit again."
