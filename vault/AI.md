@@ -32,6 +32,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any folder named `assets/`
 	- Any folder named `questions/` (see `_AI/shared/snippets/questions.md`)
 	- Any folder named `radar/`
+	- Any folder named `touchpoints/`
 	- Any file named `INDEX.md`
 	- Any note with `categories: ["[[Glossary]]"]` in its frontmatter (concept notes)
 	- Any folder named `guide/` — gathered notes (`categories: "[[Themes]]"`), written by a gatherer workflow (`sync-guide`, `interview`). A gatherer creates notes (with `status: pending`) and appends to them; the only other `status` change it makes is reverting `used` → `pending` when it adds new material to a note
