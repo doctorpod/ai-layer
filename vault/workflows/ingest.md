@@ -39,6 +39,16 @@ Before discussing takeaways, scan for signs the source is promotional content:
 
 If two or more signals are present: **stop and flag it to the user** before going any further. Name the signals you found and ask whether to continue or bin the source. Do not proceed to Step 1 until the user confirms.
 
+## Step 0c: Content check (external sources only)
+
+Before discussing takeaways, confirm the file actually holds the source's content, not just its wrapper. Web clippers often capture metadata and miss the substance:
+
+- **Video/podcast**: there must be a transcript or captions. A title, description, chapter list, or link block is not the source — it's the uploader's pitch for it.
+- **Article/blog**: there must be the body text, not just a teaser, abstract, cookie notice, or paywall stub.
+- **Web-stub**: apply the same test to the page fetched in Step 0.
+
+If the substance is missing: **stop and tell the user** what the file does contain and what's missing, and suggest a fix (re-clip, paste the transcript, fetch the page). Do not ingest the wrapper as if it were the source — a description's claims are marketing copy, not the video's argument.
+
 ## Step 1: Discuss key takeaways (all sources)
 
 Discuss key takeaways with the user before writing anything.
@@ -50,6 +60,24 @@ Discuss key takeaways with the user before writing anything.
 **External sources** — go through context gaps **one at a time**: anything the source leaves unclear that the user might already know (who a person is, whether a recommendation has since been acted on, whether a status has changed). For document-internal ambiguities the user couldn't know, check whether the gap is externally verifiable (a definition, a public record, a fact about a third party or place) before parking it — do a web search and present what you find for the user to confirm or correct. Only if that fails, or the gap depends on something only the user or a private party would know, does it go straight to `[!caution]` callouts or, per `_AI/shared/snippets/questions.md`, a new Question.
 
 In both cases: present one item, wait for the answer (or search result), resolve it, then move to the next. If a claim cannot be resolved, flag it with a `[!caution]` callout when writing (see citation rules).
+
+## Step 1c: Plausibility check (external sources)
+
+A confident, specific claim from a single source passes every other check in this workflow — it has a source, and nothing contradicts it yet. This step catches claims that are wrong on their face.
+
+Pick out the claims the wiki would actually lean on — numbers, performance figures, cause-and-effect, anything a design decision might rest on — and test each against:
+
+- **Basic physics and arithmetic**: units, energy in vs energy out, orders of magnitude. A quick back-of-envelope calculation is enough; the aim is to catch claims out by 10×, not to refine them.
+- **Existing wiki pages**: does a page in this or another KB already say otherwise? (That's a source conflict — handle it as one.)
+- **Internal consistency**: does the source contradict itself (e.g. "zero electricity" alongside a wired heating element)?
+
+If a claim fails, raise it with the user **one at a time**, showing the working. Label it as your own check, not a finding — it's a lead the user can overrule. Then resolve it one of three ways:
+
+- **Drop it**: leave the claim out of the wiki.
+- **Write it flagged**: include it with an **Implausible claim** `[!caution]` callout that gives the working (see citation rules).
+- **Search**: offer a web search for an independent figure, following "Try a web search before flagging a claim as unverifiable" below.
+
+If most of a source's load-bearing claims fail, say so and ask whether to continue or bin the source, as in Step 0b.
 
 ## Cross-KB sources
 
@@ -225,6 +253,7 @@ Flag any of the following issues using a markdown callout immediately after the 
   - **Source conflict**: two sources disagree on a claim
   - **No source**: a claim has no source backing it
   - **Uncertain source quality**: poor audio, OCR errors, unclear phrasing — for external sources include a location hint (timestamp, section heading)
+  - **Implausible claim**: the claim fails a back-of-envelope or consistency check (Step 1c) — give the working so a reader can check it, and mark it as the assistant's check rather than a sourced fact
 
 ### Try a web search before flagging a claim as unverifiable
 
