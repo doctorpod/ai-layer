@@ -32,7 +32,7 @@ Two rules about this list itself:
 
 8. **Fix what you find, not just what you touched** — When a workflow surfaces a pre-existing problem, resolve it in the same pass. Don't gate old findings behind a "was this in scope?" check.
 
-9. **Keep the planning layer out of the product** — `_AI/` is a planning workspace. Nothing in shipped code, commits, or output ever references `_AI/` paths, PRP files, or workflow names. A rationale worth keeping gets restated on its own terms.
+9. **Keep the planning layer out of the product** — `_AI/` is a planning workspace. Nothing in shipped code, commits, or output ever references `_AI/` paths, plan or slice files, or workflow names. A rationale worth keeping gets restated on its own terms.
 
 10. **Shape output for the reader** *(personal #10)* — Reports are brief and structured. Long or complex output is the workflow's problem to make accessible, not the reader's to wade through.
 

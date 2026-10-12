@@ -29,6 +29,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- `_AI/chats/`
 	- `_AI/logs/`
 	- Any folder named `wiki/`
+	- Any folder named `delivery/work/` — not `delivery/tickets/` or `delivery/templates/`
 	- Any folder named `assets/`
 	- Any folder named `questions/` (see `_AI/shared/snippets/questions.md`)
 	- Any folder named `radar/`

@@ -5,7 +5,7 @@ sources:
   - vault/scripts/write-coverage.py
   - shared/snippets/piece-folder.md
   - docs/PATTERNS.md
-checked: 2026-09-26
+checked: 2026-10-12
 ---
 
 # coverage verdict

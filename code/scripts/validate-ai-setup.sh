@@ -51,8 +51,21 @@ check "_AI/shared/ exists" "$r" "Run: bash ~/Dev/ai-layer/scripts/install-target
 [ -d "_AI/docs" ] && r="ok" || r="fail"
 check "_AI/docs/ exists" "$r" "Run: bash ~/Dev/ai-layer/scripts/install-target.sh --code"
 
-[ -d "_AI/PRPs" ] && r="ok" || r="fail"
-check "_AI/PRPs/ directory exists" "$r" "Run: mkdir -p _AI/PRPs"
+# Work folders: _AI/delivery is a symlink into the vault, or a real folder
+if [ -L "_AI/delivery" ] && [ ! -e "_AI/delivery" ]; then
+  check "_AI/delivery symlink resolves" "fail" "Re-point: ln -sfn <vault>/<gig or project>/delivery _AI/delivery"
+fi
+
+[ -d "_AI/delivery/work" ] && r="ok" || r="fail"
+check "_AI/delivery/work/ exists" "$r" "Link _AI/delivery to <vault>/<gig or project>/delivery, or create the folder — see the setup in _AI/local/README.md"
+
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  git check-ignore -q "_AI/delivery" && r="ok" || r="fail"
+  check "_AI/delivery is gitignored" "$r" "Add _AI/ (or _AI/delivery) to .gitignore"
+fi
+
+[ -e "_AI/PRPs" ] && r="missing" || r="ok"
+warn "No legacy _AI/PRPs/" "$r" "Legacy _AI/PRPs/ found — move in-flight work into _AI/delivery/work/ and remove it"
 
 # CODEX.md (optional)
 [ -f "_AI/CODEX.md" ] && r="ok" || r="missing"

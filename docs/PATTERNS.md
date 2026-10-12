@@ -64,7 +64,7 @@ Each entry gives the **shape**, **why it works**, its **concrete forms** (the fi
 
 **Concrete forms**
 - The files that link the tools: the brief, the gathered material in `guide/` (see Gatherer above), and `triaged.md`.
-- **The boundary.** Writing and thinking are a toolbox: `beats`, `polish`, `sanity`, `scribe` and `gap-check` can be used in any order. Delivering code is a pipeline on purpose: `create-prp` → `execute-prp` → `review`, because each stage's output is the next stage's required input.
+- **The boundary.** Writing and thinking are a toolbox: `beats`, `polish`, `sanity`, `scribe` and `gap-check` can be used in any order. Delivering code is a pipeline on purpose: `create-plan` → `execute-plan` → `review`, because each stage's output is the next stage's required input.
 - **The caveat.** Because the order lives with the writer, a fresh session doesn't know "what's next" for the whole piece. Log inputs, derive the rest answers this for a single gatherer (open threads, triaged files), not for the piece as a whole.
 
 **Where it's used** — The vault's writing workflows. A new gatherer (`interview`) was added without `beats` or `gap-check` changing, because the contract in `guide/` is the only link between them.

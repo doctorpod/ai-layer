@@ -21,7 +21,7 @@ Browse these on demand, read-only unless asked.
 ## notes-work
 - Kind: vault
 - Path: `~/Obsidian/notes-work/gigs/2026-02-CCS/`
-- Role: gig notes, repo overviews, PRPs, PR write-ups
+- Role: gig notes, repo overviews, work folders
 - Look here when: you need the why behind a decision or anything discussed but not in code.
 ```
 

@@ -23,7 +23,7 @@ Freeform markdown — this folder is for early-stage thinking, not durable decis
 - Filename: kebab-case slug, descriptive, no date prefix (e.g. `default-stroke-width.md`)
 - A title heading, optionally prefixed (`# Backlog: <title>`, `# Parked: <title>`, or just `# <title>`)
 - A body explaining what the idea is, written so it can be picked up cold with no memory of the conversation it came from. Common headers seen in practice: "What / What it should do", "Why parked / Deferred because" — none of this is enforced, use what fits.
-- If the idea has a clear origin (a review, a commandment, a post-mortem, a PRP that ran out of scope for it), reference it inline so the source isn't lost.
+- If the idea has a clear origin (a review, a commandment, a post-mortem, a plan that ran out of scope for it), reference it inline so the source isn't lost.
 
 ## Mode: Capture
 
@@ -39,7 +39,7 @@ Use when the user asks to review the greenhouse, or as a closing step of a broad
 
 1. Read all entries in `_greenhouse/`.
 2. Summarize in chat: title + one-line gist per entry. Flag any that look resolved by since-completed work, or stale enough to be worth pruning.
-3. Invite the user to resolve, prune, or promote (e.g. into a PRP) any item.
+3. Invite the user to resolve, prune, or promote (e.g. into a plan) any item.
 
 ## Mode: Resolve
 
@@ -47,6 +47,6 @@ Use when a greenhouse idea has actually been acted on.
 
 1. Prepend a blockquote at the top of the file noting what resolved it:
    ```
-   > **Resolved** by <PRP name, commit, or decision>.
+   > **Resolved** by <plan or slice name, commit, or decision>.
    ```
 2. Leave the file in place — resolved entries stay as a record. Don't delete or archive them.

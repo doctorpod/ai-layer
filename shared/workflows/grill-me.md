@@ -12,6 +12,12 @@ Relentlessly interview me about every aspect of this plan, one question at a tim
 - For each question, give your recommended answer.
 - If a question can be answered by exploring the project files, explore them instead of asking.
 
+## In a code project: start from the work folder
+
+Before the first question, resolve the work folder (see **Work folders** in `_AI/local/AI.md`). If none matches, the user can name a new key instead; that folder is created lazily, on the first qualifying decision.
+
+If the folder exists, read its `init.md`, and the ticket via the wikilink rule when init has `ticket:`. Grill on the gaps between them — what the ticket and the owner's framing leave unsaid or leave in tension.
+
 ## Lazy capture
 
 Do not create any files until a qualifying decision emerges — keep the session lightweight.
@@ -23,13 +29,13 @@ A decision qualifies if it is:
 - Surprising without context, or
 - A genuine trade-off between named alternatives
 
-Minor calls and settled choices do not qualify — they flow into the eventual PRP instead.
+Minor calls and settled choices do not qualify — they flow into the eventual plan instead.
 
 ### On the first qualifying decision
 
-1. Ask the user for a **kebab-case slug** for this work (e.g. `add-invoice-total`). In a code project this slug becomes the ticket name that `create-prp` will use.
+1. Ask the user for a **kebab-case slug** for this work (e.g. `add-invoice-total`). In a code project, skip this if the work folder is already resolved; otherwise ask for the key (a ticket ID or a slug), which becomes the work folder's name.
 2. Create the topic folder:
-   - Code project → `_AI/PRPs/<slug>/`
+   - Code project → `_AI/delivery/work/<key>/`, unless it already exists
    - Vault → `_AI/chats/<slug>/`
 3. Announce that capture has started.
 4. Append the decision to `DECISIONS.md` in the topic folder (creating the file if new):
@@ -64,14 +70,16 @@ The note's filename is the canonical term name: lowercase with spaces for normal
 
 1. Search the project for existing `GLOSSARY.md` files.
 2. Ask the user which to use:
-   - An existing `GLOSSARY.md` (show the paths found)
-   - A new one created in the topic folder
+   - The work folder's `GLOSSARY.md` (recommended)
+   - An existing `GLOSSARY.md` elsewhere (show the paths found)
    - None
 3. Record the choice as a pointer at the **top** of `DECISIONS.md` (before any `##` entries):
-   - `Glossary: ../../GLOSSARY.md` (relative path to the chosen file), or
-   - `Glossary: ./GLOSSARY.md` (new file in topic folder), or
+   - `Glossary: ./GLOSSARY.md` (the work folder's), or
+   - `Glossary: docs/GLOSSARY.md` (path to the chosen file from the repo root), or
    - `Glossary: none`
 4. Police terms live from that point: flag conflicts with the chosen glossary, propose canonical terms, keep entries terms-only (no implementation detail). Create `GLOSSARY.md` lazily — only when a real term is ready to record.
+
+Durable terms are promoted to vault concept notes at close-out, not during the session.
 
 ### Parking unresolved items
 
@@ -87,8 +95,8 @@ If the session ends with no durable decision, write nothing. The interview's val
 
 ## After the session
 
-Capture is self-justifying — the decision record has value as permanent history, independent of what follows. Do **not** imply that a PRP must come next.
+Capture is self-justifying — the decision record has value as permanent history, independent of what follows. Do **not** imply that a plan must come next.
 
 Only if you are in a **code project** and the user signals an intent to build, mention:
 
-> `create-prp` can optionally synthesize a PRP from these captured files when you're ready to implement.
+> `create-plan` can optionally synthesize a plan and its slices from these captured files when you're ready to implement.

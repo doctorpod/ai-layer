@@ -14,7 +14,7 @@ Have the user write, unprompted, what they believe is true about a specific thin
 ## Before you start
 
 - Ground yourself in the real evidence for the thing being explained before the user writes anything:
-  - In a code project with a PRP just executed: read `git diff main...HEAD` and the PRP's `prp.md` (goal + success criteria).
+  - In a code project with a slice just executed: read `git diff main...HEAD`, the slice's goal and success criteria, and the work folder's `plan.md`.
   - Otherwise: use whatever is already in context — the files, discussion, or work the user is pointing at.
 - If grounding requires exploring files not yet in context, explore them silently rather than asking the user to supply them.
 
@@ -24,7 +24,7 @@ Have the user write, unprompted, what they believe is true about a specific thin
 - Compare their paragraph against the evidence, then respond with:
   - A brief verdict on how close they are, in plain language ("mostly right", "close but missing X") — not a score.
   - A list of specific misunderstandings or gaps, each grounded in a file/line or concrete fact, not just "you're wrong."
-- If their paragraph exposes a real mismatch between the evidence and its own stated intent (e.g. the code doesn't actually do what the PRP says), rather than a misunderstanding on their part, flag that explicitly as a likely code/PRP issue — distinct from a correction — instead of steering them to match their belief to something that looks wrong.
+- If their paragraph exposes a real mismatch between the evidence and its own stated intent (e.g. the code doesn't actually do what the slice says), rather than a misunderstanding on their part, flag that explicitly as a likely code/plan issue — distinct from a correction — instead of steering them to match their belief to something that looks wrong.
 - The user revises and resubmits; repeat.
 
 ## When to stop

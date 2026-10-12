@@ -9,12 +9,14 @@ Inspired by [Matt Pocock](https://www.mattpocock.com) - Thanks Matt!.
 ### Code workflows
 
 Drop the `code/` layer into any coding repo and get:
-- **Create PRP** — synthesizes a complete implementation brief from decisions captured by Grill me
-- **Execute PRP** — a disciplined implementation pass in a clean context
-- **Review** — a post-implementation check against the brief before raising a PR
-- **QA failure** — log a QA failure against a PRP, diagnose the root cause, and apply a scoped fix
+- **Create plan** — synthesizes a plan and its slices (one per PR) from decisions captured by Grill me
+- **Execute plan** — a disciplined implementation pass over one slice in a clean context
+- **Review** — a post-implementation check against the slice before raising its PR
+- **QA failure** — log a QA failure against a work folder, diagnose the root cause, and deliver the fix as a new slice
 - **Strict review** — a harsh maintainability review for abstraction quality, giant files, and tangled conditionals
 - **Teach me** — guided learning from the codebase
+
+How a change flows from ticket to merged PRs: [`code/README.md`](code/README.md).
 
 ### Vault workflows
 
@@ -82,9 +84,14 @@ Design-time documentation for people writing workflows lives in [`docs/`](docs/)
 Run from the root of your coding repo:
 
 ```bash
-mkdir -p _AI/PRPs
 bash ~/Dev/ai-layer/scripts/install-target.sh --code
 ```
+
+Set up `_AI/delivery`, where the work folders live — a symlink into your vault, or a real folder for a repo with no vault home:
+```bash
+ln -s <vault>/<gig or project>/delivery _AI/delivery   # or: mkdir -p _AI/delivery/work
+```
+Gitignore `_AI/`, and add the vault folder to `additionalDirectories` in `.claude/settings.local.json`. Full setup: [`code/README.md`](code/README.md).
 
 > **Symlink vs copy:** The symlinks mean all your repos share one layer — updates propagate instantly. That's ideal for personal use. For shared team repos, copy the folders instead or use a git submodule.
 
@@ -153,8 +160,8 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/rubber-duck` | `_AI/shared/workflows/rubber-duck.md` |
 | `/readback` | `_AI/shared/workflows/readback.md` |
 | `/validate-ai-setup` | `_AI/shared/workflows/validate-ai-setup.md` |
-| `/create-prp` | `_AI/local/workflows/create-prp.md` |
-| `/execute-prp` | `_AI/local/workflows/execute-prp.md` |
+| `/create-plan` | `_AI/local/workflows/create-plan.md` |
+| `/execute-plan` | `_AI/local/workflows/execute-plan.md` |
 | `/review` | `_AI/local/workflows/review.md` |
 | `/teach-me` | `_AI/local/workflows/teach-me.md` |
 | `/ingest` | `_AI/local/workflows/ingest.md` |

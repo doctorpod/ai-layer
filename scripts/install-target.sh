@@ -61,7 +61,8 @@ echo "     See \`_AI/local/AI.md\` for project context and available workflows."
 if [[ "$CONTEXT" == "code" ]]; then
   echo "  2. Create _AI/OVERVIEW.md — project description, architecture, key files, anti-patterns."
   echo "  3. Create _AI/VALIDATION.md — commands to run at each validation gate."
-  echo "  4. Optionally create _AI/CODEX.md — personal coding preferences."
+  echo "  4. Set up _AI/delivery — a symlink into your vault or a gitignored folder (see code/README.md)."
+  echo "  5. Optionally create _AI/CODEX.md — personal coding preferences."
 else
   echo "  2. Create _AI/GOALS.md — vault purpose and focus areas."
 fi

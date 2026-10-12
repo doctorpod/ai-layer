@@ -6,24 +6,54 @@ Also read `_AI/RELATED.md` if it exists — it lists the related repos and siste
 
 ## Never leak `_AI/` into shipped code
 
-`_AI/` is a planning workspace invisible to the shipped codebase — it does not ship, and nothing in it should ever be referenced from something that does. When writing or editing code, comments, docstrings, commit messages, or strings, never reference `_AI/` paths, PRP files, workflow names (e.g. `execute-prp`, `grill-me`), or these instructions. If a rationale from a PRP or `_AI/OVERVIEW.md` is worth preserving in code, restate it in the comment on its own terms — don't cite the source file.
+`_AI/` is a planning workspace invisible to the shipped codebase — it does not ship, and nothing in it should ever be referenced from something that does. When writing or editing code, comments, docstrings, commit messages, or strings, never reference `_AI/` paths, plan or slice files, workflow names (e.g. `execute-plan`, `grill-me`), or these instructions. If a rationale from a plan, a slice or `_AI/OVERVIEW.md` is worth preserving in code, restate it in the comment on its own terms — don't cite the source file.
 
 ## Workflow principles
 
 When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
 
+## Work folders
+
+Everything about delivering one ticket or change lives in a **work folder**, `_AI/delivery/work/<key>/`:
+
+```
+_AI/delivery/
+  work/
+    <key>/
+      init.md          ← the owner's framing; with no ticket, the request itself
+      DECISIONS.md     ← captured by grill-me
+      QUESTIONS.md     ← parking lot
+      GLOSSARY.md      ← optional
+      QA-FAILURES.md   ← when needed
+      plan.md          ← what holds for the whole ticket, plus the slice list
+      slices/
+        01 <name>.md   ← one per PR: checklist, then its own blueprint
+  tickets/             ← optional: ticket snapshots
+  templates/           ← optional: slice.md overriding the default
+```
+
+- **`_AI/delivery`** is a symlink into the vault (`<vault>/<gig or project>/delivery`) or, for a repo with no vault home, a real gitignored folder. Both are equally valid.
+- **Key resolution.** The key is the work folder's name: a ticket ID or a plain slug. Find it in this order:
+  1. A key given as an argument.
+  2. Otherwise, split the current branch name on `/` and match the segments case-insensitively against the folder names in `_AI/delivery/work/`. Use it if exactly one folder matches.
+  3. Otherwise, list the folders and ask.
+- **Wikilink rule.** A `[[X]]` in a work folder that names a ticket resolves to `_AI/delivery/tickets/X.md`. Don't resolve any other wikilink on your own.
+- **Slice template.** Use `_AI/delivery/templates/slice.md` if it exists, else `_AI/local/templates/slice.md`.
+- **Slice state** runs `planned → in progress → PR open → merged`. Workflows only ever set `planned` (when creating a slice) and `in progress` (when implementing one: `execute-plan`, or `qa-failure` for a fix slice); the rest is the owner's, through the slice's checklist.
+- **If `_AI/delivery/work/` doesn't exist**, stop and point the user to the setup in `_AI/local/README.md` (and `validate-ai-setup`). There is no fallback location.
+
 ## Workflows
 
 Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflows/` (shared). When the user's request matches a trigger below, read and follow the corresponding workflow file.
 
-> **Fresh context warning:** before starting any workflow marked ⚠️, check whether this session already contains PRP creation work or implementation work. If it does, stop and tell the user to start a new session before proceeding.
+> **Fresh context warning:** before starting any workflow marked ⚠️, check whether this session already contains plan creation work or implementation work. If it does, stop and tell the user to start a new session before proceeding.
 
 | Trigger | Workflow |
 |---|---|
-| "create a PRP", "plan [ticket]", "write a PRP" | `_AI/local/workflows/create-prp.md` — synthesizes `prp.md` from captured decisions; no interview |
-| "execute PRP", "implement PRP", "run PRP" | `_AI/local/workflows/execute-prp.md` ⚠️ fresh context required |
-| "review", "post-execution review", "check the implementation" | `_AI/local/workflows/review.md` ⚠️ fresh context required |
-| "QA failure", "log a QA failure", "QA report", "this failed QA" | `_AI/local/workflows/qa-failure.md` ⚠️ fresh context required — record the failure against the PRP and apply a scoped fix |
+| "create a plan", "plan [ticket]", "write a plan" | `_AI/local/workflows/create-plan.md` — synthesizes `plan.md` and its slices from captured decisions; no interview |
+| "execute plan", "implement slice", "execute slice" | `_AI/local/workflows/execute-plan.md` ⚠️ fresh context required — implements one slice |
+| "review", "post-execution review", "check the implementation" | `_AI/local/workflows/review.md` ⚠️ fresh context required — checks a slice's implementation before its PR |
+| "QA failure", "log a QA failure", "QA report", "this failed QA" | `_AI/local/workflows/qa-failure.md` ⚠️ fresh context required — log the failure in the work folder and deliver the fix as a new slice |
 | "grill me", "interview me", "question me about" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "readback", "let me read this back to you", "check my understanding of" | `_AI/shared/workflows/readback.md` — you explain something in your own words; corrected against the real evidence until it's accurate |
 | "teach me", "teach me on how this works", "help me learn" | `_AI/local/workflows/teach-me.md` |
