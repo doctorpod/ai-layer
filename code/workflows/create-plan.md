@@ -84,7 +84,7 @@ The approved slice list, in order. One line each: `NN name` — repo — depends
 
 For each approved slice, create `slices/NN name.md` in the work folder, numbered from `01` in the approved order.
 
-Start from the slice template (see **Work folders** in `_AI/local/AI.md`). Copy it as-is and fill its frontmatter: `repo`, `depends-on` (the names of the slices it depends on, empty if none), `state: planned`, `link` left empty. Everything above the template's horizontal rule comes from the template.
+Start from the slice template (see **Work folders** in `_AI/local/AI.md`). Copy it as-is and fill its frontmatter: `repo`, `depends-on` (the names of the slices it depends on, empty if none), `state: planned`, `link` left empty, `plan` a quoted wikilink to the plan, path-qualified because every work folder has a `plan.md`: `plan: "[[work/<key>/plan|plan]]"`. Everything above the template's horizontal rule comes from the template.
 
 Below the rule, write the slice's blueprint:
 

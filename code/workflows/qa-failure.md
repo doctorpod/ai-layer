@@ -44,7 +44,7 @@ Present the hypothesis and the intended fix to the user before changing anything
 
 ### 5. Write the fix slice
 
-Create `slices/NN fix-<thing>.md` in the work folder, using the next free number. Start from the slice template (see **Work folders** in `_AI/local/AI.md`) and fill its frontmatter: `repo`, `depends-on` (the implicated slice, if any), `state: planned`, `link` left empty.
+Create `slices/NN fix-<thing>.md` in the work folder, using the next free number. Start from the slice template (see **Work folders** in `_AI/local/AI.md`) and fill its frontmatter: `repo`, `depends-on` (the implicated slice, if any), `state: planned`, `link` left empty, `plan` as `create-plan` sets it: `plan: "[[work/<key>/plan|plan]]"`.
 
 Below the template's horizontal rule, write the fix's blueprint under `## Blueprint`, in the same shape `create-plan` uses: goal; success criteria (resolving the captured failure); implementation steps, scoped to the confirmed diagnosis; validation gates from `_AI/VALIDATION.md`.
 
