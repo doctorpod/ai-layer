@@ -1,0 +1,7 @@
+# Machine-level settings for the AI layer: values specific to this machine
+# that shouldn't be committed. Copy this file to shared/config.yml (git-ignored)
+# and fill it in. Workflows read it at _AI/shared/config.yml.
+# Project-specific settings belong in the project's _AI/OVERVIEW.md, not here.
+
+# Full path to the owner's vocation compass note. Read by the compass workflow.
+compass_file: ~/path/to/Compass.md

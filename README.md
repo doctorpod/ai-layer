@@ -144,6 +144,18 @@ If the vault is the sister vault for a group of related repos, keep the group's 
 
 ---
 
+## Machine config (once per machine)
+
+Some workflows need values specific to this machine, such as paths to notes outside the current vault. Copy the example and fill it in:
+
+```bash
+cp ~/Dev/ai-layer/shared/config.example.yml ~/Dev/ai-layer/shared/config.yml
+```
+
+`shared/config.yml` is git-ignored. Every install sees it at `_AI/shared/config.yml`. A workflow that needs a value that isn't set stops and asks; it never guesses.
+
+---
+
 ## Claude Code users — native skills (optional)
 
 Instead of relying on trigger phrase matching, install native slash commands that delegate to the workflows:

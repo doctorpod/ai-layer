@@ -127,6 +127,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time |
+| "compass check this", "compass check", "check this against my compass", "towards or away?" | `_AI/local/workflows/compass.md` — diagnostic: checks an idea, offer or commitment against the owner's vocation compass (towards or away, and which part is theirs); also run as a one-line quick check by greenhouse capture and wayfinder chart |
 | "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
 | "handoff" | `_AI/shared/workflows/handoff.md` — save a handoff document so this conversation can be resumed later |

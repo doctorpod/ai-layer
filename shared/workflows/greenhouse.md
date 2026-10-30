@@ -31,7 +31,8 @@ Use when an idea comes up that's worth keeping but not worth acting on right now
 
 1. **Scan first** — check `_greenhouse/` for a close match. If one exists, offer to fold this into it instead of creating a duplicate.
 2. **Write the idea in your own words** — enough context that future-you, cold, can understand what it is and why it was parked.
-3. **Confirm** — tell the user the filename and one-line summary.
+3. **Compass check (if `_AI/local/workflows/compass.md` exists)** — run its quick check against the idea, show the one line, and add it to the entry as `**Compass:** …`.
+4. **Confirm** — tell the user the filename and one-line summary.
 
 ## Mode: Review
 

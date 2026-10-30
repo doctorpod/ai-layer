@@ -61,9 +61,10 @@ Use the first time a project is mapped — no `map.md` exists yet for it.
 
 1. **Scan first** — check `_wayfinder/` for a close match, and check whether an existing project folder for this subject already exists elsewhere (e.g. under `projects/`). If a matching wayfinder map exists, offer to add to it instead of starting a new one. If no map exists yet but a project folder does, place the new map inside that project folder (see Scope) rather than at the vault root.
 2. **Name the destination.** This is the first act, before any waypoint exists. Use `grill-me` rules: one question at a time, offer a best-guess answer, ask the user to confirm or correct. Keep going until the destination is a single concrete sentence with a clear boundary (what's in, what's explicitly not).
-3. **Surface the waypoints.** Same grilling approach: work out what's actually unknown or blocking — decisions, missing information, people to contact, things to research. Each becomes one waypoint: a short title, a one-line question it needs to answer, HITL/AFK classification, and any blocking dependency.
-4. **Write `map.md`.** Destination, empty "Decisions so far", waypoints sorted into Open/Blocked/Resolved (Resolved starts empty). Set `aliases:` to the slug with hyphens replaced by spaces (e.g. `chimney-water-ingress` → `chimney water ingress`), so the map can be wikilinked in plain English from journal entries and project notes.
-5. **Confirm** — tell the user the file path and read back the frontier (the open, unblocked waypoints) — that's what's actionable next.
+3. **Compass check.** Run the quick check in `_AI/local/workflows/compass.md` against the destination. Show the one line, and include it in the map (step 5) just under the Destination as `**Compass:** …`.
+4. **Surface the waypoints.** Same grilling approach: work out what's actually unknown or blocking — decisions, missing information, people to contact, things to research. Each becomes one waypoint: a short title, a one-line question it needs to answer, HITL/AFK classification, and any blocking dependency.
+5. **Write `map.md`.** Destination, empty "Decisions so far", waypoints sorted into Open/Blocked/Resolved (Resolved starts empty). Set `aliases:` to the slug with hyphens replaced by spaces (e.g. `chimney-water-ingress` → `chimney water ingress`), so the map can be wikilinked in plain English from journal entries and project notes.
+6. **Confirm** — tell the user the file path and read back the frontier (the open, unblocked waypoints) — that's what's actionable next.
 
 ## Mode: Work the frontier
 

@@ -54,6 +54,7 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 | **Add to radar** | A situation worth watching — no action implied, just awareness. |
 | **Greenhouse** | A concrete idea you like and want to do — deliberately not now. |
 | **Wayfinder** | A project too woolly or too big to just start — unknown order, several open decisions, more than one session. Maps it into a destination plus small decisions (waypoints) you resolve one at a time. Distinct from radar (watch, no action), greenhouse (understood, parked), and post-mortem (already went wrong). |
+| **Compass** | Is this idea, offer or commitment *towards* or *away* from my vocation? Checks it line by line against my compass (in the personal vault) and names which part of it is mine. Greenhouse and wayfinder run a one-line version automatically. |
 | **Post-mortem** | Something went wrong; investigate why and propose a specific fix. (Greenhouse is one *possible outcome* of a post-mortem, not a substitute for it.) |
 
 ---
