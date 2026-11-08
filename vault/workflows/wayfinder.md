@@ -75,7 +75,7 @@ Use the first time a project is mapped — no `map.md` exists yet for it.
 Use when a `map.md` already exists and the user wants to keep moving (triggers: "next waypoint", "work the wayfinder", "wayfinder this" naming an existing project).
 
 1. Read the map. List the frontier — open, unblocked waypoints.
-2. Take one waypoint at a time, in conversation:
+2. Take one waypoint at a time, in conversation. When work on an Open waypoint begins (this session or outside it), add `Started YYYY-MM-DD` to its line if it isn't already there; the frontier page uses it to tell started from could-start:
    - **HITL** — grill it out (`grill-me` rules) until it's actually resolved, not just discussed. Don't manufacture a decision on the user's behalf.
    - **AFK** — offer to research it now (WebSearch, past notes) or flag it for later; do the research and report findings.
 3. **On resolution** — move the waypoint to Resolved with the outcome and date, append a line to "Decisions so far", update the `updated:` frontmatter, and check whether any Blocked waypoint is now unblocked (move it to Open if so).

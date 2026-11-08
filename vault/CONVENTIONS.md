@@ -30,3 +30,7 @@ A Question's `status` frontmatter field is one of:
 3. **confirmed** — answered, matches what was assumed. Any paired surmise gets promoted to a normal cited claim.
 4. **rejected** — answered, contradicts what was assumed. Any paired surmise needs correcting or removing.
 5. **dismissed** — closed without ever getting an answer, because it stopped mattering. Kept distinct from `rejected`: they trigger different follow-up (rejected → go fix the surmise; dismissed → nothing to fix, it never mattered).
+
+## Frontier convention
+
+How threads, steps and tasks are recorded so the frontier page script can read them with no per-vault config: see `vault/FRONTIER.md`.
