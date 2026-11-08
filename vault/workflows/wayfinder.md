@@ -48,12 +48,16 @@ tags:
 ### Blocked
 - [ ] **[title]** — HITL/AFK. [one-line question]. Blocked by: [waypoint title]
 
+### Parked
+- [ ] **[title]** — HITL/AFK. [one-line question]. Parked: [why, and what would bring it back]
+
 ### Resolved
 - [x] **[title]** — [resolution]. YYYY-MM-DD
 ```
 
 **HITL** (human in the loop) — needs the user directly: a call only they can make, someone they need to contact, information only they have.
 **AFK** — something the assistant can research or draft, now or in the background, without the user needing to be present.
+**Parked** — deliberately set aside: not dropped, not blocked, just not being pursued now (e.g. a route that was mothballed). Parked waypoints are never part of the frontier.
 
 ## Mode: Chart
 
@@ -63,7 +67,7 @@ Use the first time a project is mapped — no `map.md` exists yet for it.
 2. **Name the destination.** This is the first act, before any waypoint exists. Use `grill-me` rules: one question at a time, offer a best-guess answer, ask the user to confirm or correct. Keep going until the destination is a single concrete sentence with a clear boundary (what's in, what's explicitly not).
 3. **Compass check.** Run the quick check in `_AI/local/workflows/compass.md` against the destination. Show the one line, and include it in the map (step 5) just under the Destination as `**Compass:** …`.
 4. **Surface the waypoints.** Same grilling approach: work out what's actually unknown or blocking — decisions, missing information, people to contact, things to research. Each becomes one waypoint: a short title, a one-line question it needs to answer, HITL/AFK classification, and any blocking dependency.
-5. **Write `map.md`.** Destination, empty "Decisions so far", waypoints sorted into Open/Blocked/Resolved (Resolved starts empty). Set `aliases:` to the slug with hyphens replaced by spaces (e.g. `chimney-water-ingress` → `chimney water ingress`), so the map can be wikilinked in plain English from journal entries and project notes.
+5. **Write `map.md`.** Destination, empty "Decisions so far", waypoints sorted into Open/Blocked/Parked/Resolved (Parked and Resolved start empty). Set `aliases:` to the slug with hyphens replaced by spaces (e.g. `chimney-water-ingress` → `chimney water ingress`), so the map can be wikilinked in plain English from journal entries and project notes.
 6. **Confirm** — tell the user the file path and read back the frontier (the open, unblocked waypoints) — that's what's actionable next.
 
 ## Mode: Work the frontier
