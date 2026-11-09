@@ -55,6 +55,7 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Post-mortem** — find the root cause of something that went wrong and propose a workflow tweak
 
 **Specialist and housekeeping**
+- **Trace** — turn an exported app log into per-journey sequence diagrams with what each class decides and why
 - **Diploma ready** — check a permaculture design against the Diploma design rubric
 - **Save** — commit with a 12-word summary and log entry
 - **Fetch** — async message passing via dated chat logs
