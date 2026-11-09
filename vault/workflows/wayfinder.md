@@ -59,6 +59,8 @@ tags:
 **AFK** — something the assistant can research or draft, now or in the background, without the user needing to be present.
 **Parked** — deliberately set aside: not dropped, not blocked, just not being pursued now (e.g. a route that was mothballed). Parked waypoints are never part of the frontier.
 
+**Which section.** A waypoint's section follows its `Blocked by:`. **Open** holds only waypoints with `Blocked by: none`. One whose blocker is unresolved (another waypoint not yet in Resolved, or something outside the map such as a person or another team) goes under **Blocked**. **Parked** overrides both. This applies to anything that writes a map, including other workflows adding waypoints during propagation.
+
 ## Mode: Chart
 
 Use the first time a project is mapped — no `map.md` exists yet for it.
@@ -74,7 +76,7 @@ Use the first time a project is mapped — no `map.md` exists yet for it.
 
 Use when a `map.md` already exists and the user wants to keep moving (triggers: "next waypoint", "work the wayfinder", "wayfinder this" naming an existing project).
 
-1. Read the map. List the frontier — open, unblocked waypoints.
+1. Read the map. List the frontier — open, unblocked waypoints. If any Open waypoint names an unresolved blocker, move it to Blocked first and say so.
 2. Take one waypoint at a time, in conversation. When work on an Open waypoint begins (this session or outside it), add `Started YYYY-MM-DD` to its line if it isn't already there; the frontier page uses it to tell started from could-start:
    - **HITL** — grill it out (`grill-me` rules) until it's actually resolved, not just discussed. Don't manufacture a decision on the user's behalf.
    - **AFK** — offer to research it now (WebSearch, past notes) or flag it for later; do the research and report findings.
@@ -85,7 +87,7 @@ Use when a `map.md` already exists and the user wants to keep moving (triggers: 
 
 Use when a new decision or unknown surfaces mid-project.
 
-1. Add it to Open or Blocked as appropriate, classified HITL/AFK.
+1. Classify it HITL/AFK and set `Blocked by:`. If the blocker isn't resolved, file it under Blocked; otherwise Open (see **Which section**).
 2. Update the `updated:` frontmatter.
 
 ## Mode: Review
