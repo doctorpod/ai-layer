@@ -42,3 +42,5 @@ If propagating this cleanly would mean editing a `wiki/` page or concept note â€
 ## Step 4: Report
 
 Lead with a tight changelist: note created or used, then each file touched with a one-line reason, then any diffs handed back. "Logged, nothing else needed" is a valid outcome â€” so is "logged and propagated across the tracking surfaces; the wiki side needs a debrief."
+
+If the log note, or the note the user pointed at, has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them), end the report with one line offering `sweep-tasks`, such as "This note has 3 dangling tasks. Sweep them?" Don't run it: it starts only if the user says yes.

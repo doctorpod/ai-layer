@@ -70,6 +70,10 @@ Follow the citation rules in `_AI/local/workflows/ingest.md`. Every wiki claim m
 
 The multi-source trigger in `ingest.md` applies here too: if this debrief is the *second* debrief (or an ingest) to touch an existing page — a follow-up conversation about something already written up — switch that page to per-claim footnotes rather than folding the new debrief note's claims into the earlier sentences.
 
+## Step 9b: Offer a task sweep
+
+If the debriefed note, or the debrief note just written, has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them), end your report to the user with one line offering `sweep-tasks`, such as "This note has 3 dangling tasks. Sweep them?" Don't run it: it starts only if the user says yes.
+
 ## Step 10: Learnings
 
 Follow `_AI/shared/snippets/learnings.md`, substituting `DEBRIEF` for `[WORKFLOW]`.

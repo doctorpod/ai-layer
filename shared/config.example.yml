@@ -5,3 +5,8 @@
 
 # Full path to the owner's vocation compass note. Read by the compass workflow.
 compass_file: ~/path/to/Compass.md
+
+# Folders the frontier script lists, each getting its own NEXT.md. Read when
+# frontier.py runs with no folder argument, as the timer does.
+frontier_folders:
+  - ~/path/to/vault/some-folder

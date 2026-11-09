@@ -1,19 +1,20 @@
 # Frontier convention (all vaults)
 
-How a vault records its live work so the frontier script can read it with no per-vault config. This doc is for whatever writes the notes: workflows, and the owner typing by hand. How the page draws what it reads is the script's business and is documented there.
+How a vault records its live work so `scripts/frontier.py` can list what's yours to do now, with no per-vault config. This doc is for whatever writes the notes: workflows, and the owner typing by hand. How the list is laid out and sorted is the script's business, documented in its docstring.
 
-Anything that doesn't follow these rules isn't silently dropped. The page lists it under "Needs a look".
+The script writes the list to `<folder>/NEXT.md`. Anything it can't read is never dropped silently: it goes under "Needs a look".
 
 ## Words
 
-- **Thread**: one line of work with its own history. One of: wayfinder, work folder, project. Asks with no thread share a pseudo-thread, **loose ends**.
-- **Step**: one unit inside a thread: a waypoint, a slice, a project checkbox, or an ask.
-- **Tip**: a step that isn't done. Its state is one of `started`, `could` (could start), `waiting` (on someone else), `blocked` (on another step), `parked`.
-- **History**: steps that are done.
+- **Thread**: one line of work with its own history: a wayfinder, a work folder, a ticket with no work folder, or a project.
+- **Step**: one thing to do next inside a thread: an Open waypoint, the next line of a checklist, a project checkbox, or a task.
+- **Task**: a `- [ ]` or `- [/]` line in an ordinary note (a meeting note, a stand-up, a log note). A task that links to a thread joins that thread.
+- **Dangling task**: a task with no thread link. Dangling tasks are listed together, after the threads.
+- **Checklist**: the checkboxes in a ticket, plan or slice, read in order as a series of reminders. A checklist adds one step at a time: its first unticked line.
 
 ## Where the script looks
 
-Every `.md` file in the vault except `templates/`, `_AI/`, `.obsidian/`, and notes with `ignore_tasks: true` in frontmatter.
+Every `.md` file in the folder the list covers, except `templates/`, `_AI/` and `.obsidian/` folders, notes with `ignore_tasks: true` in frontmatter, and notes whose `status:` means parked or done (their tasks are out of play). Checkboxes inside fenced code blocks are ignored.
 
 ## Status
 
@@ -26,90 +27,73 @@ Thread and ticket notes use `status:` with either vault words or words copied fr
 | parked | inactive, backlog, parked, paused |
 | done | done, closed, resolved |
 
-Any other word shows as "status unknown, check it". A note with no `status:` counts as live.
+Any other word goes under "Needs a look". A note with no `status:` counts as live.
 
-Jira's "Blocked" means waiting, because in Jira it means held up by someone else. A step blocked by another step is shown by its own dependencies, not by status.
+Jira's "Blocked" means waiting, because in Jira it means held up by someone else.
 
 ## Threads
 
 ### Wayfinder
 
-- **Found at:** `**/_wayfinder/<slug>/map.md`. Live when `status:` means live.
-- **Id:** the folder slug. **Title:** the first alias.
-- **Steps:** waypoint lines, by section (map format in `workflows/wayfinder.md`):
-
-| Section | State |
-|---|---|
-| Open (the frontier) | `started` if the line has `Started YYYY-MM-DD`, else `could` |
-| Blocked | `blocked` (`Blocked by:` names the blocker) |
-| Parked | `parked` |
-| Resolved | history, dated by the last `YYYY-MM-DD` on the line |
-
-- **Started:** the wayfinder workflow adds `Started YYYY-MM-DD` to an Open waypoint's line when work on it begins.
-- **Mine or hand-off:** `HITL` (including `HITL + AFK`) is mine, `AFK` alone is hand-off.
+- **Found at:** `**/_wayfinder/<slug>/map.md`.
+- **Steps:** each waypoint under **Open** is a step (map format in `workflows/wayfinder.md`). Blocked, Parked and Resolved waypoints aren't on the list; a waypoint's section says what it is.
 - **Due:** `Due: YYYY-MM-DD` on the line.
-- **Last touched:** the latest `YYYY-MM-DD` on the line, else the map's `updated:`.
+- **Started:** the wayfinder workflow adds `Started YYYY-MM-DD` to an Open waypoint's line when work on it begins.
 
 ### Work folder
 
-- **Found at:** any folder holding a `slices/` folder of slice notes (frontmatter has `state:` and `depends-on:`). The thread id is the folder name (`CVT-344`).
-- **Ticket:** `ticket:` in the folder's `init.md` or `plan.md`, or in a slice. The ticket note gives the thread its `status:`, `latest:`, `due:` and `priority:`.
-- **Live** when any slice isn't merged, or the ticket's status means live or waiting.
-- **Steps:** one per slice. Step id is the slice's number prefix (`02`).
+- **Found at:** every folder directly under `delivery/work/`, with or without `slices/`. The thread is named by the folder (`CVT-344`).
+- **Status:** from its ticket, linked by `ticket:` in the folder's `init.md` or `plan.md`; with no `ticket:` there, the ticket whose name or alias is the folder's name. No ticket means live. If the ticket is parked or done, the whole folder is out.
+- **Steps:** from the checklists of the ticket, the plan and the slices (see **Checklists**). A slice in `planned` whose `depends-on` slices aren't all merged is blocked and isn't on the list.
+- **Internal notes:** every other note inside the folder (`init.md`, `QUESTIONS.md`, `DECISIONS.md` and the rest) is internal. Its checkboxes are never tasks.
 
-| Slice `state:` | State |
-|---|---|
-| planned | `could` if every `depends-on` slice is merged, else `blocked` |
-| in progress | `started` |
-| PR open | `waiting`, unless the first unticked checklist line is the owner's move, then `started` |
-| merged | history |
+Slice `state:` is one of `planned`, `in progress`, `PR open`, `merged`. Any other value goes under "Needs a look".
 
-- **Whose move:** in a `PR open` slice, a first unticked line containing `PR review OK`, `QA` or `Merged` means waiting on someone else. Any other line (such as `Code review sought`) means it's still the owner's move.
-- **Last touched:** the latest ✅ date on a ticked checklist line, else the file's last git commit.
-- **A work folder with no slices** isn't a thread. It's listed under "Needs a look".
+### Ticket with no work folder
+
+A note with `categories:` including `[[Tickets]]`, no work folder, and at least one checkbox. A ticket with no checkboxes is a reference copy and isn't a thread. Its steps come from its checklist.
 
 ### Project
 
-- **Found at:** notes with `categories:` including `[[Projects]]`. Live when `status:` means live or waiting.
-- **Steps:** the project note's own checkboxes, read as tasks (see **Asks** for task states).
+A note with `categories:` including `[[Projects]]`. Every open checkbox is its own step; a project isn't a checklist.
 
-### Tickets and radar
+### Waiting threads
 
-A ticket isn't a thread on its own; it feeds its work folder. A ticket with open checkboxes and no work folder is read like a project.
+A ticket, work folder or project whose status means waiting shows one line under "Waiting on others", using its `latest:`, instead of its steps. Put what it's waiting on in `latest:`.
 
-Radar items aren't threads.
+A live thread with no open step goes under "Needs a look". Record the next step rather than leaving the thread empty.
 
-## Asks (tasks in any note)
+## Checklists
 
-Tasks stay in the note where they were written, usually a meeting or stand-up note. The tagging sweep adds the tags after the meeting, so they don't need typing at the time.
+- The checkboxes in a ticket, a plan and a slice are read in order. Only the first unticked line (`[ ]` or `[/]`) is a step. Write checklists in the order the lines get done.
+- In a work folder the checklists take turns: before any slice exists, the ticket's next line; while any slice is open, each open slice's next line; once every slice is merged, the ticket's next line and the plan's next line.
+- A next line containing `PR review OK`, `QA` or `Merged` (as written, with that case) means waiting on someone else.
+- Tick a line with `✅ YYYY-MM-DD`. The last ✅ date in a checklist is when it was last touched.
+
+## Tasks in ordinary notes
+
+Tasks stay in the note where they were written, usually a meeting or stand-up note. Every open task is on the list. Facts about a task are plain words, a colon and a link, appended after the task's own words:
 
 ```
-- [ ] Prod MG for meeting [[cdp data ingest]] [[Michael Greenall]] #asked #swept 📅 2026-11-09
+- [ ] Prod MG for meeting [[cdp data ingest]] Expected by: [[Michael Greenall]] 📅 2026-11-09
 ```
 
 | Part | Meaning |
 |---|---|
-| link to a thread note | the thread the ask joins: a wayfinder map (by alias), a ticket (by alias, such as `[[CVT-344]]`, joining its work folder) or a project. No thread link means it's a loose end. |
-| `#asked` | someone asked for it or it was promised, so someone is waiting on the owner. |
-| person link | on an `#asked` line, any link that isn't a thread link is the person who asked, whether or not they have a note. Elsewhere, links to people are just mentions. |
-| `#handoff` | could be delegated. Without it, the ask is the owner's. |
-| 📅 date | urgent, by this date. Added only for something urgent. |
-| ⏫ | flagged: "don't lose this". Not urgency. |
-| `#swept` | the tagging sweep has reviewed this task. An open task without it counts as untagged. |
-| 🆔 / ⛔ | Tasks plugin id and dependency, used only when one task really depends on another. A task with ⛔ pointing at an open task is `blocked`. |
+| link to a thread note | the thread the task joins: a wayfinder map (by alias), a ticket (by alias, such as `[[CVT-344]]`, joining its work folder) or a project. No thread link makes it a dangling task. |
+| `Expected by: [[person]]` | someone is expecting this from the owner, whether they asked or the owner offered. Only a link counts: "expected by Friday" is ordinary text. |
+| `Waiting on: [[person]]` | the task waits on someone else, so it goes under "Waiting on others". |
+| `Blocked by: [[note]]` | off the list while that note's `status:` means live, waiting or parked; back once it means done. A linked note with no `status:`, or one that doesn't exist, goes under "Needs a look". Only notes can block a task. |
+| 📅 date | due by this date. |
 
-**Task states:** `- [ ]` is `could`, `- [/]` is `started`, `- [x]` with a ✅ date is history, `- [-]` (cancelled, for a task that's no longer live) is ignored.
+`- [/]` is started, `- [x]` with a ✅ date is done, and `- [-]` (dropped) is ignored. The Tasks plugin's own fields (⛔, 🆔, ⏫ and the rest) aren't read.
 
-**Step id:** short note name plus position among the note's open tasks, such as `SU 11-06 #1`.
+A task's date is its note's date: frontmatter `date:`, or a date in the filename.
 
-**Last touched:** the note's date (frontmatter `date:`, or a date in the filename), unless the line has a later date.
-
-## Fields any thread or step can carry
+## Fields any thread can carry
 
 | Field | Where | Meaning |
 |---|---|---|
-| `latest:` | thread and ticket frontmatter | one line on what's happening; often the reason for a wait ("Awaiting QA") |
-| `due:` / `Due:` / 📅 | frontmatter / waypoint line / task line | urgent, by this date |
-| `priority: high` / ⏫ | frontmatter / task line | flagged |
-
-There's no field for who a step is waiting on. Waiting is a state, and the reason goes in `latest:` or the linked note.
+| `latest:` | thread and ticket frontmatter | one line on what's happening; shown for a waiting thread |
+| `due:` | thread and ticket frontmatter | every step in the thread is due by this date |
+| `priority: high` | thread and ticket frontmatter | marks the thread on the list; doesn't change the order |

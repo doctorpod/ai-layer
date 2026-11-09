@@ -55,6 +55,8 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 | **Greenhouse** | A concrete idea you like and want to do — deliberately not now. |
 | **Wayfinder** | A project too woolly or too big to just start — unknown order, several open decisions, more than one session. Maps it into a destination plus small decisions (waypoints) you resolve one at a time. Distinct from radar (watch, no action), greenhouse (understood, parked), and post-mortem (already went wrong). |
 | **Compass** | Is this idea, offer or commitment *towards* or *away* from my vocation? Checks it line by line against my compass (in the personal vault) and names which part of it is mine. Greenhouse and wayfinder run a one-line version automatically. |
+| **Frontier** | See what's yours to do now across a folder's threads (wayfinders, work folders, tickets, projects, and tasks in meeting notes), what's waiting on others, and what needs a look. Not a workflow: `python3 _AI/local/scripts/frontier.py <folder>` writes `<folder>/NEXT.md`, which the dashboard can embed. With the folders listed under `frontier_folders:` in `_AI/shared/config.yml`, `bash scripts/frontier-timer.sh install` (in the layer repo) regenerates them about every 10 minutes. How notes are written for it: `_AI/local/FRONTIER.md`. |
+| **Sweep tasks** | A meeting note left tasks with no thread. Proposes a thread link and plain-word fields (`Expected by:`, `Waiting on:`, `Blocked by:`, 📅) for each in one table, and writes only what you confirm. Debrief and minute offer it; they don't run it. |
 | **Post-mortem** | Something went wrong; investigate why and propose a specific fix. (Greenhouse is one *possible outcome* of a post-mortem, not a substitute for it.) |
 
 ---

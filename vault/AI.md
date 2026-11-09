@@ -43,6 +43,8 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- The **Beats** block in a piece-folder's `output.md`, written only by the beats workflow — never the prose around it
 	- Any file named `SPATIAL.md`
 	- Any file named `DASHBOARD.md`
+	- Any file named `NEXT.md`, written only by running `_AI/local/scripts/frontier.py` — never edited directly
+	- Task lines (`- [ ]`, `- [/]`) in any note, edited only by `sweep-tasks` after the owner confirms its proposal table — and then only to append a thread link, `Expected by:`, `Waiting on:`, `Blocked by:` or a 📅 date, or to mark the task done (`[x]` with `✅ YYYY-MM-DD`) or dropped (`[-]`). Never the task's own words, never other lines
 	- Any folder named `_greenhouse/`
 	- Any folder named `_wayfinder/`
 	- The vault-root `standards/` folder (assessment rubrics that workflows check against) — but only edit a rubric when the user has explicitly said to; never fold new material into one as a side effect of another workflow
@@ -123,6 +125,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture a logistics or status change as a log note, then propagate it across the tracking surfaces (radar, questions, wayfinder, greenhouse); wiki changes are out of scope — those go through debrief |
+| "sweep tasks", "sweep this note", "tidy the tasks", "tag the tasks" | `_AI/local/workflows/sweep-tasks.md` — tidy a note's dangling tasks with a thread link and plain-word fields (`Expected by:`, `Waiting on:`, `Blocked by:`, 📅), writing only what you confirm; offered at the end of debrief and minute, never run by them |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "gratitude", "help me write gratitude entries", "gratitude prompts" | `_AI/local/workflows/gratitude.md` — prompts grounded in recent journal notes, polishes each entry, appends approved entries to today's daily note (creating it from the daily template if missing) |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |

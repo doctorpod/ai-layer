@@ -47,6 +47,8 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Add to radar** — capture, update, and review ongoing things worth tracking
 - **Wayfinder** — map a too-big project into a destination and small decisions worked through across sessions
 - **State of play** — a full reconciliation sweep across a gig, ending in a digest in `DASHBOARD.md`
+- **Sweep tasks** — tidy a note's dangling tasks with a thread link and plain-word fields, writing only what you confirm
+- **Frontier** — a script that lists what's yours to do now, what's waiting on others and what needs a look, written to `<folder>/NEXT.md`
 - **Process notes** — propose folder moves and categories for a scope of notes, then apply on confirmation
 
 **Reflection**
