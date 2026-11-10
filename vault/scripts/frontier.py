@@ -271,6 +271,7 @@ class Frontier:
         self.thread_of = {}  # note path -> thread key, for tasks linking to a thread
         self.yours, self.waiting, self.look = [], [], []
         self.internal = set()  # notes whose checkboxes are never tasks
+        self.ended = {}  # thread key -> ended-on date, for projects that have ended
 
     # -- helpers --
     def excluded(self, p):
@@ -457,8 +458,11 @@ class Frontier:
             tid, _, title = p.stem.partition(" - ")
             th = self.add_thread(("project", p), [p], self.v.rel(p), tid, title, fm)
             self.internal.add(p)
-            if self.excluded(p):
-                continue
+            ended = str(fm.get("ended-on") or "").strip()
+            if ended:
+                self.ended[th.key] = ended
+            if self.excluded(p) or ended:
+                continue  # an ended project is inactive, whatever its status says
             self.check_status(th, fm, p)
             if status_of(fm.get("status")) == "waiting":
                 self.waiting_thread(th, fm, p)
@@ -505,6 +509,11 @@ class Frontier:
                         thread = self.thread_of[target]
                         words = words.replace(m.group(0), "", 1)
                         break
+            if thread in self.ended and own_thread is None:
+                th = self.threads[thread]
+                self.needs_look(p, n, words, "linked to [[%s|%s]], which ended on %s"
+                                % (th.link, th.id, self.ended[thread]))
+                continue
             due = DUE_EMOJI.search(text)
             self.step(thread, p, n, words, untouched, due=due.group(1) if due else None,
                       expected=fields.get("Expected by"), waiting_on=fields.get("Waiting on"))

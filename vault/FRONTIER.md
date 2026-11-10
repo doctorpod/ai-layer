@@ -55,7 +55,7 @@ A note with `categories:` including `[[Tickets]]`, no work folder, and at least 
 
 ### Project
 
-A note with `categories:` including `[[Projects]]`. Every open checkbox is its own step; a project isn't a checklist.
+A note with `categories:` including `[[Projects]]`. Every open checkbox is its own step; a project isn't a checklist. A project with `ended-on:` filled in is inactive and is left out, whatever its `status:` says. A task elsewhere that links to an ended project goes under "Needs a look", in case it was linked to the wrong project.
 
 ### Waiting threads
 

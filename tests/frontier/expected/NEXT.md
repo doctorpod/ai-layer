@@ -47,4 +47,5 @@
 - **[[gig/delivery/tickets/T-6 Sixth ticket|T-6]]** Sixth ticket · live, but no open step recorded
 - [[gig/lib/2026-10-28 Retro|Chase the blocker]] · blocked by [[Missing note]], which doesn't exist
 - [[gig/lib/2026-11-02 Standup|Check the numbers]] · blocked by [[No status blocker]], which has no status
+- [[gig/lib/2026-11-05 Catch-up|Send the summary]] · linked to [[gig/projects/P03 - Ended project|P03]], which ended on 2026-08-17
 - **[[gig/projects/P02 - Odd project|P02]]** Odd project · status 'someday' not recognised
