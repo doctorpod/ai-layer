@@ -13,7 +13,9 @@ none or there's no config).
 
 A note whose `status:` means parked or done is skipped, unless it's one of the
 vault's input notes under the config's `heartbeat:` entry for the vault: there,
-`status:` records what's still owed to the note itself, not to its tasks.
+`status:` records what's still owed to the note itself, not to its tasks. A
+question note (category [[Questions]]) reads `pending` as live and `surmised`,
+`confirmed`, `rejected` and `dismissed` as done.
 
 The output is stable: no timestamps, dates rather than ages, and every sort
 has an explicit tie-break, so a run with nothing changed in the notes leaves
@@ -23,14 +25,21 @@ Listing rules (layout and sorting; how notes are written is the convention's):
 
   Sections
     ## Yours now         live steps, grouped under a bold header per thread,
-                         with "Dangling tasks" (tasks with no thread link) last.
+                         then "Owes a debrief" (input notes with status
+                         needs-debrief), then "Dangling tasks" (tasks with no
+                         thread link) last.
     ## Waiting on others one flat list: checklist lines with a waiting word,
                          tasks with `Waiting on:`, and waiting threads (one
                          line each, showing `latest:`).
+    ## Worth a glance    radar notes still `watching` whose `updated:` is more
+                         than STALE_DAYS before today (one line each, showing
+                         `latest:`).
     ## Needs a look      a live thread with no open step, a `Blocked by:` whose
                          note has no status or doesn't exist, an unrecognised
                          status or slice state, a slice depending on a slice
-                         that isn't there.
+                         that isn't there, a watch whose `updated:` isn't a
+                         date.
+    An empty section says "Nothing here."
     Blocked and parked steps are left out. Every line is a plain bullet that
     links to the note it came from, never a checkbox, so the Tasks plugin
     doesn't pick the list up as duplicate tasks.
@@ -40,14 +49,16 @@ Listing rules (layout and sorting; how notes are written is the convention's):
     Reasons are "due D" ("overdue, due D" once D is before today) from a 📅
     date, a waypoint's `Due:` or the thread's `due:`, and "expected by
     [[person]]". On a waiting line, "in [[thread]]" names the thread and
-    "waiting on [[person]]" the person.
+    "waiting on [[person]]" the person. A debrief line reads "owes a debrief",
+    and a watch line shows its `latest:` in place of a reason.
 
   Sort order
     Within a thread: due date first (earliest first, so overdue at the top),
     then `Expected by:`, then the rest; inside each group the oldest untouched
     first, undated last, then note path and line. Threads are ordered by their
     top step with the same key; Dangling tasks always go last. Waiting on
-    others is oldest untouched first, then path. Needs a look is by path.
+    others and Worth a glance are oldest untouched first, then path; Owes a
+    debrief is by date, then path. Needs a look is by path.
 
   Untouched
     waypoint        the latest date on its line, ignoring `Due:`
@@ -56,6 +67,8 @@ Listing rules (layout and sorting; how notes are written is the convention's):
     task            its note's date (`date:` or a date in the filename), else
                     the file's last commit, else none
     waiting thread  its note's last commit
+    debrief         the input note's date
+    watch           its `updated:`
     Uncommitted edits don't count, so the date only moves with a commit.
 
   Checklist turn-taking in a work folder
@@ -83,7 +96,11 @@ STATUS = {
     "parked": {"inactive", "backlog", "parked", "paused"},
     "done": {"done", "closed", "resolved"},
 }
+QUESTION_STATUS = {"pending": "live", "surmised": "done", "confirmed": "done",
+                   "rejected": "done", "dismissed": "done"}
 SLICE_STATES = {"planned", "in progress", "pr open", "merged"}
+STALE_DAYS = 14  # a watch untouched for longer than this is worth a glance
+DEBRIEF = "debrief"  # the thread key the "Owes a debrief" group is gathered under
 WAITING_WORDS = re.compile(r"\b(PR review OK|QA|Merged)\b")  # as written, case matters
 SKIP_DIRS = {"templates", "_AI", ".obsidian", ".git", ".trash"}
 DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -108,6 +125,15 @@ def status_of(word):
         if w in words:
             return meaning
     return "unknown"
+
+
+def meaning_of(fm):
+    """What a note's `status:` means, reading a question note's own states."""
+    if has_category(fm, "Questions"):
+        w = str(fm.get("status") or "").strip().lower()
+        if w in QUESTION_STATUS:
+            return QUESTION_STATUS[w]
+    return status_of(fm.get("status"))
 
 
 def as_list(v):
@@ -244,16 +270,19 @@ class Frontier:
         self.thread_of = {}  # note path -> thread key, for tasks linking to a thread
         self.yours, self.waiting, self.look = [], [], []
         self.internal = set()  # notes whose checkboxes are never tasks
-        self.ended = {}  # thread key -> ended-on date, for projects that have ended
+        self.glance = []  # stale watches
 
     # -- helpers --
     def excluded(self, p):
         fm = self.v.fm(p)
         if str(fm.get("ignore_tasks")).strip().lower() == "true":
             return True
-        if status_of(fm.get("status")) not in ("parked", "done"):
+        if meaning_of(fm) not in ("parked", "done"):
             return False
-        return not (self.inputs and heartbeat.is_input(self.v.root, p, self.inputs))
+        return not self.is_input(p)
+
+    def is_input(self, p):
+        return bool(self.inputs) and heartbeat.is_input(self.v.root, p, self.inputs)
 
     def add_thread(self, key, notes, link, tid, title, fm):
         th = self.threads.setdefault(key, Thread(key, link, tid, title, fm))
@@ -302,8 +331,9 @@ class Frontier:
         self.gather_wayfinders()
         used = self.gather_work_folders()
         self.gather_tickets(used)
-        self.gather_projects()
+        self.gather_debriefs()
         self.gather_tasks()
+        self.gather_watches()
 
     def gather_wayfinders(self):
         for p in sorted(self.v.notes):
@@ -427,39 +457,27 @@ class Frontier:
             elif not self.checklist_step(th, p):
                 self.thread_look(th, "live, but no open step recorded", p)
 
-    def gather_projects(self):
+    def gather_debriefs(self):
+        """Input notes flagged for a debrief: each is a step until debrief sets it done."""
         for p in sorted(self.v.notes):
-            fm, body = self.v.notes[p]
-            if not has_category(fm, "Projects"):
+            status = str(self.v.notes[p][0].get("status") or "").strip().lower()
+            if status != heartbeat.DEBRIEF or not self.is_input(p):
                 continue
-            tid, _, title = p.stem.partition(" - ")
-            th = self.add_thread(("project", p), [p], self.v.rel(p), tid, title, fm)
-            self.internal.add(p)
-            ended = str(fm.get("ended-on") or "").strip()
-            if ended:
-                self.ended[th.key] = ended
-            if self.excluded(p) or ended:
-                continue  # an ended project is inactive, whatever its status says
-            self.check_status(th, fm, p)
-            if status_of(fm.get("status")) == "waiting":
-                self.waiting_thread(th, fm, p)
-            elif not self.tasks_in(p, th.key):
-                self.thread_look(th, "live, but no open step recorded", p)
+            self.threads.setdefault(DEBRIEF, Thread(DEBRIEF, None, "Owes a debrief", "", {}))
+            self.step(DEBRIEF, p, 0, p.stem, self.v.note_date(p))
 
     def gather_tasks(self):
         for p in sorted(self.v.notes):
             if p in self.internal or self.excluded(p):
                 continue
-            self.tasks_in(p, None)
+            self.tasks_in(p)
 
-    def tasks_in(self, p, own_thread):
-        """Every open task in a note becomes a step. True if there was one."""
-        found = False
+    def tasks_in(self, p):
+        """Every open task in a note becomes a step, under the first thread it links to."""
         untouched = self.v.note_date(p)
         for n, mark, text in checkboxes(self.v.notes[p][1]):
             if mark not in (" ", "/"):
                 continue
-            found = True
             fields = {k: v for k, v in FIELD.findall(text)}
             blocker = fields.get("Blocked by")
             if blocker:
@@ -468,7 +486,7 @@ class Frontier:
                     self.needs_look(p, n, display(text), "blocked by %s, which doesn't exist" % blocker)
                     continue
                 bstatus = self.v.fm(target).get("status")
-                meaning = status_of(bstatus)
+                meaning = meaning_of(self.v.fm(target))
                 if bstatus is None or str(bstatus).strip() == "":
                     self.needs_look(p, n, display(text), "blocked by %s, which has no status" % blocker)
                     continue
@@ -477,32 +495,48 @@ class Frontier:
                     continue
                 if meaning != "done":
                     continue  # still blocked: off the list until the blocker is done
-            thread = own_thread
+            thread = None
             words = FIELD.sub("", text)
-            if thread is None:
-                for m in LINK.finditer(words):
-                    target = self.v.resolve(m.group(1))
-                    if target in self.thread_of:
-                        thread = self.thread_of[target]
-                        words = words.replace(m.group(0), "", 1)
-                        break
-            if thread in self.ended and own_thread is None:
-                th = self.threads[thread]
-                self.needs_look(p, n, words, "linked to [[%s|%s]], which ended on %s"
-                                % (th.link, th.id, self.ended[thread]))
-                continue
+            for m in LINK.finditer(words):
+                target = self.v.resolve(m.group(1))
+                if target in self.thread_of:
+                    thread = self.thread_of[target]
+                    words = words.replace(m.group(0), "", 1)
+                    break
             due = DUE_EMOJI.search(text)
             self.step(thread, p, n, words, untouched, due=due.group(1) if due else None,
                       expected=fields.get("Expected by"), waiting_on=fields.get("Waiting on"))
-        return found
+
+    def gather_watches(self):
+        """Radar notes still `watching` that nobody has touched for over STALE_DAYS."""
+        cutoff = (dt.date.fromisoformat(self.today) - dt.timedelta(days=STALE_DAYS)).isoformat()
+        for p in sorted(self.v.notes):
+            fm = self.v.notes[p][0]
+            if not has_category(fm, "Radar") or str(fm.get("status") or "").strip().lower() != "watching":
+                continue
+            updated = str(fm.get("updated") or "").strip()[:10]
+            try:
+                dt.date.fromisoformat(updated)
+            except ValueError:
+                reason = ("watching, but its updated: '%s' isn't a date" % fm.get("updated")
+                          if str(fm.get("updated") or "").strip() else "watching, but it has no updated: date")
+                self.needs_look(p, 0, p.stem, reason)
+                continue
+            if updated < cutoff:
+                latest = " ".join(str(fm.get("latest") or "").split())
+                self.glance.append({"note": self.v.rel(p), "name": p.stem, "latest": latest, "untouched": updated})
 
     # -- render --
     def sort_key(self, s):
+        if s["thread"] == DEBRIEF:
+            return (s["untouched"] or "9999-99-99", s["note"], s["line"])
         due = s["due"] or (self.threads[s["thread"]].due if s["thread"] else None)
         rank = (0, due) if due else ((1, "") if s.get("expected") else (2, ""))
         return rank + (s["untouched"] or "9999-99-99", s["note"], s["line"])
 
     def reasons(self, s):
+        if s["thread"] == DEBRIEF:
+            return ["owes a debrief"]
         out = []
         due = s["due"] or (self.threads[s["thread"]].due if s["thread"] else None)
         if due:
@@ -530,10 +564,9 @@ class Frontier:
             groups.setdefault(s["thread"], []).append(s)
         for g in groups.values():
             g.sort(key=self.sort_key)
-        order = sorted((k for k in groups if k is not None),
+        order = sorted((k for k in groups if k not in (None, DEBRIEF)),
                        key=lambda k: (self.sort_key(groups[k][0]), self.threads[k].link or self.threads[k].id))
-        if None in groups:
-            order.append(None)
+        order += [k for k in (DEBRIEF, None) if k in groups]
         if not order:
             out += ["Nothing here.", ""]
         for k in order:
@@ -556,6 +589,13 @@ class Frontier:
             else:
                 out.append(self.line(s, waiting=True))
         out += ([""] if waiting else ["Nothing here.", ""])
+
+        out += ["## Worth a glance", ""]
+        glance = sorted(self.glance, key=lambda w: (w["untouched"], w["note"]))
+        for w in glance:
+            parts = ["[[%s|%s]]" % (w["note"], display(w["name"]))] + ([w["latest"]] if w["latest"] else [])
+            out.append("- " + " · ".join(parts + ["untouched since " + w["untouched"]]))
+        out += ([""] if glance else ["Nothing here.", ""])
 
         out += ["## Needs a look", ""]
         look = sorted(self.look, key=lambda x: (x["note"], x["line"], x["reason"]))

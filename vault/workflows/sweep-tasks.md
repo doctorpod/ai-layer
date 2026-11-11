@@ -1,26 +1,26 @@
 ---
 name: sweep-tasks
-description: Tidy a note's dangling tasks (usually a meeting or stand-up note) by proposing a thread link and plain-word fields for each, then writing only what the user confirms. Offered at the end of debrief and minute.
+description: Tidy a note's dangling tasks (usually a meeting or stand-up note) by proposing a thread link and plain-word fields for each, then writing only what the user confirms. Run by heartbeat as part of processing a note, or by hand.
 ---
 
 # Sweep tasks
 
-Triggered by: "sweep tasks", "sweep this note", "tidy the tasks", "sweep" + a note. `debrief` and `minute` offer it at the end of their report; it starts only when the user says yes.
+Triggered by: "sweep tasks", "sweep this note", "tidy the tasks", "sweep" + a note. `heartbeat` runs it on each note it processes (including through "minute this").
 
 > [!warning] Must not
-> Never edit a note without the user's confirmation of the proposal table in this session. That holds when this workflow is offered by, or started from, another workflow: a change agreed there doesn't cover the edits proposed here.
+> Never edit a note without the user's confirmation of the proposal table in this session. That holds when this workflow is run by another workflow: a change agreed there doesn't cover the edits proposed here.
 
 Tasks stay in the note where they were written. This workflow only appends plain-word fields to their lines, so the frontier list can put each one in its thread. The fields and what they mean are in `_AI/local/FRONTIER.md` under **Tasks in ordinary notes**. Read that section first.
 
 ## Step 1: Find the dangling tasks
 
 - **Scope:** the note the user named. Read the note itself; don't run the frontier script.
-- **Dangling:** an open task (`- [ ]` or `- [/]`) with no link to a thread note (a wayfinder map, a ticket or a project). Skip notes the convention skips (parked or done `status:`, `ignore_tasks: true`, templates, and notes inside a work folder). A heartbeat input note is never skipped for its `status:`, which there records what heartbeat still owes the note.
+- **Dangling:** an open task (`- [ ]` or `- [/]`) with no link to a thread note (a wayfinder map or a ticket). Skip notes the convention skips (parked or done `status:`, `ignore_tasks: true`, templates, and notes inside a work folder). A heartbeat input note is never skipped for its `status:`, which there records what heartbeat still owes the note.
 - None found: say so in one line and stop.
 
 ## Step 2: Know the threads
 
-Find the live threads the tasks might belong to, so each can be matched to a thread and duplicates spotted: the wayfinder maps (`**/_wayfinder/*/map.md`, by alias), the tickets and work folders (by ticket alias, such as `[[CVT-344]]`), and the projects in the same folder as the note. Read their open waypoints, checklists and checkboxes for duplicates.
+Find the live threads the tasks might belong to, so each can be matched to a thread and duplicates spotted: the wayfinder maps (`**/_wayfinder/*/map.md`, by alias), and the tickets and work folders (by ticket alias, such as `[[CVT-344]]`). Read their open waypoints and checklists for duplicates.
 
 ## Step 3: Propose, all at once
 

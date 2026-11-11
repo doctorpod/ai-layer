@@ -7,7 +7,7 @@ description: Park early-stage ideas you like but don't want to act on now, for l
 
 Triggered by: "greenhouse this", "park this in the greenhouse", "add to greenhouse", "review greenhouse"
 
-A greenhouse item is an idea worth keeping but not acting on right now. It differs from a radar item: radar says *"here's a situation worth being mindful of, no action implied"*; greenhouse says *"here's a concrete thing I'd like to do, deliberately not now."* Don't put situations-to-watch here, and don't put radar items here — they stay in `radar/`.
+A greenhouse item is an idea worth keeping but not acting on right now: a **seed**, the owner's own thread that hasn't started yet. It differs from a radar item: radar says *"here's a situation worth being mindful of, no action implied"*; greenhouse says *"here's a concrete thing I'd like to do, deliberately not now."* Don't put situations-to-watch here, and don't put radar items here — they stay in `radar/`.
 
 ## Scope
 
@@ -40,11 +40,11 @@ Use when the user asks to review the greenhouse, or as a closing step of a broad
 
 1. Read all entries in `_greenhouse/`.
 2. Summarize in chat: title + one-line gist per entry. Flag any that look resolved by since-completed work, or stale enough to be worth pruning.
-3. Invite the user to resolve, prune, or promote (e.g. into a plan) any item.
+3. Invite the user to resolve, prune, or promote any item: charting it as a wayfinder map (vault) or a plan (code) starts the thread.
 
 ## Mode: Resolve
 
-Use when a greenhouse idea has actually been acted on.
+Use when a greenhouse idea has actually been acted on. Charting a seed (`wayfinder`) starts its thread, and resolves the entry: the map is where it lives from then on.
 
 1. Prepend a blockquote at the top of the file noting what resolved it:
    ```

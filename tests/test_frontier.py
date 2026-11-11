@@ -28,30 +28,37 @@ class FrontierFixture(unittest.TestCase):
         shutil.copytree(FIXTURE, self.vault)
         self.folder = self.vault / "gig"
         self.out = self.folder / "NEXT.md"
+        # the fixture vault's input notes, so its debrief pile is read
+        self.config = self.tmp / "config.yml"
+        self.config.write_text('heartbeat:\n  %s:\n    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-06\n'
+                               '    steps: [propagate, sweep-tasks]\n' % self.vault, encoding="utf-8")
 
     def tearDown(self):
         shutil.rmtree(self.tmp)
 
+    def run_fixture(self, *args):
+        return run(str(self.folder), "--now", NOW, "--config", str(self.config), *args)
+
     def test_output_matches_expected(self):
-        r = run(str(self.folder), "--now", NOW)
+        r = self.run_fixture()
         self.assertEqual(r.returncode, 0, r.stderr)
         self.maxDiff = None
         self.assertEqual(self.out.read_text(encoding="utf-8"), EXPECTED.read_text(encoding="utf-8"))
 
     def test_second_run_leaves_file_unchanged(self):
-        run(str(self.folder), "--now", NOW)
+        self.run_fixture()
         first = self.out.read_bytes()
-        r = run(str(self.folder), "--now", NOW)
+        r = self.run_fixture()
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertEqual(self.out.read_bytes(), first)
 
     def test_stdout_equals_file(self):
-        r = run(str(self.folder), "--now", NOW)
+        r = self.run_fixture()
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertEqual(r.stdout, self.out.read_text(encoding="utf-8"))
 
     def test_no_write_leaves_folder_alone(self):
-        r = run(str(self.folder), "--now", NOW, "--no-write")
+        r = self.run_fixture("--no-write")
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertFalse(self.out.exists())
         self.assertEqual(r.stdout, EXPECTED.read_text(encoding="utf-8"))
@@ -94,7 +101,7 @@ class FrontierVault(unittest.TestCase):
     def write_config(self, heartbeat=True):
         text = "frontier:\n  folders:\n    - %s\n    - %s\n" % (self.vault / "gig", self.other / "gig")
         if heartbeat:
-            text += 'heartbeat:\n  %s:\n    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-01\n    steps: [minute]\n' % self.vault
+            text += 'heartbeat:\n  %s:\n    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-01\n    steps: [propagate, sweep-tasks]\n' % self.vault
         self.config.write_text(text, encoding="utf-8")
 
     def test_vault_rebuilds_only_its_own_folders(self):

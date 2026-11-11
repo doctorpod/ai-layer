@@ -6,10 +6,13 @@ The script writes the list to `<folder>/NEXT.md`. Anything it can't read is neve
 
 ## Words
 
-- **Thread**: one line of work with its own history: a wayfinder, a work folder, a ticket with no work folder, or a project.
-- **Step**: one thing to do next inside a thread: an Open waypoint, the next line of a checklist, a project checkbox, or a task.
-- **Task**: a `- [ ]` or `- [/]` line in an ordinary note (a meeting note, a stand-up, a log note). A task that links to a thread joins that thread.
+- **Item**: a task or a watch. Every item belongs to a thread, and every thread to a home.
+- **Home**: a gig or a project folder. A project folder's README is the home's front page and holds no live tasks: real next steps go in a map.
+- **Thread**: one line of work with its own history: a wayfinder map, a work folder, or a ticket with no work folder.
+- **Step**: one thing to do next inside a thread: an Open waypoint, the next line of a checklist, or a task.
+- **Task**: a `- [ ]` or `- [/]` line in an ordinary note (a meeting note, a stand-up, a log note, a question note). A task that links to a thread joins that thread.
 - **Dangling task**: a task with no thread link. Dangling tasks are listed together, after the threads.
+- **Watch**: a radar note (`categories:` including `[[Radar]]`). See **Watches**.
 - **Checklist**: the checkboxes in a ticket, plan or slice, read in order as a series of reminders. A checklist adds one step at a time: its first unticked line.
 
 ## Where the script looks
@@ -30,6 +33,10 @@ Thread and ticket notes use `status:` with either vault words or words copied fr
 Any other word goes under "Needs a look". A note with no `status:` counts as live.
 
 Jira's "Blocked" means waiting, because in Jira it means held up by someone else.
+
+### Question notes
+
+A note with `categories:` including `[[Questions]]` has its own states. `pending` means live, so its chase task is on the list. `surmised`, `confirmed`, `rejected` and `dismissed` mean done, so its tasks are out of play and a task `Blocked by:` it is back on the list. Closing the question is the exit.
 
 ## Threads
 
@@ -53,15 +60,19 @@ Slice `state:` is one of `planned`, `in progress`, `PR open`, `merged`. Any othe
 
 A note with `categories:` including `[[Tickets]]`, no work folder, and at least one checkbox. A ticket with no checkboxes is a reference copy and isn't a thread. Its steps come from its checklist.
 
-### Project
-
-A note with `categories:` including `[[Projects]]`. Every open checkbox is its own step; a project isn't a checklist. A project with `ended-on:` filled in is inactive and is left out, whatever its `status:` says. A task elsewhere that links to an ended project goes under "Needs a look", in case it was linked to the wrong project.
-
 ### Waiting threads
 
-A ticket, work folder or project whose status means waiting shows one line under "Waiting on others", using its `latest:`, instead of its steps. Put what it's waiting on in `latest:`.
+A ticket or work folder whose status means waiting shows one line under "Waiting on others", using its `latest:`, instead of its steps. Put what it's waiting on in `latest:`.
 
 A live thread with no open step goes under "Needs a look". Record the next step rather than leaving the thread empty.
+
+## Owes a debrief
+
+A heartbeat input note with `status: needs-debrief` (heartbeat sets it when a note changes what's true about a subject) is a step in its own "Owes a debrief" group under "Yours now", after the threads. It stays there until `debrief` takes the note as a source and sets it `done`.
+
+## Watches
+
+A watch with `status: watching` whose `updated:` is more than 14 days before today goes under "Worth a glance", showing its `latest:`. Fresh watches aren't listed. A watch comes off when it's touched (a new `updated:`) or when its status is anything other than `watching`. A `watching` note whose `updated:` is missing or isn't a date goes under "Needs a look".
 
 ## Checklists
 
@@ -80,7 +91,7 @@ Tasks stay in the note where they were written, usually a meeting or stand-up no
 
 | Part | Meaning |
 |---|---|
-| link to a thread note | the thread the task joins: a wayfinder map (by alias), a ticket (by alias, such as `[[CVT-344]]`, joining its work folder) or a project. No thread link makes it a dangling task. |
+| link to a thread note | the thread the task joins: a wayfinder map (by alias), or a ticket (by alias, such as `[[CVT-344]]`, joining its work folder). No thread link makes it a dangling task. |
 | `Expected by: [[person]]` | someone is expecting this from the owner, whether they asked or the owner offered. Only a link counts: "expected by Friday" is ordinary text. |
 | `Waiting on: [[person]]` | the task waits on someone else, so it goes under "Waiting on others". |
 | `Blocked by: [[note]]` | off the list while that note's `status:` means live, waiting or parked; back once it means done. A linked note with no `status:`, or one that doesn't exist, goes under "Needs a look". Only notes can block a task. |

@@ -22,12 +22,8 @@
 - [[gig/delivery/work/T-2/slices/02 second-part|slice 02: Code review sought]] · untouched since 2026-10-23
 - [[gig/lib/2026-11-02 Standup|Prep the demo]] · untouched since 2026-11-02
 
-**[[gig/projects/P01 - Sample project|P01]]** Sample project
-- [[gig/projects/P01 - Sample project|Draft the brief]]
-- [[gig/projects/P01 - Sample project|Collect quotes]]
-
-**[[gig/projects/P02 - Odd project|P02]]** Odd project
-- [[gig/projects/P02 - Odd project|Decide if it's real]]
+**Owes a debrief**
+- [[gig/lib/2026/2026-11-07 site walk|2026-11-07 site walk]] · owes a debrief · untouched since 2026-11-07
 
 **Dangling tasks**
 - [[gig/lib/2026-11-02 Standup|File the expenses]] · due 2026-11-12 · untouched since 2026-11-02
@@ -35,6 +31,11 @@
 - [[gig/lib/2026-11-02 Standup|Ask about parking]] · untouched since 2026-11-02
 - [[gig/lib/2026-11-02 Standup|Tidy the backlog]] · untouched since 2026-11-02
 - [[gig/lib/2026-11-02 Standup|Nested started task]] · untouched since 2026-11-02
+- [[gig/lib/2026-11-05 Catch-up|Send the summary P01 - Sample project]] · untouched since 2026-11-05
+- [[gig/lib/2026-11-05 Catch-up|Order the timber]] · untouched since 2026-11-05
+- [[gig/projects/P01 - Sample project|Draft the brief]]
+- [[gig/projects/P01 - Sample project|Collect quotes]]
+- [[gig/questions/who-owns-the-shed|Ask Pat who owns the shed]]
 
 ## Waiting on others
 
@@ -42,10 +43,14 @@
 - [[gig/lib/2026-11-02 Standup|Send notes to Pat]] · waiting on [[Pat Jones]] · untouched since 2026-11-02
 - **[[gig/delivery/tickets/T-7 Waiting ticket|T-7]]** Waiting ticket · Awaiting sign-off from Pat
 
+## Worth a glance
+
+- [[gig/radar/gone-quiet|gone-quiet]] · Supplier said next month · untouched since 2026-10-26
+
 ## Needs a look
 
 - **[[gig/delivery/tickets/T-6 Sixth ticket|T-6]]** Sixth ticket · live, but no open step recorded
+- **[[gig/delivery/tickets/T-6 Sixth ticket|T-6]]** Sixth ticket · status 'someday' not recognised
 - [[gig/lib/2026-10-28 Retro|Chase the blocker]] · blocked by [[Missing note]], which doesn't exist
 - [[gig/lib/2026-11-02 Standup|Check the numbers]] · blocked by [[No status blocker]], which has no status
-- [[gig/lib/2026-11-05 Catch-up|Send the summary]] · linked to [[gig/projects/P03 - Ended project|P03]], which ended on 2026-08-17
-- **[[gig/projects/P02 - Odd project|P02]]** Odd project · status 'someday' not recognised
+- [[gig/radar/no-date|no-date]] · watching, but its updated: 'soon' isn't a date

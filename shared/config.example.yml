@@ -26,14 +26,15 @@ frontier:
 #           root. A filename that is only the date (YYYY-MM-DD.md) marks daily
 #           notes, which wait until their day has passed.
 #   cutoff  notes dated before this are never swept.
-#   steps   the workflows run on each note, in order, by exact workflow name.
+#   steps   what runs on each note, in order: `propagate` (heartbeat's own step,
+#           which updates the tracking surfaces) or a vault workflow's exact name.
 # Every vault listed here needs a frontier: folders: entry inside it.
 #
 # heartbeat:
 #   ~/path/to/log-vault:
 #     inputs: "YYYY-MM-DD *.md"
 #     cutoff: 2026-11-10
-#     steps: [minute, sweep-tasks]
+#     steps: [propagate, sweep-tasks]
 #   ~/path/to/journal-vault:
 #     inputs: "journal/YYYY-MM-DD.md"
 #     cutoff: 2026-11-10

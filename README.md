@@ -43,11 +43,11 @@ Drop the `vault/` layer into any Obsidian vault and get:
 
 **Tracking and planning**
 - **Capture log note** — file content as a dated log note in the right gig log folder
-- **Minute** — log a logistics or status change and propagate it across radar, questions, wayfinder, and greenhouse
+- **Minute** — log a change and run heartbeat on it straight away
 - **Heartbeat** — sweep every new log or journal note: run its steps, record what's still owed, commit, and rebuild `NEXT.md`
 - **Add to radar** — capture, update, and review ongoing things worth tracking
 - **Wayfinder** — map a too-big project into a destination and small decisions worked through across sessions
-- **State of play** — a full reconciliation sweep across a gig, ending in a digest in `DASHBOARD.md`
+- **State of play** — a full reconciliation sweep across a gig or project folder, ending in a digest in chat
 - **Sweep tasks** — tidy a note's dangling tasks with a thread link and plain-word fields, writing only what you confirm
 - **Frontier** — a script that lists what's yours to do now, what's waiting on others and what needs a look, written to `<folder>/NEXT.md`
 - **Process notes** — propose folder moves and categories for a scope of notes, then apply on confirmation

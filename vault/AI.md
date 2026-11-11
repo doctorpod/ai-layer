@@ -43,10 +43,9 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- `triaged.md` and `timeline.md` in a piece-folder (see `_AI/shared/snippets/piece-folder.md`) — written only by the workflows that own them
 	- The **Beats** block in a piece-folder's `output.md`, written only by the beats workflow — never the prose around it
 	- Any file named `SPATIAL.md`
-	- Any file named `DASHBOARD.md`
 	- Any file named `NEXT.md`, written only by running `_AI/local/scripts/frontier.py` — never edited directly
 	- Task lines (`- [ ]`, `- [/]`) in any note, edited only by `sweep-tasks` after the owner confirms its proposal table — and then only to append a thread link, `Expected by:`, `Waiting on:`, `Blocked by:` or a 📅 date, or to mark the task done (`[x]` with `✅ YYYY-MM-DD`) or dropped (`[-]`). Never the task's own words, never other lines
-	- The `status:` frontmatter field on the vault's heartbeat input notes (the notes matching its `heartbeat:` entry in `_AI/shared/config.yml`), written only by `heartbeat`, `minute` and `debrief`, using the values defined in `_AI/local/workflows/heartbeat.md`. No other frontmatter, and never the note's body
+	- The `status:` frontmatter field on the vault's heartbeat input notes (the notes matching its `heartbeat:` entry in `_AI/shared/config.yml`), written only by `heartbeat` and `debrief`, using the values defined in `_AI/local/workflows/heartbeat.md`. No other frontmatter, and never the note's body
 	- A git commit at the end of a `heartbeat` run, holding only the files that run touched (plus notes it lists as having no heartbeat commit yet), staged by name, never with `git add -A`
 	- Any folder named `_greenhouse/`
 	- Any folder named `_wayfinder/`
@@ -127,16 +126,16 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
-| "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — capture a logistics or status change as a log note, then propagate it across the tracking surfaces (radar, questions, wayfinder, greenhouse); wiki changes are out of scope — those go through debrief |
-| "heartbeat", "run the heartbeat", "sweep the logs" | `_AI/local/workflows/heartbeat.md` — sweep every new input note in the vault (log notes, or journal notes): run its configured steps on each, record what's still owed in its `status:`, commit its own files, then rebuild `NEXT.md` |
-| "sweep tasks", "sweep this note", "tidy the tasks", "tag the tasks" | `_AI/local/workflows/sweep-tasks.md` — tidy a note's dangling tasks with a thread link and plain-word fields (`Expected by:`, `Waiting on:`, `Blocked by:`, 📅), writing only what you confirm; offered at the end of debrief and minute, never run by them |
+| "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — shortcut: capture a log note (or take the one pointed at), then run heartbeat on just that note |
+| "heartbeat", "run the heartbeat", "sweep the logs" | `_AI/local/workflows/heartbeat.md` — sweep every new input note in the vault (log notes, or journal notes): propagate it to the tracking surfaces, thread its tasks, record what's still owed in its `status:`, commit its own files, then rebuild `NEXT.md`. Holds every processing rule |
+| "sweep tasks", "sweep this note", "tidy the tasks", "tag the tasks" | `_AI/local/workflows/sweep-tasks.md` — tidy a note's dangling tasks with a thread link and plain-word fields (`Expected by:`, `Waiting on:`, `Blocked by:`, 📅), writing only what you confirm; run by heartbeat as part of processing a note, or by hand |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "gratitude", "help me write gratitude entries", "gratitude prompts" | `_AI/local/workflows/gratitude.md` — prompts grounded in recent journal notes, polishes each entry, appends approved entries to today's daily note (creating it from the daily template if missing) |
 | "add-to-radar", "capture radar item", "update radar list", "review radar items" | `_AI/local/workflows/add-to-radar.md` |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
-| "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time |
+| "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time; quick chart for clear, linear jobs |
 | "compass check this", "compass check", "check this against my compass", "towards or away?" | `_AI/local/workflows/compass.md` — diagnostic: checks an idea, offer or commitment against the owner's vocation compass (towards or away, and which part is theirs); also run as a one-line quick check by greenhouse capture and wayfinder chart |
-| "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across live projects, radar, triage, and wayfinder, then writes a plain-language digest to DASHBOARD.md |
+| "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across a home's radar and wayfinder, then a plain-language digest in chat |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
 | "handoff" | `_AI/shared/workflows/handoff.md` — save a handoff document so this conversation can be resumed later |
 | "resume" | `_AI/shared/workflows/resume.md` — resume from a saved handoff document |

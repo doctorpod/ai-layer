@@ -11,7 +11,9 @@ Use this workflow when the user has first-hand material to process — a site vi
 
 Check the single `inbox/` at the vault root for any notes, field notes, or transcripts the user has dropped in for *this* debrief. The inbox is shared across every KB and may hold unrelated items, so don't assume everything in it is in scope — match by filename, content, or the user pointing you at a specific file. Read the relevant ones fully before proceeding.
 
-If nothing in `inbox/` is relevant, proceed with a chat-based debrief — the user will tell you directly.
+In a vault with a `heartbeat:` entry in `_AI/shared/config.yml`, also run `python3 _AI/local/scripts/heartbeat.py .` from the vault root and offer the notes under its **Owes a debrief** list as sources. These are log notes heartbeat flagged because they change what's true about a subject.
+
+If nothing in `inbox/` is relevant and no flagged note is chosen, proceed with a chat-based debrief — the user will tell you directly.
 
 ## Step 1: Grill relentlessly
 
@@ -27,7 +29,7 @@ Rules:
 
 ## Step 2: Maintain Questions
 
-Follow `_AI/shared/snippets/questions.md` for creating and maintaining Questions.
+Follow `_AI/shared/snippets/questions.md` for creating and maintaining Questions, including the chase task a new pending question carries.
 
 ## Step 3: Concept notes and SPATIAL.md
 
@@ -45,7 +47,7 @@ Follow `_AI/shared/snippets/cross-workflow-check.md`, substituting `established 
 
 **Exactly one inbox file in scope**: append a `## Debrief (YYYY-MM-DD)` section to the end of that inbox file itself, capturing only what the grilling *added* — clarifications, corrections, additional context, and anything the user said that wasn't in the raw notes. The rest of the inbox file remains the primary record; this section is the verified delta, placed right next to what it's clarifying instead of in a sibling file. Do this before the file is moved to `curated/` in Step 7 of `wiki-write-steps.md` — that step just moves the now-enriched file, no change needed there.
 
-No "has this been triaged" check is needed before appending: Step 0 only ever reads from `inbox/`, and a file can't be triaged by `sync-guide` until it's moved to `curated/`, which only happens after this step. So any inbox file reaching this step is always pre-triage by construction — the restriction is structural, not something to test for at runtime.
+No "has this been triaged" check is needed before appending: Step 0 only ever takes source files from `inbox/`, and a file can't be triaged by `sync-guide` until it's moved to `curated/`, which only happens after this step. So any inbox file reaching this step is always pre-triage by construction — the restriction is structural, not something to test for at runtime.
 
 **Two or more inbox files in scope**: write a new debrief note capturing the session-wide delta — clarifications, corrections, additional context spanning the files, not tied to any one of them. Save it directly to `curated/` — it is already verified. Filename: `debrief-YYYY-MM-DD-[brief-description].md`. Label it clearly at the top, and list every inbox file it draws from via a `**Sources**:` field, matching the wiki page convention in `ingest.md`:
 
@@ -70,13 +72,9 @@ Follow the citation rules in `_AI/local/workflows/ingest.md`. Every wiki claim m
 
 The multi-source trigger in `ingest.md` applies here too: if this debrief is the *second* debrief (or an ingest) to touch an existing page — a follow-up conversation about something already written up — switch that page to per-claim footnotes rather than folding the new debrief note's claims into the earlier sentences.
 
-## Step 9b: Offer a task sweep
+## Step 9b: Clear the flag
 
-If the debriefed note, or the debrief note just written, has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them), end your report to the user with one line offering `sweep-tasks`, such as "This note has 3 dangling tasks. Sweep them?" Don't run it: it starts only if the user says yes.
-
-## Step 9c: Record what's still owed (heartbeat vaults only)
-
-If the vault has a `heartbeat:` entry in `_AI/shared/config.yml` and the debriefed note is one of its input notes (its filename or path matches the entry's `inputs` pattern, and it's dated on or after `cutoff`), set that note's `status:` frontmatter, using the values defined in `_AI/local/workflows/heartbeat.md`: `minuted` if it still has dangling tasks, otherwise `done`. The debrief settles whatever debrief it owed. Change no other frontmatter. Otherwise, skip this step.
+If a note debriefed here has `status: needs-debrief`, set it `done` (the exit named in `_AI/local/workflows/heartbeat.md`). Change no other frontmatter.
 
 ## Step 10: Learnings
 

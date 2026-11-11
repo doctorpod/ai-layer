@@ -1,6 +1,6 @@
 ---
 name: wayfinder
-description: Map out a fuzzy, too-big-for-one-session project into a destination and a set of small decisions (waypoints), then work through them one at a time across sessions.
+description: Map out a fuzzy, too-big-for-one-session project into a destination and a set of small decisions (waypoints), then work through them one at a time across sessions. Quick chart for clear, linear jobs.
 ---
 
 # Wayfinder Workflow
@@ -14,11 +14,15 @@ Don't confuse this with:
 - `greenhouse` — an idea you already understand, deliberately parked.
 - `post-mortem` — investigates something that already went wrong.
 
-Wayfinder is for active, unclear, multi-step efforts you actually want to move forward on.
+Wayfinder is for active, unclear, multi-step efforts you actually want to move forward on. For a clear, linear job, use **Mode: Quick chart**: the same map, without the grilling.
+
+A map is a **thread**. Every thread starts as one of two things:
+- a **seed**: the owner's own idea (a greenhouse entry is a seed that hasn't started). The owner agrees what done means, and the compass check is the sign-off.
+- an **ask**: someone else's want, such as a ticket or a client's brief. The asker agrees what done means.
 
 ## Scope
 
-Each wayfinder project lives at `_wayfinder/<kebab-case-slug>/map.md`, nested inside the project's own folder when one already exists (e.g. `projects/2026-07-LondonRoadDover/_wayfinder/map.md`) — this keeps the map next to the rest of the project's material instead of needing every update made twice. Fall back to `_wayfinder/<slug>/map.md` at the vault root only when the subject has no existing project folder of its own (e.g. a household task like `chimney-water-ingress`).
+Each map lives at `_wayfinder/<kebab-case-slug>/map.md`, the slug naming what that thread is. It sits inside its **home** (a gig or project folder) when one exists, e.g. `projects/<home>/_wayfinder/<slug>/map.md`, which keeps the map next to the rest of the home's material instead of needing every update made twice. A home can hold many maps, one per thread, each in its own slug folder: never put a map directly at `_wayfinder/map.md`. Fall back to `_wayfinder/<slug>/map.md` at the vault root only when the subject has no home of its own (e.g. a household task like `chimney-water-ingress`).
 
 ## Map format
 
@@ -67,12 +71,23 @@ tags:
 
 Use the first time a project is mapped — no `map.md` exists yet for it.
 
-1. **Scan first** — check `_wayfinder/` for a close match, and check whether an existing project folder for this subject already exists elsewhere (e.g. under `projects/`). If a matching wayfinder map exists, offer to add to it instead of starting a new one. If no map exists yet but a project folder does, place the new map inside that project folder (see Scope) rather than at the vault root.
-2. **Name the destination.** This is the first act, before any waypoint exists. Use `grill-me` rules: one question at a time, offer a best-guess answer, ask the user to confirm or correct. Keep going until the destination is a single concrete sentence with a clear boundary (what's in, what's explicitly not).
+1. **Scan first** — check `_wayfinder/` for a close match, and check whether a home for this subject already exists elsewhere (e.g. under `projects/`). If a matching wayfinder map exists, offer to add to it instead of starting a new one. If no map exists yet but a home does, place the new map inside that home (see Scope) rather than at the vault root. A single ticket's thread is its work folder, or its own checklist when it has none: chart a map for an ask only when it's bigger than one ticket or still woolly, and then its tickets hang off the map.
+2. **Name the destination.** This is the first act, before any waypoint exists. Say whether the thread is a seed or an ask, and so who has to agree what done means: the owner for a seed, the asker for an ask (for an ask, the destination stays a draft until the asker has agreed it). Use `grill-me` rules: one question at a time, offer a best-guess answer, ask the user to confirm or correct. Keep going until the destination is a single concrete sentence with a clear boundary (what's in, what's explicitly not).
 3. **Compass check.** Run the quick check in `_AI/local/workflows/compass.md` against the destination. Show the one line, and include it in the map (step 5) just under the Destination as `**Compass:** …`.
 4. **Surface the waypoints.** Same grilling approach: work out what's actually unknown or blocking — decisions, missing information, people to contact, things to research. Each becomes one waypoint: a short title, a one-line question it needs to answer, HITL/AFK classification, and any blocking dependency.
 5. **Write `map.md`.** Destination, empty "Decisions so far", waypoints sorted into Open/Blocked/Parked/Resolved (Parked and Resolved start empty). Set `aliases:` to the slug with hyphens replaced by spaces (e.g. `chimney-water-ingress` → `chimney water ingress`), so the map can be wikilinked in plain English from journal entries and project notes.
 6. **Confirm** — tell the user the file path and read back the frontier (the open, unblocked waypoints) — that's what's actionable next.
+
+## Mode: Quick chart
+
+Use for a clear, linear job, where the steps and their order are already known (triggers: "quick chart", "quick map", or Chart mode when the owner can list the steps straight off).
+
+1. **Scan first**, as in Chart.
+2. **Destination**: one line, plus the compass line (`**Compass:** …`, from the quick check in `_AI/local/workflows/compass.md`). Say who agrees what done means (seed or ask) and confirm the line with the owner. No grilling.
+3. **Waypoints**: the steps as a list, in order. The first is Open; each later one is Blocked by the one before unless the owner says they can run in parallel. Classify each HITL/AFK.
+4. **Write `map.md`** in the usual format, and **confirm** as in Chart.
+
+If the job turns out woolly while doing this, switch to Chart mode.
 
 ## Mode: Work the frontier
 
@@ -108,6 +123,6 @@ Use when the user asks to review wayfinder projects.
 
 ## Project sync
 
-Applies only when a wayfinder map is nested inside a project folder (see Scope) — a root-level map with no owning project has nothing to sync with.
+Applies only when a wayfinder map is nested inside a home (see Scope) — a root-level map with no home has nothing to sync with.
 
 When resolving a waypoint establishes something true about the project itself — a fact, a decision, a contact made — not just bookkeeping on the map, offer to route it into the project properly: `debrief` if it's first-hand material worth verifying, `ingest` if there's source material to fold in. Don't let a real project fact live only in "Decisions so far" if the project's own wiki should know it too.

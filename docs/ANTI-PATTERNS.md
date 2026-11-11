@@ -30,7 +30,7 @@ If either answer is "nothing" or "someone will notice", it's a dead end. A state
 **The fix** — Whoever defines the state names its reader and its exit, in the same place it's defined. Wire both in the same change that adds the state. Writing for a human is fine when the human reader is named, such as the journal read at stand-up.
 
 **Where it's happened**
-- `status: needs-debrief` (2026-11): `minute` and `heartbeat` set it and heartbeat lists it, but `debrief` only looks in `inbox/` and never sets it back. Notes parked there would be listed forever. Fix pending: debrief also offers `needs-debrief` notes, and sets `done` when it finishes.
+- `status: needs-debrief` (2026-11): `minute` and `heartbeat` set it and heartbeat lists it, but `debrief` only looks in `inbox/` and never sets it back. Notes parked there would be listed forever. Fixed 2026-11: NEXT.md lists the note; debrief offers it and sets `done`.
 
 ---
 
@@ -46,5 +46,5 @@ If either answer is "nothing" or "someone will notice", it's a dead end. A state
 
 **Where it's happened**
 - `coverage`: `gap-check` stores its verdict on each guide note because rerunning the check just to fill a view costs too much. It goes stale when the draft changes; rerunning `gap-check` refreshes it.
-- `DASHBOARD.md` copies state from radar, wayfinder and projects. Its refresh is named (`state-of-play`), but it's stale between runs.
+- `DASHBOARD.md` copied state from radar, wayfinder and projects. Its refresh was named (`state-of-play`), but it was stale between runs. DASHBOARD.md was deleted; NEXT.md derives the same view on every run.
 - Radar `latest:` repeats the newest Context entry, and wiki `INDEX.md` lines summarise their pages. Both drift unless whatever edits the source updates them too.

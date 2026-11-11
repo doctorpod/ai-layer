@@ -6,8 +6,8 @@ Usage (from anywhere):
     python3 heartbeat.py --check-config [--config PATH]
 
 --check-config prints one line per problem in the config's `heartbeat:`
-entries (an unusable entry, a step that isn't a vault workflow, a vault with no
-`frontier: folders:` entry inside it) and always exits 0.
+entries (an unusable entry, a step that isn't `propagate` or a vault workflow,
+a vault with no `frontier: folders:` entry inside it) and always exits 0.
 
 Input notes are what a vault takes in day to day: log notes, or daily journal
 notes. A vault that uses this has an entry under `heartbeat:` in the layer's
@@ -17,7 +17,10 @@ shared/config.yml, keyed by its root folder:
       ~/path/to/vault:
         inputs: "YYYY-MM-DD *.md"
         cutoff: 2026-11-10
-        steps: [...]          # not read here
+        steps: [propagate, sweep-tasks]   # read only by --check-config
+
+A step is `propagate` (heartbeat's own) or the name of a vault workflow. It
+can't be `minute`: that's a shortcut that runs heartbeat on one note.
 
 Inputs pattern
   YYYY-MM-DD stands for a date, * for any run of characters within a name and
@@ -32,9 +35,10 @@ Skipped folders
   Everything else is searched, including notes tagged ai-generated.
 
 State
-  A note's `status:` records what's still owed to it. No status means nothing
-  has been done yet. `done` means nothing is owed, and `needs-debrief` has its
-  own section. Any other value counts as still owed and is shown as written.
+  A note's `status:` records what's still owed to it: `unprocessed` (or no
+  status) means heartbeat hasn't finished with it, `needs-debrief` has its own
+  section, and `done` means nothing is owed. Any other value counts as still
+  owed and is shown as written.
 
 Edited since the last heartbeat
   For a note with a status, the script finds the last commit of it whose
@@ -67,6 +71,8 @@ WORKFLOWS = HERE.parent / "workflows"
 SKIP_DIRS = {"wiki", "_AI", ".obsidian", "templates", ".git", ".trash"}
 DATE_TOKEN = "YYYY-MM-DD"
 COMMIT_PREFIX = "heartbeat:"
+OWN_STEP = "propagate"  # heartbeat's own step; every other step is a vault workflow
+SHORTCUT = "minute"  # runs heartbeat on one note, so it can't be one of heartbeat's steps
 DONE, DEBRIEF = "done", "needs-debrief"
 
 
@@ -262,7 +268,7 @@ def config_problems(config, workflows=WORKFLOWS):
         return []
     if not isinstance(section, dict):
         return ["heartbeat: should map each vault's root to its entry"]
-    known = {p.stem for p in Path(workflows).glob("*.md")}
+    known = {p.stem for p in Path(workflows).glob("*.md")} - {SHORTCUT} | {OWN_STEP}
     frontier = (config or {}).get("frontier")
     folders = frontier.get("folders") if isinstance(frontier, dict) else None
     folders = [Path(str(f)).expanduser().resolve() for f in (folders if isinstance(folders, list) else [folders] if folders else [])]
@@ -276,7 +282,10 @@ def config_problems(config, workflows=WORKFLOWS):
         if isinstance(entry, dict):
             steps = entry.get("steps")
             for step in steps if isinstance(steps, list) else [steps] if steps else []:
-                if str(step) not in known:
+                if str(step) == SHORTCUT:
+                    out.append("heartbeat: %s: step '%s' is a shortcut that runs heartbeat, so it can't be one of "
+                               "heartbeat's steps (use %s)" % (key, step, OWN_STEP))
+                elif str(step) not in known:
                     out.append("heartbeat: %s: step '%s' isn't a vault workflow" % (key, step))
         if not any(f == root or root in f.parents for f in folders):
             out.append("heartbeat: %s: no frontier: folders: entry inside this vault, so its tasks reach no NEXT.md" % key)

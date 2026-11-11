@@ -26,7 +26,7 @@ GIT_ENV = dict(os.environ, GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1"
                GIT_AUTHOR_NAME="Test", GIT_AUTHOR_EMAIL="test@example.com",
                GIT_COMMITTER_NAME="Test", GIT_COMMITTER_EMAIL="test@example.com")
 
-LOG_ENTRY = '    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-10\n    steps: [minute, sweep-tasks]\n'
+LOG_ENTRY = '    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-10\n    steps: [propagate, sweep-tasks]\n'
 JOURNAL_ENTRY = '    inputs: "journal/YYYY-MM-DD.md"\n    cutoff: 2026-11-10\n    steps: [sweep-tasks]\n'
 
 
@@ -110,7 +110,7 @@ class LogVault(VaultRepo):
                          ["- 2026-11-11 · gig/lib/2026/2026-11-11 owes debrief.md"])
         process = self.section(out, "To process")
         self.assertIn("- 2026-11-10 · gig/lib/2026/2026-11-10 kickoff call.md · no status", process)
-        self.assertIn("- 2026-11-12 · gig/lib/2026/2026-11-12 half done.md · minuted", process)
+        self.assertIn("- 2026-11-12 · gig/lib/2026/2026-11-12 half done.md · unprocessed", process)
         self.assertNotIn("all done", "\n".join(process))
 
     def test_swept_note_with_no_heartbeat_commit_is_listed(self):
@@ -230,12 +230,20 @@ class CheckConfig(unittest.TestCase):
     def test_reports_unknown_steps_and_missing_frontier_coverage(self):
         config = {"frontier": {"folders": ["/v/gig"]},
                   "heartbeat": {"/v": {"inputs": "YYYY-MM-DD *.md", "cutoff": "2026-11-10",
-                                       "steps": ["minute", "sweep-tasks"]},
+                                       "steps": ["propagate", "sweep-tasks"]},
                                 "/w": {"inputs": "journal/YYYY-MM-DD.md", "cutoff": "2026-11-10",
                                        "steps": ["sweep_tasks"]}}}
         self.assertEqual(heartbeat.config_problems(config), [
             "heartbeat: /w: step 'sweep_tasks' isn't a vault workflow",
             "heartbeat: /w: no frontier: folders: entry inside this vault, so its tasks reach no NEXT.md"])
+
+    def test_propagate_is_a_step_and_minute_is_not(self):
+        config = {"frontier": {"folders": ["/v"]},
+                  "heartbeat": {"/v": {"inputs": "YYYY-MM-DD *.md", "cutoff": "2026-11-10",
+                                       "steps": ["propagate", "minute"]}}}
+        self.assertEqual(heartbeat.config_problems(config), [
+            "heartbeat: /v: step 'minute' is a shortcut that runs heartbeat, so it can't be one of "
+            "heartbeat's steps (use propagate)"])
 
     def test_reports_unusable_entry(self):
         config = {"frontier": {"folders": ["/v"]}, "heartbeat": {"/v": {"inputs": "*.md"}}}
@@ -251,7 +259,7 @@ class CheckConfig(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             cfg = Path(d) / "config.yml"
             cfg.write_text('heartbeat:\n  /w:\n    inputs: "YYYY-MM-DD *.md"\n    cutoff: 2026-11-10\n'
-                           '    steps: [minute]\n', encoding="utf-8")
+                           '    steps: [propagate]\n', encoding="utf-8")
             r = subprocess.run([sys.executable, str(SCRIPT), "--check-config", "--config", str(cfg)],
                                capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(r.returncode, 0, r.stderr)
@@ -265,12 +273,12 @@ class FallbackYaml(unittest.TestCase):
     def test_config_shape(self):
         raw = ("# comment\ncompass:\n  file: ~/Compass.md\nfrontier:\n  folders:\n    - ~/a\n    - ~/b\n"
                "heartbeat:\n  ~/vault:\n    inputs: \"YYYY-MM-DD *.md\"  \n    cutoff: 2026-11-10  # day one\n"
-               "    steps: [minute, sweep-tasks]\n")
+               "    steps: [propagate, sweep-tasks]\n")
         self.assertEqual(vaultyaml.parse_fallback(raw), {
             "compass": {"file": "~/Compass.md"},
             "frontier": {"folders": ["~/a", "~/b"]},
             "heartbeat": {"~/vault": {"inputs": "YYYY-MM-DD *.md", "cutoff": "2026-11-10",
-                                      "steps": ["minute", "sweep-tasks"]}}})
+                                      "steps": ["propagate", "sweep-tasks"]}}})
 
     def test_frontmatter_shape(self):
         raw = 'date: "[[2026-11-10]]"\ntime: "10:30"\ntags:\n- ai-generated\nstatus: done\nempty:\n'

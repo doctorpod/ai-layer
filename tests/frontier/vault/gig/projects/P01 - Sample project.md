@@ -1,6 +1,4 @@
 ---
-categories:
-  - "[[Projects]]"
 status: active
 ---
 ## Tasks

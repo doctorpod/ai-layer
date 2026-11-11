@@ -3,7 +3,7 @@ categories:
   - "[[Tickets]]"
 aliases:
   - T-6
-status: active
+status: someday
 ---
 ## Checklist
 

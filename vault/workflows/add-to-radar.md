@@ -7,7 +7,9 @@ description: Capture, update, and review ongoing things worth tracking that may 
 
 Triggered by: "add to radar", "capture on radar", "update radar", "review radar"
 
-A radar item is something worth keeping an eye on — an unresolved situation, a decision pending elsewhere, a dynamic worth monitoring. Not necessarily a task, and not necessarily yours to act on.
+A radar item is a **watch**: something worth keeping an eye on — an unresolved situation, a decision pending elsewhere, a dynamic worth monitoring. Not necessarily a task, and not necessarily yours to act on.
+
+A `watching` item stays out of sight until it's been untouched for 14 days; then it surfaces under "Worth a glance" on `NEXT.md` (see `_AI/local/FRONTIER.md`). Update mode's `updated:` bump, or moving it out of `watching`, takes it off again.
 
 ## Scope
 
@@ -59,7 +61,7 @@ Use when a review, debrief, or conversation surfaces something radar-worthy.
 Use when there is new information about an existing radar item.
 
 1. Update the `latest:` frontmatter field.
-2. Offer to capture a log note with a link to the radar item if appropriate - `_AI/local/capture-log-note.md`
+2. Offer to capture a log note with a link to the radar item if appropriate - `_AI/local/workflows/capture-log-note.md`
 3. Update the `updated` frontmatter field.
 4. Reassess status — has anything changed? Should this become `dormant`, `not-mine`, or `resolved`?
 
