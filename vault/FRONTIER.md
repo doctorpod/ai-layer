@@ -14,7 +14,7 @@ The script writes the list to `<folder>/NEXT.md`. Anything it can't read is neve
 
 ## Where the script looks
 
-Every `.md` file in the folder the list covers, except `templates/`, `_AI/` and `.obsidian/` folders, notes with `ignore_tasks: true` in frontmatter, and notes whose `status:` means parked or done (their tasks are out of play). Checkboxes inside fenced code blocks are ignored.
+Every `.md` file in the folder the list covers, except `templates/`, `_AI/` and `.obsidian/` folders, notes with `ignore_tasks: true` in frontmatter, and notes whose `status:` means parked or done (their tasks are out of play). The exception is a vault's heartbeat input notes (its log notes or journal notes, as its `heartbeat:` config entry defines them): they keep their tasks in play whatever their `status:`, because there `status:` records what heartbeat still owes the note, not the state of its tasks. Checkboxes inside fenced code blocks are ignored.
 
 ## Status
 

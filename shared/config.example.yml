@@ -2,11 +2,39 @@
 # that shouldn't be committed. Copy this file to shared/config.yml (git-ignored)
 # and fill it in. Workflows read it at _AI/shared/config.yml.
 # Project-specific settings belong in the project's _AI/OVERVIEW.md, not here.
+#
+# Each top-level key is the workflow or script it configures, with its settings
+# nested underneath. Only what varies per machine or vault goes here; how a
+# workflow behaves is in the workflow itself.
 
-# Full path to the owner's vocation compass note. Read by the compass workflow.
-compass_file: ~/path/to/Compass.md
+# The compass workflow.
+compass:
+  # Full path to the owner's vocation compass note.
+  file: ~/path/to/Compass.md
 
-# Folders the frontier script lists, each getting its own NEXT.md. Read when
-# frontier.py runs with no folder argument, as the timer does.
-frontier_folders:
-  - ~/path/to/vault/some-folder
+# The frontier script.
+frontier:
+  # Folders that each get their own NEXT.md. frontier.py rebuilds all of them
+  # when run with no folder argument, or the ones inside one vault with --vault.
+  folders:
+    - ~/path/to/vault/some-folder
+
+# The heartbeat workflow: one entry per vault it sweeps, keyed by the vault's root.
+#   inputs  which notes are the vault's input notes. YYYY-MM-DD stands for the
+#           date, * for any run of characters. With no "/" it matches a filename
+#           anywhere in the vault; with a "/" it matches a path from the vault
+#           root. A filename that is only the date (YYYY-MM-DD.md) marks daily
+#           notes, which wait until their day has passed.
+#   cutoff  notes dated before this are never swept.
+#   steps   the workflows run on each note, in order, by exact workflow name.
+# Every vault listed here needs a frontier: folders: entry inside it.
+#
+# heartbeat:
+#   ~/path/to/log-vault:
+#     inputs: "YYYY-MM-DD *.md"
+#     cutoff: 2026-11-10
+#     steps: [minute, sweep-tasks]
+#   ~/path/to/journal-vault:
+#     inputs: "journal/YYYY-MM-DD.md"
+#     cutoff: 2026-11-10
+#     steps: [sweep-tasks]

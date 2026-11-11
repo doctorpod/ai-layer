@@ -11,10 +11,10 @@ The compass is a short statement of the owner's vocational direction: a bearing,
 
 ## The compass file
 
-Its path is the `compass_file` value in `_AI/shared/config.yml`. It lives in the owner's personal vault, and any vault may read it, read-only. The `## Compass` section is the version to check against; `## Pocket version` is a memory aid, not the test.
+Its path is the `compass: file:` value in `_AI/shared/config.yml`. It lives in the owner's personal vault, and any vault may read it, read-only. The `## Compass` section is the version to check against; `## Pocket version` is a memory aid, not the test.
 
-**Step 0, every time: find it.** Read `compass_file` from `_AI/shared/config.yml`, then read that file, before anything else. Stop if:
-- the config file or the `compass_file` key is missing: tell the owner to set it, copying from `_AI/shared/config.example.yml`;
+**Step 0, every time: find it.** Read `compass: file:` from `_AI/shared/config.yml`, then read that file, before anything else. Stop if:
+- the config file or the `compass: file:` key is missing: tell the owner to set it, copying from `_AI/shared/config.example.yml`;
 - the file it points to doesn't exist, or has no `## Compass` section: tell the owner the compass can't be found at that path and ask whether it has moved.
 
 Don't carry on, don't work from a remembered or paraphrased version, and if another workflow called this one, don't let it carry on either until the owner has fixed the path or said to skip the check.

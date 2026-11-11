@@ -15,7 +15,7 @@ Tasks stay in the note where they were written. This workflow only appends plain
 ## Step 1: Find the dangling tasks
 
 - **Scope:** the note the user named. Read the note itself; don't run the frontier script.
-- **Dangling:** an open task (`- [ ]` or `- [/]`) with no link to a thread note (a wayfinder map, a ticket or a project). Skip notes the convention skips (parked or done `status:`, `ignore_tasks: true`, templates, and notes inside a work folder).
+- **Dangling:** an open task (`- [ ]` or `- [/]`) with no link to a thread note (a wayfinder map, a ticket or a project). Skip notes the convention skips (parked or done `status:`, `ignore_tasks: true`, templates, and notes inside a work folder). A heartbeat input note is never skipped for its `status:`, which there records what heartbeat still owes the note.
 - None found: say so in one line and stop.
 
 ## Step 2: Know the threads
@@ -60,3 +60,7 @@ Example:
 ## Step 5: Report
 
 One line per note: how many tasks got a thread or fields, how many were marked done, how many were dropped, and how many are still dangling.
+
+## Step 6: Rebuild NEXT.md
+
+If Step 4 changed any task line, run `python3 _AI/local/scripts/frontier.py --vault .` from the vault root, so the vault's `NEXT.md` files reflect it. Don't show its output. When the vault has no config or no `frontier: folders:` inside it, the script says so and does nothing; skip it silently.

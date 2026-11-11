@@ -44,6 +44,7 @@ Drop the `vault/` layer into any Obsidian vault and get:
 **Tracking and planning**
 - **Capture log note** — file content as a dated log note in the right gig log folder
 - **Minute** — log a logistics or status change and propagate it across radar, questions, wayfinder, and greenhouse
+- **Heartbeat** — sweep every new log or journal note: run its steps, record what's still owed, commit, and rebuild `NEXT.md`
 - **Add to radar** — capture, update, and review ongoing things worth tracking
 - **Wayfinder** — map a too-big project into a destination and small decisions worked through across sessions
 - **State of play** — a full reconciliation sweep across a gig, ending in a digest in `DASHBOARD.md`
@@ -155,7 +156,7 @@ Some workflows need values specific to this machine, such as paths to notes outs
 cp ~/Dev/ai-layer/shared/config.example.yml ~/Dev/ai-layer/shared/config.yml
 ```
 
-`shared/config.yml` is git-ignored. Every install sees it at `_AI/shared/config.yml`. A workflow that needs a value that isn't set stops and asks; it never guesses.
+`shared/config.yml` is git-ignored. Every install sees it at `_AI/shared/config.yml`. Each top-level key is named after the workflow or script it configures (`compass:`, `frontier:`, `heartbeat:`), with its settings nested underneath. A workflow that needs a value that isn't set stops and asks; it never guesses.
 
 ---
 

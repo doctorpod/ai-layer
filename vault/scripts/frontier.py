@@ -2,12 +2,18 @@
 """List what's yours to do now across a vault folder's threads. No AI involved.
 
 Usage (from anywhere):
-    python3 frontier.py [folder] [--now YYYY-MM-DD] [--no-write] [--config PATH]
+    python3 frontier.py [folder | --vault ROOT] [--now YYYY-MM-DD] [--no-write] [--config PATH]
 
 Reads <folder> as described in ../FRONTIER.md (the convention: how notes
 record threads, checklists and tasks), prints the list, and writes it to
 <folder>/NEXT.md. With no folder, it does this for every folder listed under
-`frontier_folders:` in the layer's shared/config.yml.
+`frontier: folders:` in the layer's shared/config.yml; with --vault, for just
+the listed folders inside that vault (saying so, and succeeding, if there are
+none or there's no config).
+
+A note whose `status:` means parked or done is skipped, unless it's one of the
+vault's input notes under the config's `heartbeat:` entry for the vault: there,
+`status:` records what's still owed to the note itself, not to its tasks.
 
 The output is stable: no timestamps, dates rather than ages, and every sort
 has an explicit tie-break, so a run with nothing changed in the notes leaves
@@ -63,10 +69,8 @@ Listing rules (layout and sorting; how notes are written is the convention's):
 import argparse, datetime as dt, os, re, subprocess, sys
 from pathlib import Path
 
-try:
-    import yaml
-except ImportError:  # minimal fallback: flat keys and simple lists
-    yaml = None
+import heartbeat
+from vaultyaml import load_config, read_note
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_CONFIG = HERE.parent.parent / "shared" / "config.yml"
@@ -104,38 +108,6 @@ def status_of(word):
         if w in words:
             return meaning
     return "unknown"
-
-
-def parse_yaml(raw):
-    if yaml:
-        try:
-            v = yaml.safe_load(raw)
-            return v if isinstance(v, dict) else {}
-        except yaml.YAMLError:
-            return {}
-    out, key = {}, None
-    for line in raw.splitlines():
-        if line.lstrip().startswith("#"):
-            continue
-        m = re.match(r"^([\w-]+):\s*(.*)$", line)
-        if m:
-            key, val = m.group(1), m.group(2).strip().strip('"')
-            out[key] = val if val else []
-        elif key and re.match(r"^\s+-\s+", line):
-            if not isinstance(out[key], list):
-                out[key] = []
-            out[key].append(re.sub(r"^\s+-\s+", "", line).strip().strip('"'))
-    return out
-
-
-def read_note(path):
-    text = path.read_text(encoding="utf-8", errors="replace")
-    fm, body = {}, text
-    if text.startswith("---"):
-        end = text.find("\n---", 3)
-        if end != -1:
-            fm, body = parse_yaml(text[3:end]), text[end + 4:]
-    return fm, body
 
 
 def as_list(v):
@@ -265,8 +237,9 @@ class Thread:
 
 
 class Frontier:
-    def __init__(self, vault, today):
+    def __init__(self, vault, today, inputs=None):
         self.v, self.today = vault, today
+        self.inputs = inputs  # the vault's heartbeat config entry, if it has one
         self.threads = {}  # key -> Thread
         self.thread_of = {}  # note path -> thread key, for tasks linking to a thread
         self.yours, self.waiting, self.look = [], [], []
@@ -276,7 +249,11 @@ class Frontier:
     # -- helpers --
     def excluded(self, p):
         fm = self.v.fm(p)
-        return str(fm.get("ignore_tasks")).strip().lower() == "true" or status_of(fm.get("status")) in ("parked", "done")
+        if str(fm.get("ignore_tasks")).strip().lower() == "true":
+            return True
+        if status_of(fm.get("status")) not in ("parked", "done"):
+            return False
+        return not (self.inputs and heartbeat.is_input(self.v.root, p, self.inputs))
 
     def add_thread(self, key, notes, link, tid, title, fm):
         th = self.threads.setdefault(key, Thread(key, link, tid, title, fm))
@@ -608,18 +585,30 @@ def find_vault_root(start):
     return None
 
 
-def configured_folders(config):
-    if not config.is_file():
-        sys.exit("frontier: no folder given, and no config at %s to read frontier_folders: from" % config)
-    raw = config.read_text(encoding="utf-8")
-    data = parse_yaml(raw) if yaml is None else (yaml.safe_load(raw) or {})
-    folders = [str(f) for f in as_list(data.get("frontier_folders") if isinstance(data, dict) else None) if str(f).strip()]
-    if not folders:
-        sys.exit("frontier: no folder given, and %s has no frontier_folders: list" % config)
-    return folders
+def configured_folders(data):
+    """The folders under `frontier: folders:` in the config."""
+    section = (data or {}).get("frontier")
+    return [str(f) for f in as_list(section.get("folders") if isinstance(section, dict) else None) if str(f).strip()]
 
 
-def run(folder, today, write):
+def inputs_for(root, config):
+    """The vault's heartbeat config entry, or None if it has no usable one."""
+    entry = heartbeat.config_entry_for(root, config)
+    if entry is None:
+        return None
+    problem = heartbeat.entry_problem(entry)
+    if problem:
+        print("frontier: ignoring the heartbeat: entry for %s: %s" % (root, problem), file=sys.stderr)
+        return None
+    return entry
+
+
+def inside(folder, root):
+    f = Path(folder).expanduser().resolve()
+    return f == root or root in f.parents
+
+
+def run(folder, today, write, config):
     scope = Path(folder).expanduser().resolve()
     if not scope.is_dir():
         print("frontier: %s is not a folder" % folder, file=sys.stderr)
@@ -628,7 +617,7 @@ def run(folder, today, write):
     if root is None:
         print("frontier: no vault (an _AI or .obsidian folder) found above %s" % scope, file=sys.stderr)
         return False
-    f = Frontier(Vault(root, scope), today)
+    f = Frontier(Vault(root, scope), today, inputs_for(root, config))
     f.gather()
     text = f.render()
     sys.stdout.write(text)
@@ -642,15 +631,34 @@ def run(folder, today, write):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("folder", nargs="?", help="folder to list, e.g. gigs/2026-02-CCS")
+    ap.add_argument("--vault", help="rebuild only the configured folders inside this vault")
     ap.add_argument("--now", help="pretend today is this date, YYYY-MM-DD (for testing)")
     ap.add_argument("--no-write", action="store_true", help="print the list without writing NEXT.md")
     ap.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help=argparse.SUPPRESS)
     a = ap.parse_args()
     today = (a.now or dt.date.today().isoformat())[:10]
-    folders = [a.folder] if a.folder else configured_folders(a.config)
+    if a.folder and a.vault:
+        ap.error("give a folder or --vault, not both")
+    config = load_config(a.config)
+    if a.folder:
+        folders = [a.folder]
+    elif a.vault:
+        root = Path(a.vault).expanduser().resolve()
+        folders = [f for f in configured_folders(config) if inside(f, root)]
+        if config is None:
+            print("frontier: no config at %s, so nothing to rebuild" % a.config, file=sys.stderr)
+        elif not folders:
+            print("frontier: no frontier: folders: inside %s in %s, so nothing to rebuild" % (root, a.config),
+                  file=sys.stderr)
+    elif config is None:
+        sys.exit("frontier: no folder given, and no config at %s to read frontier: folders: from" % a.config)
+    else:
+        folders = configured_folders(config)
+        if not folders:
+            sys.exit("frontier: no folder given, and %s has no frontier: folders: list" % a.config)
     ok = True
     for folder in folders:
-        ok &= run(folder, today, not a.no_write)
+        ok &= run(folder, today, not a.no_write, config)
     sys.exit(0 if ok else 1)
 
 

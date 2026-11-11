@@ -39,6 +39,7 @@ tags:
 ```
 
 - Substitute real values for date and time
+- Never add a `status:` field. In a vault that heartbeat sweeps, a log note with no `status:` is one nothing has been done to yet, which is true of a captured note, so heartbeat picks it up. (`minute`, which creates its note through this step, sets `status:` itself once it has propagated the note.)
 - Preserve the content faithfully — do not summarise or rewrite unless the user asks
 - Wikilink any names, concepts, or entities that are likely to have pages in this vault
 

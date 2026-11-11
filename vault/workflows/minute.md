@@ -39,8 +39,22 @@ If propagating this cleanly would mean editing a `wiki/` page or concept note â€
 - Apply the propagation edits.
 - If the plan touches four or more files, confirm the plan with the user before applying.
 
+## Step 3b: Record what's still owed (heartbeat vaults only)
+
+If the vault has a `heartbeat:` entry in `_AI/shared/config.yml` and the record is one of its input notes (its filename or path matches the entry's `inputs` pattern, and it's dated on or after `cutoff`), set the record's `status:` frontmatter to what this run leaves owed, using the values defined in `_AI/local/workflows/heartbeat.md`:
+
+- `needs-debrief` if Step 2 stopped because the change needs a debrief
+- `minuted` if the note still has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them)
+- `done` if nothing is owed
+
+Change no other frontmatter. With no `heartbeat:` entry for this vault, or a record that isn't an input note, skip this step.
+
 ## Step 4: Report
 
 Lead with a tight changelist: note created or used, then each file touched with a one-line reason, then any diffs handed back. "Logged, nothing else needed" is a valid outcome â€” so is "logged and propagated across the tracking surfaces; the wiki side needs a debrief."
 
 If the log note, or the note the user pointed at, has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them), end the report with one line offering `sweep-tasks`, such as "This note has 3 dangling tasks. Sweep them?" Don't run it: it starts only if the user says yes.
+
+## Step 5: Rebuild NEXT.md
+
+If this run changed any task line or tracking surface, run `python3 _AI/local/scripts/frontier.py --vault .` from the vault root, so the vault's `NEXT.md` files reflect it. Don't show its output. When the vault has no config or no `frontier: folders:` inside it, the script says so and does nothing; skip it silently.

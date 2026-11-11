@@ -127,6 +127,16 @@ done <<EOF
 $(find . -name RELATED.md -not -path './_AI/*' -not -path './.git/*')
 EOF
 
+# heartbeat config (only when this machine has a config)
+if [ -f "_AI/shared/config.yml" ] && [ -f "_AI/local/scripts/heartbeat.py" ]; then
+  while IFS= read -r problem; do
+    [ -n "$problem" ] || continue
+    warn "heartbeat config — $problem" "problem" "Fix the heartbeat: or frontier: folders: entry in _AI/shared/config.yml (example in _AI/shared/config.example.yml)"
+  done <<EOF
+$(python3 _AI/local/scripts/heartbeat.py --check-config --config _AI/shared/config.yml 2>&1)
+EOF
+fi
+
 # Verdict
 echo ""
 if [ "$errors" -eq 0 ] && [ "$warnings" -eq 0 ]; then

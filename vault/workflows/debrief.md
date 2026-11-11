@@ -74,6 +74,14 @@ The multi-source trigger in `ingest.md` applies here too: if this debrief is the
 
 If the debriefed note, or the debrief note just written, has dangling tasks (open tasks with no thread link, as `_AI/local/FRONTIER.md` defines them), end your report to the user with one line offering `sweep-tasks`, such as "This note has 3 dangling tasks. Sweep them?" Don't run it: it starts only if the user says yes.
 
+## Step 9c: Record what's still owed (heartbeat vaults only)
+
+If the vault has a `heartbeat:` entry in `_AI/shared/config.yml` and the debriefed note is one of its input notes (its filename or path matches the entry's `inputs` pattern, and it's dated on or after `cutoff`), set that note's `status:` frontmatter, using the values defined in `_AI/local/workflows/heartbeat.md`: `minuted` if it still has dangling tasks, otherwise `done`. The debrief settles whatever debrief it owed. Change no other frontmatter. Otherwise, skip this step.
+
 ## Step 10: Learnings
 
 Follow `_AI/shared/snippets/learnings.md`, substituting `DEBRIEF` for `[WORKFLOW]`.
+
+## Step 11: Rebuild NEXT.md
+
+If this run changed any task line or tracking surface, run `python3 _AI/local/scripts/frontier.py --vault .` from the vault root, so the vault's `NEXT.md` files reflect it. Don't show its output. When the vault has no config or no `frontier: folders:` inside it, the script says so and does nothing; skip it silently.
