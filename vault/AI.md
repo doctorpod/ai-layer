@@ -30,6 +30,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- `_AI/logs/`
 	- Any folder named `wiki/`
 	- Any folder named `delivery/work/` — not `delivery/tickets/` or `delivery/templates/`
+	- Any folder named `delivery/jira/`, written only by running `_AI/local/scripts/jira-snapshot.py ingest` — never edited directly, apart from its `README.md`. Jira facts (status, assignee, sprint, comments) come from its newest snapshot (`jira-snapshot.py current`), quoting the snapshot date, never from the ticket notes in `delivery/tickets/`
 	- Any folder named `assets/`
 	- Any folder named `flows/` (dynamics notes written by the trace workflow)
 	- Any folder named `questions/` (see `_AI/shared/snippets/questions.md`)
