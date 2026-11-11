@@ -7,7 +7,7 @@ description: Reusable shapes for designing workflows — design-time reference, 
 
 Shapes that have held up across more than one workflow in this layer, written down so the next workflow can reuse them rather than rediscover them.
 
-This sits beside [[PRINCIPLES]]. The principles say what a workflow must never do; the patterns say what tends to work. A workflow can ignore a pattern without transgressing — if it breaks a principle, it's wrong.
+This sits beside [[PRINCIPLES]]. The principles say what a workflow must never do; the patterns say what tends to work. A workflow can ignore a pattern without transgressing — if it breaks a principle, it's wrong. [[ANTI-PATTERNS]] is the other side: shapes that tend to fail.
 
 Each entry gives the **shape**, **why it works**, its **concrete forms** (the files and fields it shows up as), and **where it's used** in the layer.
 
@@ -50,7 +50,7 @@ Each entry gives the **shape**, **why it works**, its **concrete forms** (the fi
 **Concrete forms**
 - `triaged.md` in a piece-folder: one line per input, written once when it's finished with (a source file triaged, a thread closed or dropped).
 - Open state read from the notes: an `interview` thread is open if its note's latest heading is an answer rather than a conclusion. No stored thread list.
-- **Known exception: `coverage`.** `gap-check` stores its verdict on each note rather than deriving it, because rerunning the check just to fill a view costs too much. It can go stale when the draft changes; rerunning `gap-check` refreshes it.
+- **Known exception: `coverage`.** `gap-check` stores its verdict on each note rather than deriving it, because rerunning the check just to fill a view costs too much. It can go stale when the draft changes; rerunning `gap-check` refreshes it. This is the [[ANTI-PATTERNS]] #2 trade-off, stored derived state, accepted on purpose.
 
 **Where it's used** — `sync-guide` and `interview` both keep `triaged.md`, each with its own line format; `interview` derives open threads from its notes.
 

@@ -94,7 +94,7 @@ All directions are relative to the church building.
 
 ## Workflow principles
 
-When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
+When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` and `_AI/docs/ANTI-PATTERNS.md`, and reuse a shape from `_AI/docs/PATTERNS.md` where one fits.
 
 When revising a writing workflow (sync-guide, interview, elicit, beats, polish, scribe, sanity, gap-check, diploma-ready) — e.g. via post-mortem — update its matching page(s) in `_AI/docs/writing/` in the same pass and bump their `checked:` date.
 

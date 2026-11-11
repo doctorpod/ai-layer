@@ -44,6 +44,8 @@ Map the root cause to one of these targets and produce the actual concrete chang
 
 If the tweak targets a workflow, check the drafted change against `_AI/docs/PRINCIPLES.md` before proposing it — a fix that reduces recurrence by transgressing a principle isn't a fix. If the root cause is a principle that's wrong or missing, say so and propose the change to `PRINCIPLES.md` itself, on the user's explicit say-so.
 
+If the root cause matches an entry in `_AI/docs/ANTI-PATTERNS.md`, draft a line for its **Where it's happened**; if it's a new shape, draft an entry.
+
 ### Exception: sourcing generic reference material
 
 A vault's normal rules may exclude generic web material (only org-specific or personally-synthesised knowledge belongs). A post-mortem-driven KB fix is allowed to break that rule *only* when the note carries a `postmortem:` frontmatter field pointing back to this record — the provenance is what justifies the exception. Don't source generic material for any other reason.

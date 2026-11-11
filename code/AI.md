@@ -10,7 +10,7 @@ Also read `_AI/RELATED.md` if it exists — it lists the related repos and siste
 
 ## Workflow principles
 
-When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` — the invariants every workflow in this layer must hold.
+When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` and `_AI/docs/ANTI-PATTERNS.md`, and reuse a shape from `_AI/docs/PATTERNS.md` where one fits.
 
 ## Work folders
 

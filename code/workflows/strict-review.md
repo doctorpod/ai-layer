@@ -103,6 +103,7 @@ Escalate findings when you see:
 - Logic added in the wrong layer/package when it should live somewhere more central.
 - Sequential async flow where obviously independent work could stay simpler and clearer with parallel execution.
 - Partial-update logic that leaves state less atomic than necessary.
+- Anything in `_AI/docs/ANTI-PATTERNS.md`, such as a new status or field with no reader.
 
 ## Preferred Remedies
 
