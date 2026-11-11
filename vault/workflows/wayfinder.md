@@ -61,6 +61,8 @@ tags:
 
 **Which section.** A waypoint's section follows its `Blocked by:`. **Open** holds only waypoints with `Blocked by: none`. One whose blocker is unresolved (another waypoint not yet in Resolved, or something outside the map such as a person or another team) goes under **Blocked**. **Parked** overrides both. This applies to anything that writes a map, including other workflows adding waypoints during propagation.
 
+**Keep waypoints short.** A waypoint line says where it stands now and what's next, in a sentence or two, plus its `Started` date and `Blocked by:`. It is not a progress log. Detail (findings, figures, dated progress) goes in a companion note next to the map (an inventory, a research note, a log note) and the waypoint links to it. When a waypoint grows past a few lines, move the detail out and leave a link. The same applies to entries under Resolved: the outcome in a line or two, with a link for the detail. Long waypoints are where superseded facts hide.
+
 ## Mode: Chart
 
 Use the first time a project is mapped — no `map.md` exists yet for it.
@@ -81,7 +83,13 @@ Use when a `map.md` already exists and the user wants to keep moving (triggers: 
    - **HITL** — grill it out (`grill-me` rules) until it's actually resolved, not just discussed. Don't manufacture a decision on the user's behalf.
    - **AFK** — offer to research it now (WebSearch, past notes) or flag it for later; do the research and report findings.
 3. **On resolution** — move the waypoint to Resolved with the outcome and date, append a line to "Decisions so far", update the `updated:` frontmatter, and check whether any Blocked waypoint is now unblocked (move it to Open if so).
-4. Prefer resolving one or two waypoints per session over trying to clear the whole map — the discipline is incremental progress, not a single marathon session.
+4. **Refresh before finishing.** Before ending the session, reread every waypoint touched this session (and any whose facts it changed, such as a size, price or plan reused elsewhere in the map), plus the Destination and any Decisions that mention the same facts:
+   - Rewrite each as it stands now: current state and next step. Delete text that's been overtaken (an old plan, a superseded figure, "still to do" items now done) rather than appending a correction after it. Dated history belongs in "Decisions so far" or a companion note, not in the waypoint.
+   - Apply **Keep waypoints short**: move detail out to a companion note and link it.
+   - If the work left on a waypoint is a different job from the one it was opened for, resolve it and open a follow-on waypoint for what remains.
+   - Re-check sections: anything now blocked, unblocked or parked moves (see **Which section**).
+   - Update `updated:`.
+5. Prefer resolving one or two waypoints per session over trying to clear the whole map — the discipline is incremental progress, not a single marathon session.
 
 ## Mode: Add waypoint
 
