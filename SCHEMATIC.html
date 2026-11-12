@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Layer Schematic</title>
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --ink: #1d1d1b; --muted: #6b6a64; --line: #d9d6cc; --edge: #8a877d;
+  --code: #2563eb; --vault: #059669; --shared: #7c3aed; --docs: #c27803; --script: #52606d; --you: #e11d48; --file: #8a877d; --ext: #0e7490;
+  --sel: #f59e0b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1e1e1c; --ink: #ecebe6; --muted: #9c9a92; --line: #3a3935; --edge: #7d7a71;
+    --code: #6b9bff; --vault: #34c79a; --shared: #a985ff; --docs: #f0a830; --script: #9aa8b6; --you: #ff6b8a; --file: #a29f95; --ext: #3cc4dc;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1e1e1c; --ink: #ecebe6; --muted: #9c9a92; --line: #3a3935; --edge: #7d7a71;
+  --code: #6b9bff; --vault: #34c79a; --shared: #a985ff; --docs: #f0a830; --script: #9aa8b6; --you: #ff6b8a; --file: #a29f95; --ext: #3cc4dc;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+code, .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; }
+header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.bar { max-width: 1280px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.bar h1 { font-size: 16px; margin: 0; letter-spacing: .02em; }
+.bar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.bar nav a { color: var(--muted); text-decoration: none; padding: 3px 8px; border-radius: 6px; font-size: 13px; }
+.bar nav a:hover { background: var(--surface); color: var(--ink); }
+.bar .sp { flex: 1; }
+.bar button { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; font: inherit; font-size: 12px; cursor: pointer; }
+main { max-width: 1280px; margin: 0 auto; padding: 16px; }
+.lede { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin: 6px 0 18px; }
+.lede p { margin: 0 0 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); align-content: start; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--c); background: color-mix(in srgb, var(--c) 16%, var(--surface)); }
+.sw.you { border-style: dashed; }
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; }
+.stat b { font-size: 18px; display: block; line-height: 1.2; }
+.stat small { color: var(--muted); font-size: 11.5px; }
+section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin: 0 0 18px; padding: 14px 16px 10px; }
+section.panel > h2 { margin: 0; font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
+section.panel > h2 .n { color: var(--muted); font-weight: 500; font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+section.panel > p.cap { margin: 2px 0 8px; color: var(--muted); font-size: 13px; max-width: 900px; }
+.scroll { overflow-x: auto; }
+.scroll svg { display: block; width: 100%; min-width: 980px; height: auto; }
+/* SVG */
+svg text { fill: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+.g-box { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.g-lbl { font-size: 11.5px; font-weight: 600; fill: var(--muted); letter-spacing: .03em; }
+.node { cursor: pointer; }
+.node rect.b { fill: color-mix(in srgb, var(--c) 11%, var(--surface)); stroke: var(--c); stroke-width: 1.4; }
+.node rect.s { fill: var(--c); }
+.node.k-you rect.b { stroke-dasharray: 4 3; }
+.node.k-file rect.b { fill: var(--surface); }
+.node .l { font-size: 12.5px; font-weight: 650; }
+.node .s2 { font-size: 10.8px; fill: var(--muted); }
+.node:hover rect.b { stroke-width: 2.4; }
+.node.sel rect.b { stroke: var(--sel); stroke-width: 3; }
+.k-code { --c: var(--code); } .k-vault { --c: var(--vault); } .k-shared { --c: var(--shared); } .k-docs { --c: var(--docs); }
+.k-script { --c: var(--script); } .k-you { --c: var(--you); } .k-file { --c: var(--file); } .k-ext { --c: var(--ext); }
+.edge path.e { fill: none; stroke: var(--c, var(--edge)); stroke-width: 1.5; opacity: .75; }
+.edge.dash path.e { stroke-dasharray: 5 4; }
+.edge.hot path.e { stroke: var(--sel); stroke-width: 2.6; opacity: 1; }
+.edge .el { font-size: 10.5px; fill: var(--muted); font-style: italic; }
+.edge .elb { fill: var(--surface); }
+svg.dimmed .node:not(.sel):not(.near) { opacity: .35; }
+svg.dimmed .edge:not(.hot) { opacity: .2; }
+/* catalogue */
+.cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 8px; }
+.cat h3 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { --c: var(--file); font: inherit; font-size: 12.5px; cursor: pointer; border: 1.4px solid var(--c); background: color-mix(in srgb, var(--c) 11%, var(--surface)); color: var(--ink); border-radius: 6px; padding: 2px 8px; }
+.chip:hover { border-width: 2px; padding: 1.6px 7.6px; }
+.chip.sel { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel); }
+.chip i { font-style: normal; color: var(--muted); font-size: 11px; margin-left: 3px; }
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cols3 h3 { font-size: 13px; margin: 6px 0 6px; }
+.cols3 ol, .cols3 ul { margin: 0; padding-left: 20px; font-size: 13px; }
+.cols3 li { margin-bottom: 4px; }
+.cols3 li b { font-weight: 650; }
+/* side panel */
+aside#info { position: fixed; top: 0; right: 0; height: 100vh; width: min(400px, 100vw); background: var(--surface); border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,.12); transform: translateX(105%); transition: transform .18s ease; z-index: 10; padding: 18px 20px; overflow-y: auto; }
+aside#info.open { transform: none; }
+aside#info .x { position: absolute; top: 10px; right: 12px; border: 0; background: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+aside#info .kind { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; border-radius: 4px; border: 1.4px solid var(--c); color: var(--c); margin-bottom: 6px; }
+aside#info h3 { margin: 2px 0 6px; font-size: 18px; }
+aside#info .path { color: var(--muted); word-break: break-all; margin-bottom: 10px; }
+aside#info p { margin: 0 0 10px; }
+aside#info dl { margin: 0; font-size: 13px; }
+aside#info dt { font-weight: 650; color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; margin-top: 10px; }
+aside#info dd { margin: 2px 0 0; }
+aside#info .seen a { color: var(--ink); margin-right: 8px; font-size: 13px; }
+footer { color: var(--muted); font-size: 12px; text-align: center; padding: 8px 0 30px; }
+@media (max-width: 760px) { .lede, .cols3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="bar">
+  <h1>AI LAYER · schematic</h1>
+  <nav>
+    <a href="#install">1 Wiring</a><a href="#boot">2 Boot</a><a href="#code">3 Code delivery</a><a href="#vault">4 Vault loop</a><a href="#writing">5 Writing</a><a href="#catalogue">6 Catalogue</a><a href="#rules">7 Guardrails</a>
+  </nav>
+  <span class="sp"></span>
+  <button id="theme" type="button">theme</button>
+</div></header>
+
+<main>
+<div class="lede">
+  <div>
+    <p><b>One repo of Markdown workflows, symlinked into every project as <code>_AI/</code>.</b> A code repo links <code>code/</code>, a vault links <code>vault/</code>; both link <code>shared/</code> and <code>docs/</code>. Claude boots from a one-line <code>CLAUDE.md</code> into <code>_AI/local/AI.md</code>, which holds the rules and the trigger table. All logic lives in the workflow files; scripts do the deterministic parts with no AI.</p>
+    <p style="color:var(--muted)">Click any box or chip for its path, what it does, and what it reads and writes. Click empty space to clear.</p>
+    <div class="stats">
+      <div class="stat"><b>6</b><small>code workflows</small></div>
+      <div class="stat"><b>31</b><small>vault workflows</small></div>
+      <div class="stat"><b>7</b><small>shared workflows</small></div>
+      <div class="stat"><b>~22</b><small>scripts, no AI</small></div>
+      <div class="stat"><b>10</b><small>principles</small></div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="--c:var(--code)"></i>code/ workflow</span>
+    <span><i class="sw" style="--c:var(--vault)"></i>vault/ workflow</span>
+    <span><i class="sw" style="--c:var(--shared)"></i>shared/ workflow or file</span>
+    <span><i class="sw" style="--c:var(--docs)"></i>docs/ (design-time)</span>
+    <span><i class="sw" style="--c:var(--script)"></i>script, no AI</span>
+    <span><i class="sw you" style="--c:var(--you)"></i>you (a human step)</span>
+    <span><i class="sw" style="--c:var(--file)"></i>file or folder</span>
+    <span><i class="sw" style="--c:var(--ext)"></i>outside the layer (Jira, git, Claude)</span>
+    <span>⚠ fresh session required</span>
+    <span>◇ diagnostic, never edits</span>
+  </div>
+</div>
+
+<section class="panel" id="install">
+  <h2>Install wiring <span class="n">install-target.sh · install-skills.sh</span></h2>
+  <p class="cap">The layer lives once on this machine. Each project gets an <code>_AI/</code> folder of symlinks, so an edit here reaches every install at once. Project context stays in the project; the code repo's work folders live in the vault.</p>
+  <div class="scroll"><svg id="d-install"></svg></div>
+</section>
+
+<section class="panel" id="boot">
+  <h2>Session boot and dispatch <span class="n">how a request becomes a workflow</span></h2>
+  <p class="cap">Two ways in: a trigger phrase matched against the table in <code>AI.md</code>, or a slash command whose stub only says “read and follow &lt;path&gt;”. Either way the workflow file holds all the logic.</p>
+  <div class="scroll"><svg id="d-boot"></svg></div>
+</section>
+
+<section class="panel" id="code">
+  <h2>Code delivery: ticket to merged PRs <span class="n">_AI/delivery/work/&lt;key&gt;/</span></h2>
+  <p class="cap">The key (ticket ID or slug) names the work folder and sits in the branch name, so workflows find the folder on their own. Workflows only ever set a slice to <i>planned</i> or <i>in progress</i>; the rest of its state is yours.</p>
+  <div class="scroll"><svg id="d-code"></svg></div>
+</section>
+
+<section class="panel" id="vault">
+  <h2>Vault loop: notes in, NEXT.md out <span class="n">heartbeat · frontier · knowledge bases</span></h2>
+  <p class="cap">Input notes are what makes things change. Heartbeat moves the small facts (logistics, status) onto the tracking surfaces and threads tasks; anything that changes what's true about a subject waits for a debrief, which is the only route into a wiki besides ingest.</p>
+  <div class="scroll"><svg id="d-vault"></svg></div>
+</section>
+
+<section class="panel" id="writing">
+  <h2>Writing a piece <span class="n">brief.md · guide/ · output.md · assets/</span></h2>
+  <p class="cap">Gatherers fill <code>guide/</code>; you write <code>output.md</code>. Nothing here drafts your prose. Beats and polish are the only things that touch <code>output.md</code>, and only in their own narrow way.</p>
+  <div class="scroll"><svg id="d-writing"></svg></div>
+</section>
+
+<section class="panel" id="catalogue">
+  <h2>Workflow catalogue <span class="n">every workflow, grouped by what you're doing</span></h2>
+  <div class="cat" id="cat"></div>
+</section>
+
+<section class="panel" id="rules">
+  <h2>Guardrails <span class="n">docs/ · AI.md</span></h2>
+  <div class="cols3">
+    <div>
+      <h3>Principles <span class="mono" style="color:var(--muted);font-weight:400">docs/PRINCIPLES.md</span></h3>
+      <ol>
+        <li><b>The owner decides, AI drafts.</b></li>
+        <li><b>Diagnostic means diagnostic.</b> Assessors never edit.</li>
+        <li><b>Propose, then apply on confirmation.</b> One question at a time.</li>
+        <li><b>Write only where you're allowed.</b> The allowlist is exhaustive.</li>
+        <li><b>Hand-owned files change only on an explicit say-so.</b></li>
+        <li><b>Every wiki claim traces to its source.</b></li>
+        <li><b>Be honest about what's AI-generated.</b></li>
+        <li><b>Fix what you find, not just what you touched.</b></li>
+        <li><b>Keep the planning layer out of the product.</b> No <code>_AI/</code> in shipped code.</li>
+        <li><b>Shape output for the reader.</b></li>
+      </ol>
+    </div>
+    <div>
+      <h3>Patterns and anti-patterns</h3>
+      <ul>
+        <li><b>Rubric</b>: check against a fixed external standard.</li>
+        <li><b>Gatherer</b>: creates notes as <code>pending</code>, appends, never drafts.</li>
+        <li><b>Log inputs, derive the rest</b>: write facts once; compute views.</li>
+        <li><b>Toolbox, not pipeline</b>: small tools you pick, not a forced sequence.</li>
+        <li style="margin-top:8px"><b>✗ Dead-end state</b> (roach motel): a state nothing ever moves out of.</li>
+        <li><b>✗ Stored derived state</b>: saving what should be computed.</li>
+      </ul>
+      <h3 style="margin-top:12px">Docs drift</h3>
+      <ul><li><code>scripts/check-docs.py</code> flags <code>docs/writing/</code> pages whose sources changed after their <code>checked:</code> date.</li></ul>
+    </div>
+    <div>
+      <h3>Vault write allowlist <span class="mono" style="color:var(--muted);font-weight:400">vault/AI.md</span></h3>
+      <ul>
+        <li><code>wiki/</code>, <code>INDEX.md</code>, concept notes, <code>assets/</code></li>
+        <li><code>delivery/work/</code> (not tickets/ or templates/); <code>delivery/jira/</code> only via jira-snapshot.py</li>
+        <li><code>radar/</code>, <code>_wayfinder/</code>, <code>_greenhouse/</code>, <code>questions/</code>, <code>touchpoints/</code>, <code>flows/</code></li>
+        <li><code>guide/</code> (gatherers), <code>coverage</code> (gap-check), Beats block (beats)</li>
+        <li><code>NEXT.md</code> only via frontier.py</li>
+        <li>task lines only via sweep-tasks; note <code>status:</code> only via heartbeat and debrief</li>
+        <li><code>_AI/chats</code>, <code>_AI/logs</code>, <code>_AI/postmortems/</code>, <code>_AI/learnings.md</code></li>
+        <li>anything else: ask first</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<footer>Built from the ai-layer repo as of 2026-11-11.</footer>
+</main>
+
+<aside id="info" aria-live="polite"><button class="x" type="button" aria-label="Close">×</button><div id="info-body"></div></aside>
+
+<script>
+// ---------- Reference data: one entry per thing you can click ----------
+const KIND = { code: 'code workflow', vault: 'vault workflow', shared: 'shared', docs: 'docs (design-time)', script: 'script, no AI', you: 'you', file: 'file / folder', ext: 'outside the layer' };
+const W = (k, p, d, x = {}) => ({ k, p, d, ...x });
+const INFO = {
+  // install
+  'r-code': W('code', 'ai-layer/code/', 'Everything a code repo needs: AI.md (rules + trigger table), README.md (the human walk-through of ticket to merged PRs), workflows/, templates/slice.md and scripts/validate-ai-setup.sh.', { links: 'Linked into a code repo as _AI/local.' }),
+  'r-vault': W('vault', 'ai-layer/vault/', 'Everything an Obsidian vault needs: AI.md (write allowlist + triggers), README.md (workflows by scenario), CONVENTIONS.md, FRONTIER.md (how notes are written so frontier.py can read them), STYLE.md, OBSIDIAN-CLI.md, workflows/ and scripts/.', { links: 'Linked into a vault as _AI/local.' }),
+  'r-shared': W('shared', 'ai-layer/shared/', 'Context-free workflows (grill-me, readback, rubber-duck, greenhouse, handoff, resume, validate-ai-setup), snippets/ that workflows include (questions, surmise, learnings, related, piece-folder, wiki-write-steps, cross-workflow-check), and the machine config.', { links: 'Linked into every install as _AI/shared.' }),
+  'r-docs': W('docs', 'ai-layer/docs/', 'Design-time docs: PRINCIPLES, PATTERNS, ANTI-PATTERNS, My AI commandments. Plus user docs for the writing workflows under writing/ (a page per workflow and per concept).', { links: 'Linked into every install as _AI/docs.' }),
+  'r-scripts': W('script', 'ai-layer/scripts/', 'install-target.sh --code|--vault creates the three _AI/ symlinks in the current directory. install-skills.sh writes a ~/.claude/skills stub for every workflow and errors if a name exists in both code/ and vault/. check-docs.py reports drift in docs/writing/.'),
+  'r-tests': W('script', 'ai-layer/tests/', 'Fixture vaults with expected outputs for frontier.py, heartbeat.py and jira-snapshot.py.'),
+  'r-dog': W('file', 'ai-layer/_AI/', 'This repo is installed into itself as a code repo: _AI/local → code/, its own OVERVIEW.md and VALIDATION.md, and _AI/delivery → the personal-projects/ai-layer/delivery folder in the work vault. Gitignored.'),
+  'c-boot': W('file', '<repo>/CLAUDE.md', 'One line: "See _AI/local/AI.md for project context and available workflows." Claude Code reads it on every session.'),
+  'c-local': W('code', '<repo>/_AI/local → ai-layer/code', 'The context-specific layer. Workflows refer to their siblings as _AI/local/…, so the same path works in either context.'),
+  'c-shared': W('shared', '<repo>/_AI/shared → ai-layer/shared', 'Shared workflows, snippets and config.yml.'),
+  'c-docs': W('docs', '<repo>/_AI/docs → ai-layer/docs', 'Read when a workflow is being written or revised, not at runtime.'),
+  'c-delivery': W('vault', '<repo>/_AI/delivery → <vault>/<home>/delivery', 'Where work folders live. A symlink into the vault, or a real gitignored folder for a repo with no vault home. Needs adding to additionalDirectories in .claude/settings.local.json so Claude can reach it.', { links: 'If work/ is missing, workflows stop and point at setup. No fallback location.' }),
+  'c-overview': W('file', '<repo>/_AI/OVERVIEW.md', 'Project description, architecture, key files, anti-patterns. AI.md says read it first; alert the user if missing.'),
+  'c-validation': W('file', '<repo>/_AI/VALIDATION.md', 'The commands to run at each validation gate (lint, tests, full suite). execute-plan runs them.'),
+  'c-codex': W('file', '<repo>/_AI/CODEX.md · _AI/RELATED.md', 'CODEX: personal coding preferences and glossary (optional). RELATED: the group of related repos plus sister vault, symlinked from the vault. Each entry says "look here when", and grants read-only access.'),
+  'v-boot': W('file', '<vault>/CLAUDE.md or AGENTS.md', 'One line pointing at _AI/local/AI.md.'),
+  'v-local': W('vault', '<vault>/_AI/local → ai-layer/vault', 'Vault workflows and scripts. Scripts run as python3 _AI/local/scripts/<name>.py.'),
+  'v-shared': W('shared', '<vault>/_AI/shared → ai-layer/shared', 'Same shared folder as every code repo.'),
+  'v-docs': W('docs', '<vault>/_AI/docs → ai-layer/docs', 'Same docs folder as every code repo.'),
+  'v-goals': W('file', '<vault>/_AI/GOALS.md · _AI/CONVENTIONS.md', 'GOALS: the vault\'s purpose and focus areas (alert if missing). CONVENTIONS: vault-specific operating rules, optional. Layer-wide conventions are in _AI/local/CONVENTIONS.md.'),
+  'v-chats': W('file', '<vault>/_AI/chats · _AI/logs · _AI/postmortems', 'chats/: dated chat logs used by fetch. logs/: daily logs written by save. postmortems/ and learnings.md: written by post-mortem.'),
+  'v-deliv': W('file', '<vault>/<gig or project>/delivery/', 'work/<key>/ (work folders), tickets/ (your ticket snapshots), jira/ (baseline + deltas from jira-snapshot.py), templates/slice.md (optional gig-specific slice checklist).'),
+  'v-hook': W('script', '.git/hooks/pre-commit', 'Copied from _AI/local/scripts/pre-commit-sensitivity-check.sh. Scans staged Markdown against sensitive-patterns.conf and blocks the commit on a hit.'),
+  'k-skills': W('ext', '~/.claude/skills/<name>/SKILL.md', 'Generated by install-skills.sh: one stub per workflow, carrying its front-matter description, saying only "Read and follow <ai-layer path>". No logic. Stale stubs pointing at the layer are removed.'),
+  'k-cc': W('ext', 'Claude Code', 'Reads CLAUDE.md at session start; /name runs a skill stub; trigger phrases route through AI.md.'),
+  'm-config': W('shared', 'ai-layer/shared/config.yml (gitignored)', 'Machine-specific values, keyed by the workflow or script they configure: compass: file, frontier: folders, heartbeat: <vault root> → inputs, cutoff, steps. Seen by every install as _AI/shared/config.yml. A missing value means stop and ask, never guess.'),
+  'm-related': W('file', '<vault>/<group>/RELATED.md', 'Lists a group of related repos and their sister vault. Kept in the vault and symlinked into each repo\'s _AI/. Format in shared/snippets/related.md.'),
+  // boot
+  'b-you': W('you', '', 'You say something that matches a trigger, e.g. "grill me", "heartbeat", "create a plan".'),
+  'b-slash': W('you', '', 'You type /<workflow-name>.'),
+  'b-ai': W('file', '_AI/local/AI.md', 'Machine-facing. Code: the never-leak-_AI rule, work-folder and key-resolution rules, slice state rules, trigger table. Vault: folders, read/write allowlist, provenance rule, knowledge-base layout, trigger table. Its README.md is the human companion; keep both in sync.'),
+  'b-ctx': W('file', '_AI/OVERVIEW.md, CODEX.md, RELATED.md · _AI/GOALS.md, CONVENTIONS.md', 'Project context read before any work. Never part of the layer; never mixed into it.'),
+  'b-wf': W('file', '_AI/local/workflows/*.md · _AI/shared/workflows/*.md', 'Front matter (name, description), triggers, then numbered steps. ⚠ workflows check the session has no plan or implementation work in it before starting.'),
+  'b-snip': W('shared', '_AI/shared/snippets/', 'Reusable rule blocks that several workflows include: questions.md (question notes), surmise.md, learnings.md, related.md, piece-folder.md, wiki-write-steps.md, cross-workflow-check.md.'),
+  'b-scripts': W('script', '_AI/local/scripts/', 'Deterministic helpers called by workflows: frontier.py, heartbeat.py, jira-snapshot.py, lint-kb.py, list-radar.py, list-questions.py, write-coverage.py, trace-logs.py, scan-frontmatter.py, sensitivity-scan.sh, save.sh, fetch-read/write.py and more.'),
+  'b-docs': W('docs', '_AI/docs/', 'PRINCIPLES (must hold), PATTERNS (shapes that work), ANTI-PATTERNS (shapes that failed). AI.md says check against them when writing or revising a workflow.'),
+  // code delivery
+  'd-jira': W('ext', 'Jira', 'A ticket someone else owns. Optional: personal work often has no ticket.'),
+  'd-ticket': W('you', 'delivery/tickets/<KEY>.md', 'Your snapshot of the ticket (gigs only). A [[KEY]] in a work folder resolves here. Claude never writes here.'),
+  'd-jsnap': W('script', 'jira-snapshot.py → delivery/jira/', 'Ingests a Jira CSV export as a baseline plus deltas. Jira facts (status, assignee, sprint, comments) come from its newest snapshot, quoting the date, never from the ticket notes.'),
+  'd-init': W('you', 'work/<key>/init.md', 'Your framing beyond the ticket, with ticket: "[[KEY]]" in front matter. With no ticket, the request itself, including acceptance criteria.'),
+  'd-dec': W('file', 'work/<key>/DECISIONS.md · QUESTIONS.md · GLOSSARY.md', 'DECISIONS: ADR-style record from grill-me. QUESTIONS: parking lot. GLOSSARY: optional.'),
+  'd-planmd': W('file', 'work/<key>/plan.md · slices/NN name.md', 'plan.md: goal, acceptance criteria, context, architecture notes, anti-patterns, slice list (via slices.base) and close-out checklist. Each slice: metadata (repo, depends-on, state, link) and checklist above a rule, its blueprint below. Template: delivery/templates/slice.md if present, else _AI/local/templates/slice.md.'),
+  'd-branch': W('you', 'git branch', 'Off main, with the key as a segment (feat/abc-123/totals). Key resolution: an argument, else a branch segment matching exactly one work folder, else ask.'),
+  'd-pr': W('you', 'slice checklist', 'Open the PR (or merge straight to main), set link:, move state to PR open.'),
+  'd-merged': W('you', 'state: merged', 'Set by you once merged.'),
+  'd-close': W('you', 'plan.md close-out checklist', 'All slices merged; durable decisions promoted to the repo wiki/; durable terms promoted to vault concept notes; ticket status: inactive.'),
+  's-planned': W('file', 'state: planned', 'Set by create-plan when it writes the slice.'),
+  's-prog': W('file', 'state: in progress', 'Set by execute-plan, or qa-failure for a fix slice.'),
+  's-open': W('you', 'state: PR open', 'Yours, via the slice checklist.'),
+  's-merged': W('you', 'state: merged', 'Yours, via the slice checklist.'),
+  // vault loop
+  'h-you': W('you', '', 'Meeting notes, stand-ups, log notes typed by hand, or a journal entry.'),
+  'h-in': W('file', 'input notes', 'Defined per vault by heartbeat: inputs: in config.yml, e.g. "YYYY-MM-DD *.md" for log notes or "journal/YYYY-MM-DD.md" for a journal. Daily notes wait until their day has passed. Notes before cutoff: are never swept.'),
+  'h-cfg': W('shared', 'config.yml → heartbeat: <vault root>', 'inputs (which notes), cutoff (date), steps (e.g. [propagate, sweep-tasks] for a log vault, [sweep-tasks] for a journal vault). Every vault listed needs a frontier: folders: entry inside it.'),
+  'hb-py': W('script', '_AI/local/scripts/heartbeat.py', 'Lists, oldest first: Owes a debrief (status: needs-debrief), To process (no status, not done, or edited since last swept, judged from git), No heartbeat commit yet. Heartbeat opens with the debrief pile but never runs debriefs.'),
+  'hb-prop': W('vault', 'heartbeat › propagate', 'Heartbeat\'s own step. For each surface in the note\'s home (radar, wayfinder, greenhouse) and its KB\'s questions/, decide whether the note changes it, apply, and cross-link both ways. Four or more files: confirm first. Never touches wiki/, concept notes or INDEX.md: a note that changes what\'s true about a subject stops here and gets needs-debrief.'),
+  'hb-status': W('file', 'status: on the input note', 'unprocessed (or none) → done, or → needs-debrief. Describes what\'s owed, not steps taken. Written only by heartbeat and debrief. An edit to a done note\'s body puts it back in To process.'),
+  'hb-commit': W('ext', 'git commit "heartbeat: N notes, M files"', 'Stages only files it touched, by name, never git add -A. Asks before including files that were already uncommitted. Never skips the pre-commit hook. The prefix is how the next run knows what was swept.'),
+  'hb-front': W('script', '_AI/local/scripts/frontier.py --vault .', 'Rebuilds NEXT.md for every frontier: folders entry in this vault. Also run at the end of debrief and sweep-tasks, or by hand.'),
+  's-radar': W('file', '<home>/radar/', 'Watches: situations worth awareness, no action implied. Propagate bumps updated:, rewrites latest:, adds a dated Context entry. Frontier flags watches gone quiet.'),
+  's-way': W('file', '<home>/_wayfinder/<thing>/map.md', 'Wayfinder maps: a destination plus waypoints. An Open waypoint is a step on NEXT.md.'),
+  's-green': W('file', '<home>/_greenhouse/', 'Ideas you like and want, deliberately not now.'),
+  's-q': W('file', '<kb>/questions/', 'Atomic question notes: pending (live, its chase task is on NEXT.md) → surmised / confirmed / rejected / dismissed. Rules in shared/snippets/questions.md.'),
+  's-tasks': W('file', '- [ ] task lines', 'In any note. A task linking to a thread joins it; one with no link is dangling. sweep-tasks may only append a thread link, Expected by:, Waiting on:, Blocked by:, a 📅 date, or mark it done/dropped.'),
+  'h-reads': W('file', 'what frontier.py reads', 'Every .md in the folder (not templates/, _AI/, .obsidian/): wayfinder maps, delivery work folders, tickets, task lines, radar watches, question notes. Status words: live / waiting / parked / done, vault or Jira vocabulary. Anything it can\'t read goes under Needs a look.'),
+  'h-next': W('file', '<folder>/NEXT.md', 'The one place to look for what to do next: yours to do now, owes a debrief, waiting on others, watches gone quiet, needs a look. Written only by frontier.py.'),
+  'k-inbox': W('file', '<vault>/inbox/', 'The single vault-root inbox for external sources: articles, transcripts, YouTube, book extracts, web-stubs. Claude may only create web-stubs here.'),
+  'k-kb': W('file', '<any folder with wiki/>', 'A knowledge base: wiki/ (AI-built, every claim footnoted to a source), curated/ (sources once ingested), INDEX.md, assets/ (gitignored images), concept notes (categories: [[Glossary]]), optional questions/, SPATIAL.md, AI.md.'),
+  // writing
+  'w-brief': W('you', '<piece>/brief.md', 'What the piece is for. Drafted with you in chat; no workflow owns it.'),
+  'w-vault': W('file', 'vault sources', 'Notes, logs, wiki pages and other material the piece draws on.'),
+  'w-guide': W('file', '<piece>/guide/', 'Gathered theme notes (categories: [[Themes]]). Created pending; a gatherer appending new material reverts used → pending. coverage: is written only by gap-check. Also timeline.md (interview) and triaged.md (sync-guide).'),
+  'w-out': W('you', '<piece>/output.md', 'Your draft. You write every sentence. Only beats (its Beats block) and polish (light copy-edit) ever touch it.'),
+};
+// workflows: code
+Object.assign(INFO, {
+  'create-plan': W('code', 'code/workflows/create-plan.md', 'Synthesizes plan.md and its slices from DECISIONS.md. No interview: proposes the approach and slice list, you approve or adjust, then it writes plan.md and every slice note with its blueprint.', { w: 'plan.md, slices/ (state: planned)' }),
+  'execute-plan': W('code', 'code/workflows/execute-plan.md', '⚠ Fresh session. Implements exactly one slice, runs the gates in _AI/VALIDATION.md, sets state: in progress.', { r: 'plan.md, the slice, OVERVIEW, CODEX, VALIDATION', w: 'code; slice state' }),
+  'review': W('code', 'code/workflows/review.md', '⚠ Fresh session. ◇ Diagnostic. Checks the diff against the slice\'s steps and success criteria before the PR.'),
+  'qa-failure': W('code', 'code/workflows/qa-failure.md', '⚠ Fresh session. Logs the failure in QA-FAILURES.md, diagnoses the root cause with you, then writes and implements a fix slice on its own branch.'),
+  'strict-review': W('code', 'code/workflows/strict-review.md', '◇ A harsh maintainability review: abstraction quality, giant files, spaghetti conditionals.'),
+  'teach-me': W('code', 'code/workflows/teach-me.md', 'Probes what you already know and teaches a topic using the codebase itself as material.'),
+});
+// workflows: shared
+Object.assign(INFO, {
+  'grill-me': W('shared', 'shared/workflows/grill-me.md', 'Interrogates you relentlessly and captures decisions into a durable ADR-style DECISIONS.md. In code: reads init.md and the ticket, creates the work folder if missing.'),
+  'readback': W('shared', 'shared/workflows/readback.md', 'You explain something in your own words; corrected against the real evidence (diff, slice, code) until it\'s accurate.'),
+  'rubber-duck': W('shared', 'shared/workflows/rubber-duck.md', 'Talk a problem through with honest, brief pushback. No file changes.'),
+  'greenhouse': W('shared', 'shared/workflows/greenhouse.md', 'Park an early-stage idea you like for later, or review the greenhouse. Runs a one-line compass check on capture.', { w: '_greenhouse/' }),
+  'handoff': W('shared', 'shared/workflows/handoff.md', 'Saves a handoff document so the conversation can be resumed in a later session.'),
+  'resume': W('shared', 'shared/workflows/resume.md', 'Picks up from a saved handoff document.'),
+  'validate-ai-setup': W('shared', 'shared/workflows/validate-ai-setup.md', '◇ Checks the install: symlinks resolve, boot file points right, delivery/work exists and _AI/delivery is gitignored (code), GOALS.md present (vault). Backed by validate-ai-setup.sh in each context.'),
+});
+// workflows: vault
+Object.assign(INFO, {
+  'heartbeat': W('vault', 'vault/workflows/heartbeat.md', 'Sweeps every new input note: opens with what\'s owed, runs the vault\'s steps on each note (propagate, sweep-tasks), sets its status:, commits its own files, rebuilds NEXT.md, reports. Holds every rule for processing a note; other workflows point here.'),
+  'capture-log-note': W('vault', 'vault/workflows/capture-log-note.md', 'Files content as a dated log note in the right gig log folder. No processing.'),
+  'minute': W('vault', 'vault/workflows/minute.md', 'Shortcut for "log it and apply it now": capture a log note (or take the one pointed at), then heartbeat in single-note mode on just that note.'),
+  'sweep-tasks': W('vault', 'vault/workflows/sweep-tasks.md', 'Proposes a thread link and plain-word fields for each dangling task in one table; writes only what you confirm. A heartbeat step, or by hand.'),
+  'debrief': W('vault', 'vault/workflows/debrief.md', 'First-hand material (site visit, conversation, worked-out thought) into wiki pages, accuracy paramount. Takes needs-debrief notes as sources and sets them done. Rebuilds NEXT.md at the end.', { w: 'wiki/, concept notes, INDEX.md, note status:' }),
+  'ingest': W('vault', 'vault/workflows/ingest.md', 'Classifies each source in the vault-root inbox/, routes it to the right KB, writes cited wiki pages, moves the source to curated/. Owns the citation rules.'),
+  'lint': W('vault', 'vault/workflows/lint.md', '◇ Structural audit via lint-kb.py: orphans, broken links, pending cautions.'),
+  'normalise': W('vault', 'vault/workflows/normalise.md', 'Propose-only sizing pass: near-duplicate, over-broad, source-shaped and full-prose wiki pages → merges, splits, conversions.'),
+  'connect': W('vault', 'vault/workflows/connect.md', 'Cross-KB pass that finds connections and writes bidirectional links (check-connections.py checks reciprocity).'),
+  'link-components': W('vault', 'vault/workflows/link-components.md', 'Proposes wikilinks from PRP decision notes to the technical component pages they touch (find-unlinked-decisions.py).'),
+  'create-summaries': W('vault', 'vault/workflows/create-summaries.md', 'Updates a note\'s ## Summary from the notes that link to it.'),
+  'process-notes': W('vault', 'vault/workflows/process-notes.md', 'Proposes folder moves and category fixes for a scope of notes against vault conventions, applies on confirmation.'),
+  'add-to-radar': W('vault', 'vault/workflows/add-to-radar.md', 'Capture, update or review watches in radar/. Dedup via list-radar.py.'),
+  'wayfinder': W('vault', 'vault/workflows/wayfinder.md', 'Maps a woolly, multi-session project into a destination and waypoints, worked one at a time. Quick chart for clear, linear jobs. One-line compass check.'),
+  'compass': W('vault', 'vault/workflows/compass.md', '◇ Towards or away from your vocation, and which part is yours. Reads the compass note named in config.yml compass: file.'),
+  'state-of-play': W('vault', 'vault/workflows/state-of-play.md', 'Full reconciliation of a home\'s radar and waypoints: interrogates you on each, updates the notes, ends with a plain digest.'),
+  'post-mortem': W('vault', 'vault/workflows/post-mortem.md', 'Finds the root cause of something that went wrong and proposes a concrete tweak to the vault or a workflow.', { w: '_AI/postmortems/, _AI/learnings.md' }),
+  'reflect': W('vault', 'vault/workflows/reflect.md', '◇ by default. Patterns, momentum, surprises and open loops across a scope of notes, as a chat response.'),
+  'gratitude': W('vault', 'vault/workflows/gratitude.md', 'Prompts from recent journal notes; polishes each entry; appends approved ones to today\'s daily note.'),
+  'sync-guide': W('vault', 'vault/workflows/sync-guide.md', 'Gatherer. Builds and maintains guide/ from the brief and vault sources. Never reads or writes output.md.'),
+  'interview': W('vault', 'vault/workflows/interview.md', 'Gatherer. Builds a dated timeline from your logs, interviews you one thread at a time across sessions, checks answers against the record, saves them verbatim into guide/.'),
+  'elicit': W('vault', 'vault/workflows/elicit.md', 'One-shot brainstorm of angles and questions from a section\'s theme notes. Chat or a scribe block; never touches output.md.'),
+  'beats': W('vault', 'vault/workflows/beats.md', 'An ordered beat sheet, each beat the move it makes, written as a Beats block under the section heading for you to draft against and delete.'),
+  'polish': W('vault', 'vault/workflows/polish.md', 'Light copy-edit of your own prose: spelling, punctuation, structure. Never rephrases, reorders, cuts or adds. %P / % markers. Any file.'),
+  'scribe': W('vault', 'vault/workflows/scribe.md', 'Carries out a % scribe <instruction> (or %s) marker left in any file and writes the response into a % comments block in place.'),
+  'sanity': W('vault', 'vault/workflows/sanity.md', '◇ Flags contradictions, non-sequiturs and passages that don\'t hold up. Never edits.'),
+  'gap-check': W('vault', 'vault/workflows/gap-check.md', '◇ Checks a draft against its guide/ (or a named reference), reports what\'s missing, and records a coverage verdict on each theme via write-coverage.py, every run.'),
+  'diploma-ready': W('vault', 'vault/workflows/diploma-ready.md', '◇ Checks a design\'s output.md against the fixed Diploma rubric in standards/: Yes / Nearly / Not yet.'),
+  'trace': W('vault', 'vault/workflows/trace.md', 'Turns an exported app log (trace-logs.py) into per-journey sequence diagrams with what each class decides and why, plus a system map, in <gig>/repos/flows/.'),
+  'save': W('vault', 'vault/workflows/save.md', 'Commits with a 12-word summary and a log entry (save.sh, log-write.sh).'),
+  'fetch': W('vault', 'vault/workflows/fetch.md', 'Async message passing through dated chat logs in _AI/chats/ (fetch-read.py, fetch-write.py).'),
+});
+
+// ---------- Diagram helpers ----------
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const CHAR = 6.3; // approx px per char at 10.8px
+
+function wrap(text, w) {
+  const max = Math.max(8, Math.floor((w - 18) / CHAR));
+  const out = [];
+  for (const para of String(text).split('\n')) {
+    let line = '';
+    for (const word of para.split(' ')) {
+      if ((line + ' ' + word).trim().length > max && line) { out.push(line); line = word; }
+      else line = (line ? line + ' ' : '') + word;
+    }
+    out.push(line);
+  }
+  return out;
+}
+
+function anchor(n, side) {
+  const { x, y, w, h } = n;
+  return side === 'l' ? [x, y + h / 2] : side === 'r' ? [x + w, y + h / 2] : side === 't' ? [x + w / 2, y] : [x + w / 2, y + h];
+}
+const NORM = { l: [-1, 0], r: [1, 0], t: [0, -1], b: [0, 1] };
+
+function draw(svgId, spec) {
+  const svg = document.getElementById(svgId);
+  svg.setAttribute('viewBox', `0 0 ${spec.w} ${spec.h}`);
+  const defs = el('defs', {}, svg);
+  for (const k of ['edge', ...Object.keys(KIND)]) {
+    const m = el('marker', { id: `${svgId}-ah-${k}`, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }, defs);
+    el('path', { d: 'M0,0 L10,5 L0,10 z', style: `fill:var(--${k === 'edge' ? 'edge' : k})` }, m);
+  }
+  const gl = el('g', {}, svg), eg = el('g', {}, svg), ng = el('g', {}, svg), lg = el('g', {}, svg);
+  for (const g of spec.groups || []) {
+    el('rect', { class: 'g-box', x: g.x, y: g.y, width: g.w, height: g.h, rx: 10 }, gl);
+    const t = el('text', { class: 'g-lbl', x: g.x + 12, y: g.y + 17 }, gl); t.textContent = g.l;
+  }
+  const byId = {};
+  for (const n of spec.nodes) byId[n.id] = n;
+  for (const n of spec.nodes) {
+    const g = el('g', { class: `node k-${n.k}`, 'data-id': n.id, tabindex: 0 }, ng);
+    el('rect', { class: 'b', x: n.x, y: n.y, width: n.w, height: n.h, rx: 7 }, g);
+    el('rect', { class: 's', x: n.x, y: n.y + 6, width: 3.5, height: n.h - 12, rx: 1.5 }, g);
+    const subs = n.s ? wrap(n.s, n.w) : [];
+    const block = 15 + 13 * subs.length;
+    let ty = n.y + (n.h - block) / 2 + 12;
+    const t = el('text', { class: 'l', x: n.x + 11, y: ty }, g); t.textContent = n.l;
+    for (const s of subs) { ty += 13; const st = el('text', { class: 's2', x: n.x + 11, y: ty + (s === subs[0] ? 1 : 0) }, g); st.textContent = s; }
+    if (block + 8 > n.h) console.warn('overflow', svgId, n.id, n.h, block);
+  }
+  for (const e of spec.edges || []) {
+    const a = byId[e.a], b = byId[e.b];
+    if (!a || !b) { console.warn('bad edge', e); continue; }
+    let as = e.as, bs = e.bs;
+    if (!as || !bs) {
+      const dx = (b.x + b.w / 2) - (a.x + a.w / 2), dy = (b.y + b.h / 2) - (a.y + a.h / 2);
+      if (Math.abs(dx) > Math.abs(dy)) { as = as || (dx > 0 ? 'r' : 'l'); bs = bs || (dx > 0 ? 'l' : 'r'); }
+      else { as = as || (dy > 0 ? 'b' : 't'); bs = bs || (dy > 0 ? 't' : 'b'); }
+    }
+    const p1 = anchor(a, as), p2 = anchor(b, bs);
+    if (e.ao) { p1[0] += e.ao[0]; p1[1] += e.ao[1]; }
+    if (e.bo) { p2[0] += e.bo[0]; p2[1] += e.bo[1]; }
+    let d, lp;
+    if (e.via) {
+      const pts = [p1, ...e.via, p2];
+      d = 'M' + pts.map(p => p.join(',')).join(' L');
+      let best = 0, bi = 0;
+      for (let i = 0; i < pts.length - 1; i++) { const L = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]); if (L > best) { best = L; bi = i; } }
+      lp = [(pts[bi][0] + pts[bi + 1][0]) / 2, (pts[bi][1] + pts[bi + 1][1]) / 2];
+    } else {
+      const dist = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+      const k = Math.max(25, Math.min(110, dist / 2.4));
+      const c1 = [p1[0] + NORM[as][0] * k, p1[1] + NORM[as][1] * k];
+      const c2 = [p2[0] + NORM[bs][0] * k, p2[1] + NORM[bs][1] * k];
+      d = `M${p1} C${c1} ${c2} ${p2}`;
+      const t = .5, u = 1 - t;
+      lp = [0, 1].map(i => u * u * u * p1[i] + 3 * u * u * t * c1[i] + 3 * u * t * t * c2[i] + t * t * t * p2[i]);
+    }
+    if (e.lo) { lp[0] += e.lo[0]; lp[1] += e.lo[1]; }
+    const kind = e.k || 'edge';
+    const g = el('g', { class: `edge ${e.dash ? 'dash' : ''} ${e.k ? 'k-' + e.k : ''}`, 'data-a': e.a, 'data-b': e.b }, eg);
+    el('path', { class: 'e', d, 'marker-end': `url(#${svgId}-ah-${kind})` }, g);
+    if (e.l) {
+      const lgrp = el('g', { class: `edge ${e.dash ? 'dash' : ''}`, 'data-a': e.a, 'data-b': e.b }, lg);
+      const w = e.l.length * 5.6 + 8;
+      el('rect', { class: 'elb', x: lp[0] - w / 2, y: lp[1] - 8, width: w, height: 15, rx: 3 }, lgrp);
+      const t = el('text', { class: 'el', x: lp[0], y: lp[1] + 3.5, 'text-anchor': 'middle' }, lgrp); t.textContent = e.l;
+    }
+  }
+}
+const N = (id, k, x, y, w, h, l, s) => ({ id, k, x, y, w, h, l, s });
+
+// ---------- 1. Install wiring ----------
+draw('d-install', {
+  w: 1200, h: 610,
+  groups: [
+    { x: 20, y: 30, w: 250, h: 565, l: '~/Dev/ai-layer · THIS REPO' },
+    { x: 400, y: 30, w: 400, h: 255, l: 'ANY CODE REPO' },
+    { x: 400, y: 320, w: 400, h: 275, l: 'ANY OBSIDIAN VAULT' },
+    { x: 930, y: 30, w: 250, h: 255, l: '~/.claude' },
+    { x: 930, y: 320, w: 250, h: 275, l: 'PER MACHINE · PER GROUP' },
+  ],
+  nodes: [
+    N('r-code', 'code', 40, 55, 210, 58, 'code/', 'AI.md · README · workflows/ · templates/slice.md'),
+    N('r-vault', 'vault', 40, 125, 210, 70, 'vault/', 'AI.md · README · CONVENTIONS · FRONTIER · STYLE · workflows/ · scripts/'),
+    N('r-shared', 'shared', 40, 207, 210, 58, 'shared/', 'workflows/ · snippets/ · config.yml'),
+    N('r-docs', 'docs', 40, 277, 210, 58, 'docs/', 'PRINCIPLES · PATTERNS · ANTI-PATTERNS · writing/'),
+    N('r-scripts', 'script', 40, 360, 210, 70, 'scripts/', 'install-target.sh · install-skills.sh · check-docs.py'),
+    N('r-tests', 'script', 40, 442, 210, 58, 'tests/', 'fixture vaults: frontier, heartbeat, jira-snapshot'),
+    N('r-dog', 'file', 40, 520, 210, 58, '_AI/ (dogfood)', 'this repo is installed into itself as a code repo'),
+    N('c-boot', 'file', 418, 55, 175, 48, 'CLAUDE.md', '→ _AI/local/AI.md'),
+    N('c-local', 'code', 418, 111, 175, 48, '_AI/local', '→ ai-layer/code'),
+    N('c-shared', 'shared', 418, 167, 175, 48, '_AI/shared', '→ ai-layer/shared'),
+    N('c-docs', 'docs', 418, 223, 175, 48, '_AI/docs', '→ ai-layer/docs'),
+    N('c-delivery', 'vault', 608, 55, 175, 48, '_AI/delivery', '→ vault delivery/'),
+    N('c-overview', 'file', 608, 111, 175, 48, '_AI/OVERVIEW.md', 'project, architecture'),
+    N('c-validation', 'file', 608, 167, 175, 48, '_AI/VALIDATION.md', 'validation gates'),
+    N('c-codex', 'file', 608, 223, 175, 48, 'CODEX · RELATED', 'optional'),
+    N('v-boot', 'file', 418, 345, 175, 48, 'CLAUDE.md / AGENTS.md', '→ _AI/local/AI.md'),
+    N('v-local', 'vault', 418, 401, 175, 48, '_AI/local', '→ ai-layer/vault'),
+    N('v-shared', 'shared', 418, 457, 175, 48, '_AI/shared', '→ ai-layer/shared'),
+    N('v-docs', 'docs', 418, 513, 175, 48, '_AI/docs', '→ ai-layer/docs'),
+    N('v-goals', 'file', 608, 345, 175, 48, '_AI/GOALS.md', '+ CONVENTIONS (opt)'),
+    N('v-chats', 'file', 608, 401, 175, 48, '_AI/chats · logs', 'fetch · save · post-mortem'),
+    N('v-deliv', 'file', 608, 457, 175, 48, '<home>/delivery/', 'work · tickets · jira'),
+    N('v-hook', 'script', 608, 513, 175, 48, 'pre-commit hook', 'sensitivity scan'),
+    N('k-skills', 'ext', 950, 70, 210, 70, 'skills/<name>/SKILL.md', 'one stub per workflow: "Read and follow <path>"'),
+    N('k-cc', 'ext', 950, 175, 210, 70, 'Claude Code', 'reads CLAUDE.md each session; /name runs a stub'),
+    N('m-config', 'shared', 950, 360, 210, 70, 'shared/config.yml', 'gitignored · compass: · frontier: · heartbeat:'),
+    N('m-related', 'file', 950, 470, 210, 70, 'RELATED.md', 'repo group + sister vault; lives in the vault'),
+  ],
+  edges: [
+    { a: 'r-code', b: 'c-local', k: 'code', l: 'symlink' },
+    { a: 'r-shared', b: 'c-shared', k: 'shared' },
+    { a: 'r-docs', b: 'c-docs', k: 'docs' },
+    { a: 'r-vault', b: 'v-local', k: 'vault', l: 'symlink' },
+    { a: 'r-shared', b: 'v-shared', k: 'shared' },
+    { a: 'r-docs', b: 'v-docs', k: 'docs' },
+    { a: 'r-scripts', b: 'k-skills', as: 'r', bs: 't', via: [[330, 395], [330, 12], [1055, 12]], dash: true, k: 'script', l: 'install-skills.sh writes stubs' },
+    { a: 'c-delivery', b: 'v-deliv', as: 'r', bs: 'r', via: [[855, 79], [855, 481]], k: 'vault', l: 'symlink, or a real gitignored folder' },
+    { a: 'm-related', b: 'c-codex', as: 'l', bs: 'r', dash: true, l: 'symlinked into _AI/' },
+    { a: 'k-skills', b: 'k-cc', dash: true, k: 'ext' },
+  ],
+});
+
+// ---------- 2. Boot ----------
+draw('d-boot', {
+  w: 1200, h: 250,
+  nodes: [
+    N('b-you', 'you', 20, 40, 150, 58, 'You', 'say a trigger phrase'),
+    N('c-boot', 'file', 220, 40, 165, 58, 'CLAUDE.md', 'one line: see _AI/local/AI.md'),
+    N('b-ai', 'file', 435, 40, 215, 58, '_AI/local/AI.md', 'rules · write allowlist · trigger table'),
+    N('b-wf', 'file', 720, 40, 205, 58, 'workflow .md', 'local/workflows or shared/workflows'),
+    N('b-scripts', 'script', 980, 40, 200, 58, 'scripts, no AI', 'frontier · heartbeat · lint-kb · …'),
+    N('b-slash', 'you', 20, 160, 150, 58, 'You', 'type /<workflow-name>'),
+    N('k-skills', 'ext', 220, 160, 165, 58, 'skill stub', 'Read and follow <path>'),
+    N('b-ctx', 'file', 435, 160, 215, 70, 'project context', 'code: OVERVIEW · CODEX · RELATED\nvault: GOALS · CONVENTIONS'),
+    N('b-snip', 'shared', 720, 160, 205, 58, 'shared/snippets', 'questions · surmise · learnings · related'),
+    N('b-docs', 'docs', 980, 160, 200, 70, 'design-time docs', 'PRINCIPLES · PATTERNS · ANTI-PATTERNS'),
+  ],
+  edges: [
+    { a: 'b-you', b: 'c-boot' },
+    { a: 'c-boot', b: 'b-ai', l: 'boots into' },
+    { a: 'b-ai', b: 'b-wf', l: 'trigger match' },
+    { a: 'b-wf', b: 'b-scripts', l: 'calls' },
+    { a: 'b-slash', b: 'k-skills' },
+    { a: 'k-skills', b: 'b-wf', as: 'r', bs: 'b', via: [[408, 189], [408, 114], [822, 114]], l: 'straight to the workflow', lo: [60, 0] },
+    { a: 'b-ai', b: 'b-ctx', as: 'b', bs: 't', l: 'read first', lo: [-36, 16] },
+    { a: 'b-wf', b: 'b-snip', as: 'b', bs: 't', ao: [-40, 0], bo: [-40, 0], l: 'includes', lo: [30, 16] },
+    { a: 'b-docs', b: 'b-wf', as: 'l', bs: 'b', bo: [60, 0], dash: true, k: 'docs', l: 'when writing a workflow', lo: [20, -30] },
+  ],
+});
+
+// ---------- 3. Code delivery ----------
+draw('d-code', {
+  w: 1200, h: 575,
+  groups: [
+    { x: 160, y: 200, w: 1025, h: 245, l: 'FOR EACH SLICE, IN DEPENDENCY ORDER  ·  ⚠ = NEW SESSION' },
+    { x: 160, y: 465, w: 750, h: 95, l: 'SLICE STATE  (front matter on slices/NN name.md)' },
+    { x: 10, y: 200, w: 140, h: 360, l: 'ALONGSIDE' },
+  ],
+  nodes: [
+    N('d-jira', 'ext', 20, 50, 125, 58, 'Jira', 'someone else\'s ticket'),
+    N('d-jsnap', 'script', 20, 130, 125, 58, 'jira-snapshot.py', '→ delivery/jira/'),
+    N('d-ticket', 'you', 170, 50, 150, 58, 'tickets/<KEY>.md', 'your snapshot (gigs)'),
+    N('d-init', 'you', 345, 50, 140, 58, 'init.md', 'your framing, or the request'),
+    N('grill-me', 'shared', 510, 50, 140, 58, 'grill-me', 'grills you on gaps'),
+    N('d-dec', 'file', 675, 50, 150, 58, 'DECISIONS.md', '+ QUESTIONS · GLOSSARY'),
+    N('create-plan', 'code', 850, 50, 140, 58, 'create-plan', 'proposes; you approve'),
+    N('d-planmd', 'file', 1015, 50, 165, 58, 'plan.md + slices/', 'NN name.md: checklist, blueprint'),
+    N('d-branch', 'you', 180, 240, 150, 64, 'branch', 'feat/<key>/… key in name'),
+    N('execute-plan', 'code', 365, 240, 165, 64, 'execute-plan ⚠', 'one slice · validation gates'),
+    N('review', 'code', 565, 240, 155, 64, 'review ⚠ ◇', 'diff vs slice criteria'),
+    N('d-pr', 'you', 755, 240, 160, 64, 'PR + checklist', 'set link: · PR open'),
+    N('d-merged', 'you', 950, 240, 140, 64, 'merged', 'state: merged'),
+    N('qa-failure', 'code', 720, 365, 200, 64, 'qa-failure ⚠', 'QA-FAILURES.md · writes a fix slice'),
+    N('s-planned', 'file', 180, 495, 150, 50, 'planned', 'create-plan'),
+    N('s-prog', 'file', 365, 495, 165, 50, 'in progress', 'execute-plan / qa-failure'),
+    N('s-open', 'you', 565, 495, 155, 50, 'PR open', 'you'),
+    N('s-merged', 'you', 755, 495, 140, 50, 'merged', 'you'),
+    N('d-close', 'you', 940, 465, 245, 95, 'close-out (plan.md)', 'all merged · decisions → repo wiki/ · terms → concept notes · ticket inactive'),
+    N('readback', 'shared', 22, 228, 116, 40, 'readback', ''),
+    N('teach-me', 'code', 22, 276, 116, 40, 'teach-me', ''),
+    N('strict-review', 'code', 22, 324, 116, 40, 'strict-review ◇', ''),
+    N('rubber-duck', 'shared', 22, 372, 116, 40, 'rubber-duck', ''),
+    N('handoff', 'shared', 22, 420, 116, 40, 'handoff', ''),
+    N('resume', 'shared', 22, 468, 116, 40, 'resume', ''),
+    N('greenhouse', 'shared', 22, 516, 116, 40, 'greenhouse', ''),
+  ],
+  edges: [
+    { a: 'd-jira', b: 'd-ticket', l: 'snapshot', lo: [0, -38] },
+    { a: 'd-jira', b: 'd-jsnap', dash: true, l: 'CSV export' },
+    { a: 'd-ticket', b: 'd-init', dash: true, l: '[[KEY]]', lo: [0, -38] },
+    { a: 'd-init', b: 'grill-me' },
+    { a: 'grill-me', b: 'd-dec', k: 'shared', l: 'writes', lo: [0, -38] },
+    { a: 'd-dec', b: 'create-plan' },
+    { a: 'create-plan', b: 'd-planmd', k: 'code', l: 'writes', lo: [0, -38] },
+    { a: 'd-planmd', b: 'd-branch', as: 'b', bs: 't', via: [[1097, 165], [255, 165]], l: 'take the next slice' },
+    { a: 'd-branch', b: 'execute-plan' },
+    { a: 'execute-plan', b: 'review' },
+    { a: 'review', b: 'd-pr' },
+    { a: 'd-pr', b: 'd-merged' },
+    { a: 'd-merged', b: 'qa-failure', as: 'b', bs: 'r', via: [[1020, 397]], dash: true, l: 'QA fails' },
+    { a: 'qa-failure', b: 'execute-plan', as: 'l', bs: 'b', via: [[447, 397]], k: 'code', l: 'fix slice, own branch' },
+    { a: 'd-merged', b: 'd-close', as: 'r', bs: 't', bo: [78, 0], via: [[1140, 272]], dash: true, l: 'last one' },
+    { a: 's-planned', b: 's-prog' },
+    { a: 's-prog', b: 's-open' },
+    { a: 's-open', b: 's-merged' },
+  ],
+});
+
+// ---------- 4. Vault loop ----------
+draw('d-vault', {
+  w: 1200, h: 775,
+  groups: [
+    { x: 225, y: 30, w: 305, h: 535, l: 'HEARTBEAT  (run several times a day)' },
+    { x: 570, y: 30, w: 225, h: 335, l: 'TRACKING SURFACES (note\'s home)' },
+    { x: 820, y: 30, w: 185, h: 335, l: 'ALSO BY HAND' },
+    { x: 20, y: 600, w: 1165, h: 165, l: 'KNOWLEDGE BASES  (any folder with a wiki/)' },
+  ],
+  nodes: [
+    N('h-you', 'you', 20, 50, 175, 54, 'you write a note', 'meeting · stand-up · log'),
+    N('capture-log-note', 'vault', 20, 116, 175, 54, 'capture-log-note', 'file to today\'s log'),
+    N('minute', 'vault', 20, 182, 175, 54, 'minute', 'capture, then heartbeat just that note'),
+    N('h-in', 'file', 20, 270, 175, 76, 'input notes', 'YYYY-MM-DD *.md (log) or journal/YYYY-MM-DD.md'),
+    N('h-cfg', 'shared', 20, 380, 175, 64, 'config.yml heartbeat:', 'inputs · cutoff · steps'),
+    N('hb-py', 'script', 245, 60, 265, 64, '1 · heartbeat.py', 'owes a debrief · to process · no commit yet'),
+    N('hb-prop', 'vault', 245, 145, 265, 64, '2a · propagate', 'logistics and status only; never the wiki'),
+    N('sweep-tasks', 'vault', 245, 230, 265, 58, '2b · sweep-tasks', 'thread dangling tasks; you confirm'),
+    N('hb-status', 'file', 245, 310, 265, 64, '2c · status: on the note', 'unprocessed → done, or → needs-debrief'),
+    N('hb-commit', 'ext', 245, 395, 265, 58, '3 · git commit "heartbeat: …"', 'only the files it touched'),
+    N('hb-front', 'script', 245, 475, 265, 64, '4 · frontier.py --vault .', 'rebuilds every NEXT.md in this vault'),
+    N('s-radar', 'file', 588, 55, 190, 50, 'radar/', 'watches · latest: · updated:'),
+    N('s-way', 'file', 588, 115, 190, 50, '_wayfinder/', 'maps · waypoints'),
+    N('s-green', 'file', 588, 175, 190, 50, '_greenhouse/', 'parked ideas'),
+    N('s-q', 'file', 588, 235, 190, 50, 'questions/ (KB)', 'pending → surmised · confirmed…'),
+    N('s-tasks', 'file', 588, 300, 190, 50, 'task lines', 'thread link · Waiting on: · 📅'),
+    N('add-to-radar', 'vault', 838, 55, 150, 50, 'add-to-radar', ''),
+    N('wayfinder', 'vault', 838, 115, 150, 50, 'wayfinder', ''),
+    N('greenhouse', 'shared', 838, 175, 150, 50, 'greenhouse', ''),
+    N('compass', 'vault', 838, 235, 150, 50, 'compass ◇', 'towards or away?'),
+    N('state-of-play', 'vault', 838, 300, 150, 50, 'state-of-play', 'reconcile all'),
+    N('debrief', 'vault', 1035, 140, 150, 70, 'debrief', 'first-hand → wiki; sets done'),
+    N('h-reads', 'file', 570, 400, 400, 58, 'frontier.py reads', 'wayfinder maps · delivery work folders & tickets · task lines · radar watches · question notes'),
+    N('h-next', 'file', 1005, 470, 180, 90, 'NEXT.md', 'do now · owes a debrief · waiting · gone quiet · needs a look'),
+    N('k-inbox', 'file', 40, 640, 140, 58, 'inbox/', 'vault root · external'),
+    N('ingest', 'vault', 210, 640, 150, 58, 'ingest', 'classify · route · cite'),
+    N('k-kb', 'file', 400, 630, 300, 90, 'wiki/ · curated/ · INDEX.md · assets/', 'concept notes · questions/ · SPATIAL.md · AI.md · every wiki claim footnoted to its source'),
+    N('lint', 'vault', 735, 632, 140, 40, 'lint ◇', ''),
+    N('normalise', 'vault', 885, 632, 140, 40, 'normalise', ''),
+    N('connect', 'vault', 1035, 632, 140, 40, 'connect', ''),
+    N('link-components', 'vault', 735, 684, 140, 40, 'link-components', ''),
+    N('create-summaries', 'vault', 885, 684, 140, 40, 'create-summaries', ''),
+    N('process-notes', 'vault', 1035, 684, 140, 40, 'process-notes', ''),
+  ],
+  edges: [
+    { a: 'h-you', b: 'h-in', as: 'l', bs: 'l', via: [[10, 77], [10, 308]] },
+    { a: 'capture-log-note', b: 'h-in', as: 'l', bs: 'l', via: [[10, 143], [10, 308]] },
+    { a: 'minute', b: 'h-in', as: 'b', bs: 't' },
+    { a: 'h-in', b: 'hb-py', as: 'r', bs: 'l', via: [[212, 308], [212, 92]] },
+    { a: 'h-cfg', b: 'h-in', as: 't', bs: 'b', dash: true, k: 'shared', l: 'defines' },
+    { a: 'hb-py', b: 'hb-prop' },
+    { a: 'hb-prop', b: 'sweep-tasks' },
+    { a: 'sweep-tasks', b: 'hb-status' },
+    { a: 'hb-status', b: 'hb-commit' },
+    { a: 'hb-commit', b: 'hb-front' },
+    { a: 'hb-prop', b: 's-radar', k: 'vault' },
+    { a: 'hb-prop', b: 's-way', k: 'vault' },
+    { a: 'hb-prop', b: 's-green', k: 'vault' },
+    { a: 'hb-prop', b: 's-q', k: 'vault' },
+    { a: 'sweep-tasks', b: 's-tasks', k: 'vault' },
+    { a: 'add-to-radar', b: 's-radar', as: 'l', bs: 'r' },
+    { a: 'wayfinder', b: 's-way', as: 'l', bs: 'r' },
+    { a: 'greenhouse', b: 's-green', as: 'l', bs: 'r' },
+    { a: 'hb-status', b: 'debrief', as: 'r', bs: 'b', via: [[540, 342], [540, 382], [1110, 382]], k: 'vault', l: 'needs-debrief: your call, run separately' },
+    { a: 'hb-front', b: 'h-next', as: 'r', bs: 'l', ao: [0, 4], bo: [0, -4], k: 'script', l: 'writes' },
+    { a: 'h-reads', b: 'hb-front', as: 'l', bs: 'r', bo: [0, -14], dash: true },
+    { a: 'debrief', b: 'k-kb', as: 'r', bs: 't', via: [[1192, 175], [1192, 585], [550, 585]], k: 'vault', l: 'the only other way into a wiki' },
+    { a: 'k-inbox', b: 'ingest' },
+    { a: 'ingest', b: 'k-kb', k: 'vault', l: 'writes' },
+  ],
+});
+
+// ---------- 5. Writing ----------
+draw('d-writing', {
+  w: 1200, h: 360,
+  groups: [{ x: 20, y: 25, w: 1165, h: 320, l: 'PIECE FOLDER' }],
+  nodes: [
+    N('w-brief', 'you', 40, 55, 150, 58, 'brief.md', 'drafted with you in chat'),
+    N('w-vault', 'file', 40, 150, 150, 58, 'vault sources', 'notes · logs · wiki'),
+    N('sync-guide', 'vault', 235, 55, 170, 58, 'sync-guide', 'gatherer · only guide/'),
+    N('interview', 'vault', 235, 150, 170, 70, 'interview', 'gatherer · timeline · one thread at a time · verbatim'),
+    N('w-guide', 'file', 455, 95, 185, 80, 'guide/', 'theme notes · pending ↔ used · coverage:'),
+    N('elicit', 'vault', 690, 45, 165, 58, 'elicit', 'angles & questions · chat'),
+    N('beats', 'vault', 690, 120, 165, 58, 'beats', 'ordered moves'),
+    N('w-out', 'you', 920, 95, 245, 80, 'output.md', 'you write every sentence'),
+    N('polish', 'vault', 815, 265, 165, 58, 'polish', 'spelling, punctuation only'),
+    N('sanity', 'vault', 635, 265, 160, 58, 'sanity ◇', 'contradictions'),
+    N('gap-check', 'vault', 455, 265, 160, 58, 'gap-check ◇', 'draft vs guide'),
+    N('diploma-ready', 'vault', 1000, 265, 165, 58, 'diploma-ready ◇', 'vs standards/ rubric'),
+    N('scribe', 'vault', 40, 265, 170, 58, 'scribe', '% scribe marker, any file'),
+  ],
+  edges: [
+    { a: 'w-brief', b: 'sync-guide' },
+    { a: 'w-vault', b: 'sync-guide', as: 'r', bs: 'l', bo: [0, 12] },
+    { a: 'w-vault', b: 'interview', l: 'logs' },
+    { a: 'sync-guide', b: 'w-guide', k: 'vault', l: 'writes' },
+    { a: 'interview', b: 'w-guide', k: 'vault', l: 'writes' },
+    { a: 'w-guide', b: 'elicit', as: 'r', bs: 'l' },
+    { a: 'w-guide', b: 'beats', as: 'r', bs: 'l' },
+    { a: 'beats', b: 'w-out', k: 'vault', l: 'Beats block' },
+    { a: 'elicit', b: 'w-out', dash: true, l: 'sparks' },
+    { a: 'polish', b: 'w-out', as: 't', bs: 'b', bo: [-10, 0], k: 'vault', l: 'light edit', lo: [8, 6] },
+    { a: 'sanity', b: 'w-out', as: 't', bs: 'b', bo: [-70, 0], dash: true, l: 'reads', lo: [0, 10] },
+    { a: 'gap-check', b: 'w-out', as: 't', bs: 'b', ao: [55, 0], bo: [-110, 0], dash: true },
+    { a: 'gap-check', b: 'w-guide', as: 't', bs: 'b', ao: [-30, 0], bo: [-12, 0], k: 'vault', l: 'coverage:' },
+    { a: 'diploma-ready', b: 'w-out', as: 't', bs: 'b', bo: [90, 0], dash: true },
+  ],
+});
+
+// ---------- 6. Catalogue ----------
+const CAT = [
+  ['Code delivery', 'code', ['create-plan', 'execute-plan', 'review', 'qa-failure']],
+  ['Code: understand & critique', 'code', ['teach-me', 'strict-review', 'readback']],
+  ['Think it through', 'shared', ['grill-me', 'rubber-duck', 'readback', 'compass']],
+  ['Bring material in', 'vault', ['capture-log-note', 'minute', 'heartbeat', 'debrief', 'ingest']],
+  ['Keep track', 'vault', ['add-to-radar', 'greenhouse', 'wayfinder', 'sweep-tasks', 'state-of-play', 'post-mortem']],
+  ['Write a piece', 'vault', ['sync-guide', 'interview', 'elicit', 'beats', 'polish', 'scribe', 'sanity', 'gap-check', 'diploma-ready']],
+  ['Look back', 'vault', ['reflect', 'gratitude']],
+  ['Maintain knowledge bases', 'vault', ['lint', 'normalise', 'connect', 'link-components', 'create-summaries', 'process-notes']],
+  ['Understand running code (vault)', 'vault', ['trace']],
+  ['Sessions & housekeeping', 'shared', ['handoff', 'resume', 'fetch', 'save', 'validate-ai-setup']],
+];
+const catEl = document.getElementById('cat');
+for (const [title, k, ids] of CAT) {
+  const d = document.createElement('div');
+  d.innerHTML = `<h3><i class="sw" style="--c:var(--${k})"></i>${title}</h3><div class="chips"></div>`;
+  const chips = d.querySelector('.chips');
+  for (const id of ids) {
+    const inf = INFO[id] || {};
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = `chip k-${inf.k || 'file'}`; b.dataset.id = id;
+    const flags = (/⚠/.test(inf.d) ? '⚠' : '') + (/◇/.test(inf.d) ? '◇' : '');
+    b.innerHTML = id + (flags ? `<i>${flags}</i>` : '');
+    chips.appendChild(b);
+  }
+  catEl.appendChild(d);
+}
+
+// ---------- Selection & side panel ----------
+const panel = document.getElementById('info'), body = document.getElementById('info-body');
+const SECTIONS = { 'd-install': 'Wiring', 'd-boot': 'Boot', 'd-code': 'Code delivery', 'd-vault': 'Vault loop', 'd-writing': 'Writing' };
+const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+function clearSel() {
+  document.querySelectorAll('.sel,.hot,.near').forEach(n => n.classList.remove('sel', 'hot', 'near'));
+  document.querySelectorAll('svg.dimmed').forEach(s => s.classList.remove('dimmed'));
+}
+function select(id) {
+  clearSel();
+  const hits = document.querySelectorAll(`[data-id="${CSS.escape(id)}"]`);
+  hits.forEach(h => h.classList.add('sel'));
+  const svgs = new Set();
+  document.querySelectorAll(`.edge[data-a="${CSS.escape(id)}"], .edge[data-b="${CSS.escape(id)}"]`).forEach(e => {
+    e.classList.add('hot'); svgs.add(e.ownerSVGElement);
+    const other = e.dataset.a === id ? e.dataset.b : e.dataset.a;
+    e.ownerSVGElement.querySelectorAll(`.node[data-id="${CSS.escape(other)}"]`).forEach(n => n.classList.add('near'));
+  });
+  hits.forEach(h => h.ownerSVGElement && svgs.add(h.ownerSVGElement));
+  svgs.forEach(s => s.classList.add('dimmed'));
+  const node = hits[0];
+  const inf = INFO[id] || {};
+  const label = node?.querySelector?.('.l')?.textContent || id;
+  const sub = [...(node?.querySelectorAll?.('.s2') || [])].map(t => t.textContent).join(' ');
+  const k = inf.k || [...(node?.classList || [])].find(c => c.startsWith('k-'))?.slice(2) || 'file';
+  const seen = [...new Set([...hits].map(h => h.ownerSVGElement?.id).filter(Boolean))];
+  body.innerHTML = `
+    <span class="kind k-${k}">${KIND[k] || k}</span>
+    <h3>${esc(label)}</h3>
+    ${inf.p ? `<div class="path mono">${esc(inf.p)}</div>` : ''}
+    <p>${esc(inf.d || sub)}</p>
+    <dl>
+      ${inf.r ? `<dt>Reads</dt><dd>${esc(inf.r)}</dd>` : ''}
+      ${inf.w ? `<dt>Writes</dt><dd>${esc(inf.w)}</dd>` : ''}
+      ${inf.links ? `<dt>Note</dt><dd>${esc(inf.links)}</dd>` : ''}
+      ${seen.length ? `<dt>Appears in</dt><dd class="seen">${seen.map(s => `<a href="#${s.slice(2)}">${SECTIONS[s]}</a>`).join('')}</dd>` : ''}
+    </dl>`;
+  panel.classList.add('open');
+}
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('[data-id]');
+  if (t) { select(t.dataset.id); return; }
+  if (!ev.target.closest('#info') && !ev.target.closest('header')) { clearSel(); panel.classList.remove('open'); }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape') { clearSel(); panel.classList.remove('open'); }
+  if (ev.key === 'Enter' && ev.target.closest?.('.node')) select(ev.target.closest('.node').dataset.id);
+});
+panel.querySelector('.x').onclick = () => { clearSel(); panel.classList.remove('open'); };
+
+// ---------- Theme toggle ----------
+const root = document.documentElement;
+try { const t = localStorage.getItem('schematic-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+document.getElementById('theme').onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('schematic-theme', root.dataset.theme); } catch (e) {}
+};
+</script>
+</body>
+</html>

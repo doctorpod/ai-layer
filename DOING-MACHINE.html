@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doing Machine</title>
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --ink: #1d1d1b; --muted: #6b6a64; --line: #d9d6cc; --edge: #8a877d;
+  --code: #2563eb; --vault: #059669; --shared: #7c3aed; --docs: #c27803; --script: #52606d; --you: #e11d48; --file: #8a877d; --ext: #0e7490;
+  --sel: #f59e0b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1e1e1c; --ink: #ecebe6; --muted: #9c9a92; --line: #3a3935; --edge: #7d7a71;
+    --code: #6b9bff; --vault: #34c79a; --shared: #a985ff; --docs: #f0a830; --script: #9aa8b6; --you: #ff6b8a; --file: #a29f95; --ext: #3cc4dc;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1e1e1c; --ink: #ecebe6; --muted: #9c9a92; --line: #3a3935; --edge: #7d7a71;
+  --code: #6b9bff; --vault: #34c79a; --shared: #a985ff; --docs: #f0a830; --script: #9aa8b6; --you: #ff6b8a; --file: #a29f95; --ext: #3cc4dc;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+code, .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; }
+header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.bar { max-width: 1280px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.bar h1 { font-size: 16px; margin: 0; letter-spacing: .02em; }
+.bar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.bar nav a { color: var(--muted); text-decoration: none; padding: 3px 8px; border-radius: 6px; font-size: 13px; }
+.bar nav a:hover { background: var(--surface); color: var(--ink); }
+.bar .sp { flex: 1; }
+.bar button { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; font: inherit; font-size: 12px; cursor: pointer; }
+main { max-width: 1280px; margin: 0 auto; padding: 16px; }
+.lede { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin: 6px 0 18px; }
+.lede p { margin: 0 0 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); align-content: start; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--c); background: color-mix(in srgb, var(--c) 16%, var(--surface)); }
+.sw.you { border-style: dashed; }
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; }
+.stat b { font-size: 18px; display: block; line-height: 1.2; }
+.stat small { color: var(--muted); font-size: 11.5px; }
+section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin: 0 0 18px; padding: 14px 16px 10px; }
+section.panel > h2 { margin: 0; font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
+section.panel > h2 .n { color: var(--muted); font-weight: 500; font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+section.panel > p.cap { margin: 2px 0 8px; color: var(--muted); font-size: 13px; max-width: 900px; }
+.scroll { overflow-x: auto; }
+.scroll svg { display: block; width: 100%; min-width: 980px; height: auto; }
+/* SVG */
+svg text { fill: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+.g-box { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.g-lbl { font-size: 11.5px; font-weight: 600; fill: var(--muted); letter-spacing: .03em; }
+.node { cursor: pointer; }
+.node rect.b { fill: color-mix(in srgb, var(--c) 11%, var(--surface)); stroke: var(--c); stroke-width: 1.4; }
+.node rect.s { fill: var(--c); }
+.node.k-you rect.b { stroke-dasharray: 4 3; }
+.node.k-file rect.b { fill: var(--surface); }
+.node .l { font-size: 12.5px; font-weight: 650; }
+.node .s2 { font-size: 10.8px; fill: var(--muted); }
+.node:hover rect.b { stroke-width: 2.4; }
+.node.sel rect.b { stroke: var(--sel); stroke-width: 3; }
+.k-code { --c: var(--code); } .k-vault { --c: var(--vault); } .k-shared { --c: var(--shared); } .k-docs { --c: var(--docs); }
+.k-script { --c: var(--script); } .k-you { --c: var(--you); } .k-file { --c: var(--file); } .k-ext { --c: var(--ext); }
+.edge path.e { fill: none; stroke: var(--c, var(--edge)); stroke-width: 1.5; opacity: .75; }
+.edge.dash path.e { stroke-dasharray: 5 4; }
+.edge.hot path.e { stroke: var(--sel); stroke-width: 2.6; opacity: 1; }
+.edge .el { font-size: 10.5px; fill: var(--muted); font-style: italic; }
+.edge .elb { fill: var(--surface); }
+svg.dimmed .node:not(.sel):not(.near) { opacity: .35; }
+svg.dimmed .edge:not(.hot) { opacity: .2; }
+/* catalogue */
+.cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 8px; }
+.cat h3 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { --c: var(--file); font: inherit; font-size: 12.5px; cursor: pointer; border: 1.4px solid var(--c); background: color-mix(in srgb, var(--c) 11%, var(--surface)); color: var(--ink); border-radius: 6px; padding: 2px 8px; }
+.chip:hover { border-width: 2px; padding: 1.6px 7.6px; }
+.chip.sel { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel); }
+.chip i { font-style: normal; color: var(--muted); font-size: 11px; margin-left: 3px; }
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cols3 h3 { font-size: 13px; margin: 6px 0 6px; }
+.cols3 ol, .cols3 ul { margin: 0; padding-left: 20px; font-size: 13px; }
+.cols3 li { margin-bottom: 4px; }
+.cols3 li b { font-weight: 650; }
+/* side panel */
+aside#info { position: fixed; top: 0; right: 0; height: 100vh; width: min(400px, 100vw); background: var(--surface); border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,.12); transform: translateX(105%); transition: transform .18s ease; z-index: 10; padding: 18px 20px; overflow-y: auto; }
+aside#info.open { transform: none; }
+aside#info .x { position: absolute; top: 10px; right: 12px; border: 0; background: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+aside#info .kind { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; border-radius: 4px; border: 1.4px solid var(--c); color: var(--c); margin-bottom: 6px; }
+aside#info h3 { margin: 2px 0 6px; font-size: 18px; }
+aside#info .path { color: var(--muted); word-break: break-all; margin-bottom: 10px; }
+aside#info p { margin: 0 0 10px; }
+aside#info dl { margin: 0; font-size: 13px; }
+aside#info dt { font-weight: 650; color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; margin-top: 10px; }
+aside#info dd { margin: 2px 0 0; }
+aside#info .seen a { color: var(--ink); margin-right: 8px; font-size: 13px; }
+footer { color: var(--muted); font-size: 12px; text-align: center; padding: 8px 0 30px; }
+@media (max-width: 760px) { .lede, .cols3 { grid-template-columns: 1fr; } }
+.grp { cursor: pointer; } .grp .g-box { pointer-events: stroke; } .grp .g-lbl { cursor: pointer; }
+.grp.sel .g-box { stroke: var(--sel); opacity: 1; stroke-dasharray: none; }
+svg.dimmed .grp:not(.sel) { opacity: .5; }
+.g-box.spine { stroke: var(--sel); stroke-dasharray: none; stroke-width: 1.6; opacity: .8; }
+.node.k-file[data-id=log] rect.b, .node[data-id=heartbeat] rect.b, .node[data-id=next] rect.b { stroke-width: 2.8; }
+.node[data-id=log] .l, .node[data-id=heartbeat] .l, .node[data-id=next] .l { font-size: 17px; }
+.badge circle { fill: var(--ink); }
+.badge text { fill: var(--bg); font-size: 9.5px; font-weight: 700; }
+.g-box.home { stroke: var(--ink); stroke-dasharray: none; stroke-width: 1.6; stroke-opacity: .55; fill: color-mix(in srgb, var(--ink) 4%, transparent); }
+.g-box.thread { stroke: var(--docs); fill: color-mix(in srgb, var(--docs) 7%, transparent); }
+.g-box.items { stroke: var(--vault); fill: color-mix(in srgb, var(--vault) 9%, transparent); }
+ol.para { margin: 6px 0 0; padding-left: 26px; max-width: 960px; }
+ol.para li { padding: 5px 8px; border-radius: 6px; cursor: pointer; margin-bottom: 2px; }
+ol.para li:hover { background: color-mix(in srgb, var(--sel) 10%, transparent); }
+ol.para li.on { background: color-mix(in srgb, var(--sel) 20%, transparent); }
+ol.para b.noun { border-bottom: 2px solid var(--sel); font-weight: 650; }
+.nounchip { display: inline-block; margin: 2px 3px; padding: 0 7px; border: 1px solid var(--line); border-radius: 5px; cursor: pointer; }
+.nounchip:hover { border-color: var(--sel); }
+aside#info blockquote { margin: 6px 0; padding: 4px 10px; border-left: 3px solid var(--sel); color: var(--ink); font-size: 13px; }
+
+</style>
+</head>
+<body>
+<header class="top"><div class="bar">
+  <h1>THE DOING MACHINE</h1>
+  <nav><a href="#map">Picture</a><a href="#para">Paragraph</a></nav>
+  <span class="sp"></span>
+  <button id="theme" type="button">theme</button>
+</div></header>
+<main>
+<section class="panel" id="map">
+  <h2>The nouns and how they fit <span class="n">work/doing-machine · destination paragraph</span></h2>
+  <p class="cap">Across the top, the spine: one door in (a log note), one engine (heartbeat), one place to look (NEXT.md). Below it, everything you act on is an item, inside a thread, inside a home. The numbered badges are the paragraph lines each noun comes from. Click a noun, or a line below.</p>
+  <div class="scroll"><svg id="d-dm"></svg></div>
+</section>
+<section class="panel" id="para">
+  <h2>The machine in one paragraph</h2>
+  <ol class="para" id="lines"></ol>
+  <p class="cap" style="margin-top:10px">The nouns to hold: <span id="nounlist"></span></p>
+</section>
+<footer>Drawn from work/doing-machine/init.md and DECISIONS.md, 2026-11-11.</footer>
+</main>
+<aside id="info" aria-live="polite"><button class="x" type="button" aria-label="Close">×</button><div id="info-body"></div></aside>
+
+<script>
+const LABEL = { home: 'home', thread: 'thread', item: 'item' };
+const N = (id, k, x, y, w, h, l, s, ln) => ({ id, k, x, y, w, h, l, s, ln });
+const LINES = [
+  'Everything that happens becomes a dated **log note**, written by me or by Claude. That\'s the only way in.',
+  '**Heartbeat** applies each new log note everywhere it matters, tasks included, then marks it done. "**Minute this**" means write it and run heartbeat on it now.',
+  'A log note can change two kinds of **item**: a **task** or a **watch**. Every item belongs to a **thread**.',
+  'Every thread I chart is a **map**. It starts as my own **seed** (in the greenhouse) or as someone else\'s **ask** (a ticket, a client want). Charting it means refining it until what done means is agreed: by me for a seed, by them for an ask. A **single ticket** comes with its own thread, its work folder or checklist, and needs no map.',
+  'Threads live in a **home**: a gig or a project folder.',
+  '**NEXT.md** is the one place I look to know what to do. It\'s rebuilt from the threads every time and never edited by hand.',
+  'Watches stay out of sight until they go quiet for two weeks. Then NEXT.md asks me to glance at them.',
+  'If a log note changes what\'s true about a subject, heartbeat flags it for a **debrief**. Debrief is the only way into the **wiki**. Its open questions are tasks, and its flag shows on NEXT.md until it\'s done.',
+];
+const NOUNS = ['log', 'heartbeat', 'task', 'watch', 'map', 'seed', 'ask', 'home', 'next', 'debrief'];
+const KIND = { you: 'who', file: 'noun', vault: 'workflow', script: 'derived', shared: 'origin', docs: 'thread', ext: 'outside' };
+const W = (k, p, d) => ({ k, p, d });
+const INFO = {
+  who: W('you', '', 'You or Claude. Authorship is recorded by the ai-generated tag; it doesn\'t change where the note goes.'),
+  minute: W('vault', '"minute this"', 'A shortcut, not a workflow with its own rules: capture the note, then run heartbeat on just that note.'),
+  log: W('file', 'dated log note', 'The one door in. Anything that changes the machine enters as one. Its status: records what\'s still owed: unprocessed → done, or → needs-debrief.'),
+  heartbeat: W('vault', 'vault/workflows/heartbeat.md', 'The deep module. Holds every processing rule: propagation, threading tasks, the status vocabulary. Moves status freely; anything that changes what\'s true is flagged for debrief instead.'),
+  home: W('file', 'a gig or a project folder', 'Where threads live. A home outlives any one thread, so it holds many maps. "Project" now only ever means a home.'),
+  thread: W('docs', 'one line of work', 'Every item belongs to one. Two shapes: a map you chart, or a single ticket that brings its own work folder or checklist.'),
+  map: W('docs', '<home>/_wayfinder/<slug>/map.md', 'The only thread shape you make. A destination and its waypoints. Charting means refining until what done means is agreed. A quick chart exists for clear, linear jobs.'),
+  ticket: W('docs', 'work folder, or the ticket\'s checklist', 'A single ticket is its own thread and needs no map. A map is charted for an ask only when it\'s bigger than one ticket or still woolly; then the tickets hang off it.'),
+  seed: W('shared', '<home>/_greenhouse/', 'Your own idea. Greenhouse entries are seed threads not yet started. Done is agreed by you; the compass check is the sign-off.'),
+  ask: W('shared', 'a ticket, a client want', 'Someone else\'s want. Done is agreed by them. Refining a ticket and interviewing a client are the same activity.'),
+  item: W('file', 'something a log note can change', 'Exactly two kinds: a task or a watch. Questions are not a third kind: chasing one is a task.'),
+  task: W('file', '- [ ] a task line', 'Something to do. Belongs to a thread through its link (a task with none is dangling). A pending question\'s chase ("Ask Stephen who Anne is") is a task too.'),
+  watch: W('file', '<home>/radar/', 'Something to keep an eye on, no action implied. Out of sight until its updated: is over 14 days old, then it shows in "Worth a glance". Touching it takes it off.'),
+  next: W('script', '<folder>/NEXT.md', 'The one place to look. Rebuilt by frontier.py from the threads every time; never edited by hand. Shows: steps from threads, stale watches, the debrief pile.'),
+  debrief: W('vault', 'vault/workflows/debrief.md', 'The gate for truth. Takes flagged log notes as sources, writes the wiki, and sets the note done. Its open questions become chase tasks.'),
+  wiki: W('ext', '<kb>/wiki/  ·  questions/', 'The knowing machine, out of scope here. It meets the doing machine at exactly two points: debrief going in, and its questions coming back as tasks.'),
+};
+const LN = { who: [1], minute: [2], log: [1, 2, 3, 8], heartbeat: [2, 8], item: [3], task: [3, 8], watch: [3, 7], thread: [3, 4, 5, 6], map: [4], seed: [4], ask: [4], ticket: [4], home: [5], next: [6, 7, 8], debrief: [8], wiki: [8] };
+
+const SPEC = {
+  w: 1200, h: 680,
+  groups: [
+    { x: 20, y: 88, w: 1165, h: 128, l: 'THE SPINE  ·  one door in, one engine, one place to look', c: 'spine', lr: true },
+    { id: 'home', x: 345, y: 250, w: 840, h: 385, l: 'HOME  ·  a gig or a project folder', c: 'home' },
+    { id: 'thread', x: 360, y: 285, w: 810, h: 215, l: 'THREAD  ·  every item belongs to one', c: 'thread' },
+    { id: 'item', x: 375, y: 325, w: 290, h: 160, l: 'ITEMS  ·  only two kinds', c: 'items' },
+  ],
+  nodes: [
+    N('who', 'you', 40, 18, 160, 52, 'me or Claude', 'whoever writes it'),
+    N('minute', 'vault', 230, 18, 175, 52, '"minute this"', 'write it, heartbeat it now'),
+    N('log', 'file', 40, 112, 250, 90, 'log note', 'dated · the only way in'),
+    N('heartbeat', 'vault', 400, 112, 260, 90, 'heartbeat', 'applies each new note everywhere, then marks it done'),
+    N('next', 'script', 930, 112, 240, 90, 'NEXT.md', 'the one place I look · never edited by hand'),
+    N('task', 'file', 390, 385, 125, 64, 'task', 'something to do'),
+    N('watch', 'file', 525, 385, 125, 64, 'watch', 'keep an eye on'),
+    N('map', 'docs', 700, 330, 200, 76, 'map', 'charted thread · _wayfinder/<slug>/'),
+    N('ticket', 'docs', 935, 330, 215, 76, 'single ticket', 'its own thread: work folder or checklist · no map'),
+    N('seed', 'shared', 700, 545, 200, 66, 'seed', 'my own idea · in the greenhouse'),
+    N('ask', 'shared', 935, 545, 215, 66, 'ask', 'someone else\'s · ticket, client want'),
+    N('debrief', 'vault', 40, 360, 230, 70, 'debrief', 'the gate for what\'s true'),
+    N('wiki', 'ext', 40, 490, 230, 64, 'wiki', 'knowing machine (out of scope)'),
+  ],
+  edges: [
+    { a: 'who', b: 'log', as: 'b', bs: 't', bo: [-45, 0] },
+    { a: 'minute', b: 'log', as: 'b', bs: 't', bo: [60, 0] },
+    { a: 'minute', b: 'heartbeat', as: 'r', bs: 't', dash: true, l: 'runs it now' },
+    { a: 'log', b: 'heartbeat', k: 'vault', l: 'each new one' },
+    { a: 'heartbeat', b: 'next', k: 'script', l: 'rebuilds it at the end' },
+    { a: 'heartbeat', b: 'task', as: 'b', bs: 't', ao: [-78, 0], via: [[452, 300]], k: 'vault' },
+    { a: 'heartbeat', b: 'watch', as: 'b', bs: 't', ao: [57, 0], k: 'vault', l: 'changes a task or a watch', lo: [0, -60] },
+    { a: 'heartbeat', b: 'debrief', as: 'b', bs: 't', ao: [-110, 0], via: [[420, 236], [155, 236]], k: 'vault', l: 'flags it if it changes what\'s true' },
+    { a: 'debrief', b: 'wiki', l: 'the only way in' },
+    { a: 'debrief', b: 'task', as: 'r', bs: 'l', ao: [0, -12], bo: [0, 6], k: 'vault', l: 'questions → tasks', lo: [0, -14] },
+    { a: 'debrief', b: 'next', as: 'r', bs: 'r', ao: [0, 22], via: [[305, 417], [305, 655], [1192, 655], [1192, 157]], dash: true, k: 'script', l: 'its flag shows until done' },
+    { a: 'watch', b: 'next', as: 'r', bs: 'b', bo: [-85, 0], via: [[680, 417], [680, 226], [970, 226]], dash: true, k: 'script', l: 'after 2 weeks quiet' },
+    { a: 'map', b: 'next', as: 't', bs: 'b', bo: [-30, 0], via: [[800, 242], [1020, 242]], dash: true, k: 'script', l: 'rebuilt from threads' },
+    { a: 'ticket', b: 'next', as: 't', bs: 'b', ao: [0, 0], bo: [-8, 0], via: [[1042, 330]], dash: true, k: 'script' },
+    { a: 'seed', b: 'map', as: 't', bs: 'b', k: 'shared', l: 'charted: done agreed by me' },
+    { a: 'ask', b: 'ticket', as: 't', bs: 'b', ao: [40, 0], bo: [40, 0], k: 'shared', l: 'one ticket', lo: [8, 0] },
+    { a: 'ask', b: 'map', as: 't', bs: 'b', ao: [-60, 0], bo: [60, 0], k: 'shared', l: 'big or woolly: agreed by them', lo: [20, 34] },
+  ],
+};
+
+// ---------- Diagram helpers ----------
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const CHAR = 6.3; // approx px per char at 10.8px
+
+function wrap(text, w) {
+  const max = Math.max(8, Math.floor((w - 18) / CHAR));
+  const out = [];
+  for (const para of String(text).split('\n')) {
+    let line = '';
+    for (const word of para.split(' ')) {
+      if ((line + ' ' + word).trim().length > max && line) { out.push(line); line = word; }
+      else line = (line ? line + ' ' : '') + word;
+    }
+    out.push(line);
+  }
+  return out;
+}
+
+function anchor(n, side) {
+  const { x, y, w, h } = n;
+  return side === 'l' ? [x, y + h / 2] : side === 'r' ? [x + w, y + h / 2] : side === 't' ? [x + w / 2, y] : [x + w / 2, y + h];
+}
+const NORM = { l: [-1, 0], r: [1, 0], t: [0, -1], b: [0, 1] };
+
+function draw(svgId, spec) {
+  const svg = document.getElementById(svgId);
+  svg.setAttribute('viewBox', `0 0 ${spec.w} ${spec.h}`);
+  const defs = el('defs', {}, svg);
+  for (const k of ['edge', ...Object.keys(KIND)]) {
+    const m = el('marker', { id: `${svgId}-ah-${k}`, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }, defs);
+    el('path', { d: 'M0,0 L10,5 L0,10 z', style: `fill:var(--${k === 'edge' ? 'edge' : k})` }, m);
+  }
+  const gl = el('g', {}, svg), eg = el('g', {}, svg), ng = el('g', {}, svg), lg = el('g', {}, svg);
+  for (const g of spec.groups || []) {
+    const gg = el('g', g.id ? { class: 'grp', 'data-id': g.id } : {}, gl);
+    el('rect', { class: 'g-box ' + (g.c || ''), x: g.x, y: g.y, width: g.w, height: g.h, rx: 10 }, gg);
+    const t = el('text', { class: 'g-lbl', x: g.lr ? g.x + g.w - 12 : g.x + 12, y: g.y + 17, 'text-anchor': g.lr ? 'end' : 'start' }, gg); t.textContent = g.l;
+    (LN[g.id] || []).forEach((num, i) => { const bg = el('g', { class: 'badge' }, gg); const cx = g.x + 22 + g.l.length * 6.6 + i * 17, cy = g.y + 13; el('circle', { cx, cy, r: 7.5 }, bg); const t2 = el('text', { x: cx, y: cy + 3.4, 'text-anchor': 'middle' }, bg); t2.textContent = num; });
+  }
+  const byId = {};
+  for (const n of spec.nodes) byId[n.id] = n;
+  for (const n of spec.nodes) {
+    const g = el('g', { class: `node k-${n.k}`, 'data-id': n.id, tabindex: 0 }, ng);
+    el('rect', { class: 'b', x: n.x, y: n.y, width: n.w, height: n.h, rx: 7 }, g);
+    el('rect', { class: 's', x: n.x, y: n.y + 6, width: 3.5, height: n.h - 12, rx: 1.5 }, g);
+    const subs = n.s ? wrap(n.s, n.w) : [];
+    const block = 15 + 13 * subs.length;
+    let ty = n.y + (n.h - block) / 2 + 12;
+    const lbl0 = n.l;
+    const t = el('text', { class: 'l', x: n.x + 11, y: ty }, g); t.textContent = n.l;
+    for (const s of subs) { ty += 13; const st = el('text', { class: 's2', x: n.x + 11, y: ty + (s === subs[0] ? 1 : 0) }, g); st.textContent = s; }
+    if (block + 8 > n.h) console.warn('overflow', svgId, n.id, n.h, block);
+    (LN[n.id] || []).forEach((num, i) => { const bg = el('g', { class: 'badge' }, g); const cx = n.x + n.w - 10 - ((LN[n.id].length - 1 - i) * 17), cy = n.y + 10; el('circle', { cx, cy, r: 7.5 }, bg); const t2 = el('text', { x: cx, y: cy + 3.4, 'text-anchor': 'middle' }, bg); t2.textContent = num; });
+  }
+  for (const e of spec.edges || []) {
+    const a = byId[e.a], b = byId[e.b];
+    if (!a || !b) { console.warn('bad edge', e); continue; }
+    let as = e.as, bs = e.bs;
+    if (!as || !bs) {
+      const dx = (b.x + b.w / 2) - (a.x + a.w / 2), dy = (b.y + b.h / 2) - (a.y + a.h / 2);
+      if (Math.abs(dx) > Math.abs(dy)) { as = as || (dx > 0 ? 'r' : 'l'); bs = bs || (dx > 0 ? 'l' : 'r'); }
+      else { as = as || (dy > 0 ? 'b' : 't'); bs = bs || (dy > 0 ? 't' : 'b'); }
+    }
+    const p1 = anchor(a, as), p2 = anchor(b, bs);
+    if (e.ao) { p1[0] += e.ao[0]; p1[1] += e.ao[1]; }
+    if (e.bo) { p2[0] += e.bo[0]; p2[1] += e.bo[1]; }
+    let d, lp;
+    if (e.via) {
+      const pts = [p1, ...e.via, p2];
+      d = 'M' + pts.map(p => p.join(',')).join(' L');
+      let best = 0, bi = 0;
+      for (let i = 0; i < pts.length - 1; i++) { const L = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]); if (L > best) { best = L; bi = i; } }
+      lp = [(pts[bi][0] + pts[bi + 1][0]) / 2, (pts[bi][1] + pts[bi + 1][1]) / 2];
+    } else {
+      const dist = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+      const k = Math.max(25, Math.min(110, dist / 2.4));
+      const c1 = [p1[0] + NORM[as][0] * k, p1[1] + NORM[as][1] * k];
+      const c2 = [p2[0] + NORM[bs][0] * k, p2[1] + NORM[bs][1] * k];
+      d = `M${p1} C${c1} ${c2} ${p2}`;
+      const t = .5, u = 1 - t;
+      lp = [0, 1].map(i => u * u * u * p1[i] + 3 * u * u * t * c1[i] + 3 * u * t * t * c2[i] + t * t * t * p2[i]);
+    }
+    if (e.lo) { lp[0] += e.lo[0]; lp[1] += e.lo[1]; }
+    const kind = e.k || 'edge';
+    const g = el('g', { class: `edge ${e.dash ? 'dash' : ''} ${e.k ? 'k-' + e.k : ''}`, 'data-a': e.a, 'data-b': e.b }, eg);
+    el('path', { class: 'e', d, 'marker-end': `url(#${svgId}-ah-${kind})` }, g);
+    if (e.l) {
+      const lgrp = el('g', { class: `edge ${e.dash ? 'dash' : ''}`, 'data-a': e.a, 'data-b': e.b }, lg);
+      const w = e.l.length * 5.6 + 8;
+      el('rect', { class: 'elb', x: lp[0] - w / 2, y: lp[1] - 8, width: w, height: 15, rx: 3 }, lgrp);
+      const t = el('text', { class: 'el', x: lp[0], y: lp[1] + 3.5, 'text-anchor': 'middle' }, lgrp); t.textContent = e.l;
+    }
+  }
+}
+
+draw('d-dm', SPEC);
+// paragraph
+const linesEl = document.getElementById('lines');
+LINES.forEach((t, i) => {
+  const li = document.createElement('li'); li.dataset.line = i + 1;
+  li.innerHTML = t.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])).replace(/\*\*(.+?)\*\*/g, '<b class="noun">$1</b>');
+  linesEl.appendChild(li);
+});
+document.getElementById('nounlist').innerHTML = NOUNS.map(id => `<span class="nounchip" data-id="${id}">${LABEL[id] || document.querySelector(`.node[data-id="${id}"] .l`).textContent}</span>`).join('');
+const panel = document.getElementById('info'), body = document.getElementById('info-body');
+const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+const svg = document.getElementById('d-dm');
+function clearSel() {
+  document.querySelectorAll('.sel,.hot,.near,.on').forEach(n => n.classList.remove('sel', 'hot', 'near', 'on'));
+  svg.classList.remove('dimmed');
+}
+function select(id) {
+  clearSel();
+  document.querySelectorAll(`.node[data-id="${id}"], .grp[data-id="${id}"]`).forEach(h => h.classList.add('sel'));
+  document.querySelectorAll(`.edge[data-a="${id}"], .edge[data-b="${id}"]`).forEach(e => {
+    e.classList.add('hot');
+    const other = e.dataset.a === id ? e.dataset.b : e.dataset.a;
+    svg.querySelectorAll(`.node[data-id="${other}"]`).forEach(n => n.classList.add('near'));
+  });
+  svg.classList.add('dimmed');
+  (LN[id] || []).forEach(n => linesEl.children[n - 1].classList.add('on'));
+  const inf = INFO[id] || {};
+  const label = LABEL[id] || svg.querySelector(`.node[data-id="${id}"] .l`).textContent;
+  body.innerHTML = `<span class="kind k-${inf.k}">${KIND[inf.k] || ''}</span><h3>${esc(label)}</h3>
+    ${inf.p ? `<div class="path mono">${esc(inf.p)}</div>` : ''}<p>${esc(inf.d)}</p>
+    <dl><dt>From the paragraph</dt>${(LN[id] || []).map(n => `<blockquote><b>${n}.</b> ${esc(LINES[n - 1].replace(/\*\*/g, ''))}</blockquote>`).join('')}</dl>`;
+  panel.classList.add('open');
+}
+function selectLine(n) {
+  clearSel();
+  linesEl.children[n - 1].classList.add('on');
+  const ids = Object.keys(LN).filter(k => LN[k].includes(n));
+  ids.forEach(id => svg.querySelectorAll(`.node[data-id="${id}"], .grp[data-id="${id}"]`).forEach(x => x.classList.add('sel')));
+  svg.querySelectorAll('.edge').forEach(e => { if (ids.includes(e.dataset.a) && ids.includes(e.dataset.b)) e.classList.add('hot'); });
+  svg.classList.add('dimmed');
+  panel.classList.remove('open');
+  document.getElementById('map').scrollIntoView();
+}
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('[data-id]'); if (t) { select(t.dataset.id); return; }
+  const l = ev.target.closest('li[data-line]'); if (l) { selectLine(+l.dataset.line); return; }
+  if (!ev.target.closest('#info') && !ev.target.closest('header')) { clearSel(); panel.classList.remove('open'); }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { clearSel(); panel.classList.remove('open'); } });
+panel.querySelector('.x').onclick = () => { clearSel(); panel.classList.remove('open'); };
+const root = document.documentElement;
+try { const t = localStorage.getItem('schematic-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+document.getElementById('theme').onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('schematic-theme', root.dataset.theme); } catch (e) {}
+};
+
+</script>
+</body>
+</html>
