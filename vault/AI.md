@@ -56,6 +56,17 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- You may move files to any folder named `curated/`
 - If you ever need to write anywhere else, ask my permission first.
 
+## Media and attachments
+
+Git holds text. Media lives in the vault but outside Git. Agreed 2026-11-14 and meant for every vault. The wider plan is in the notes-work house data wayfinder, under the "Vault media" waypoint.
+
+- **Where:** attachments go in the vault's top-level `assets/` folder, set as Obsidian's attachment folder. Group a set of related files in a subfolder named after the topic (e.g. `assets/baby-tree-fern-wilting/`). Embed them by filename (`![[IMG_….jpg]]`).
+- **Git:** media never goes to GitHub. Check that the vault's `.gitignore` covers `assets/`. If it doesn't (notes-work, as of 2026-11-14), say so before committing anything there. If a photo or audio file turns up anywhere else in the vault, move it into `assets/`.
+- **Originals live elsewhere.** Phone photos are kept at full size in Google Photos, and later on the house data system's home store. The vault copy is a working copy, so it's fine to shrink it.
+- **Shrink photos when they arrive.** Use `sips -Z 1600 -s formatOptions 70 <file>` in place. That's a 1600 px long edge at JPEG quality 70, about 250–950 KB instead of 3–6 MB. To look at a photo, view the shrunk file. Don't make extra copies.
+- **Don't shrink paperwork.** Leave photos or scans of documents (letters, articles, contracts), PDFs and audio at full size, because they're kept for what they say. They belong in the Drive `Archive/` too.
+- **Backup:** git doesn't back up `assets/`. Until the home store backs up `~/Obsidian/`, it's only as safe as this Mac, and the originals are the backup.
+
 ## Content provenance
 
 - Any note carrying `ai-generated` in its frontmatter `tags` was authored by you (the assistant) in a past session — not by the vault owner.
@@ -71,7 +82,7 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 - Knowledge bases contain the following subfolders and files:
 	- `curated/` — You move files here once ingested
 	- `wiki/` — You build a wiki here
-	- `assets/` — Images downloaded during ingest; gitignored
+	- `assets/` — Images downloaded during ingest; gitignored (see Media and attachments)
 	- `INDEX.md` — You keep this updated
 	- `AI.md` — Optional: specific instructions for this knowledge base
 	- concept notes — any note with `categories: ["[[Glossary]]"]` frontmatter; queryable via Dataview
