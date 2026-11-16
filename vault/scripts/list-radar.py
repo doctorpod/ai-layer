@@ -15,32 +15,19 @@ Output:
 Run from vault root.
 """
 
-import re
 import sys
 from pathlib import Path
 
-
-def extract_field(frontmatter, key):
-    m = re.search(rf'^{key}:\s*(.+)$', frontmatter, re.MULTILINE)
-    if not m:
-        return ''
-    return m.group(1).strip().strip('"').strip("'")
+from vaultyaml import radar_item
 
 
 def parse_radar_note(path):
-    content = path.read_text(encoding='utf-8')
-    if not content.startswith('---'):
+    item = radar_item(path)
+    if item is None:
         return None
-    end = content.find('\n---', 3)
-    if end == -1:
-        return None
-    fm = content[4:end]
-    return {
-        'status': extract_field(fm, 'status') or '(none)',
-        'opened': extract_field(fm, 'opened'),
-        'updated': extract_field(fm, 'updated'),
-        'latest': extract_field(fm, 'latest') or '(none)',
-    }
+    item['status'] = item['status'] or '(none)'
+    item['latest'] = item['latest'] or '(none)'
+    return item
 
 
 def main():

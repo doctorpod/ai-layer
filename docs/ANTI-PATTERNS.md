@@ -30,7 +30,7 @@ If either answer is "nothing" or "someone will notice", it's a dead end. A state
 **The fix** — Whoever defines the state names its reader and its exit, in the same place it's defined. Wire both in the same change that adds the state. Writing for a human is fine when the human reader is named, such as the journal read at stand-up.
 
 **Where it's happened**
-- `status: needs-debrief` (2026-11): `minute` and `heartbeat` set it and heartbeat lists it, but `debrief` only looks in `inbox/` and never sets it back. Notes parked there would be listed forever. Fixed 2026-11: NEXT.md lists the note; debrief offers it and sets `done`.
+- `status: needs-debrief` (2026-11): `minute` and `heartbeat` set it and heartbeat lists it, but `debrief` only looks in `inbox/` and never sets it back. Notes parked there would be listed forever. Fixed 2026-11: NEXT.md lists the note; debrief offers it and clears the flag.
 
 ---
 
@@ -42,7 +42,7 @@ If either answer is "nothing" or "someone will notice", it's a dead end. A state
 
 **How to spot it** — For every stored summary, verdict, count, or "latest" field, ask: could this be computed from the files at read time? If so, what refreshes it when the source changes, and how would anyone tell it's stale?
 
-**The fix** — Derive at read time where you can (see [[PATTERNS]] #3, "Log inputs, derive the rest"). Where that costs too much, store what the value was derived from alongside it (a date, a commit, a hash), so staleness can be detected, and name the refresh. `heartbeat` does this: it uses git to notice a note "edited since last swept", so its stored `status:` can't silently go stale.
+**The fix** — Derive at read time where you can (see [[PATTERNS]] #3, "Log inputs, derive the rest"). Where that costs too much, store what the value was derived from alongside it (a date, a commit, a hash), so staleness can be detected, and name the refresh. `heartbeat` does this: each note's `swept:` stamp is a hash of the body it was derived from, so an edit makes it stop matching and the note is listed again instead of silently staying "swept".
 
 **Where it's happened**
 - `coverage`: `gap-check` stores its verdict on each guide note because rerunning the check just to fill a view costs too much. It goes stale when the draft changes; rerunning `gap-check` refreshes it.

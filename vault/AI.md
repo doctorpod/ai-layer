@@ -45,8 +45,9 @@ The `obsidian` CLI is available when the Obsidian app is running with this vault
 	- Any file named `SPATIAL.md`
 	- Any file named `NEXT.md`, written only by running `_AI/local/scripts/frontier.py` — never edited directly
 	- Task lines (`- [ ]`, `- [/]`) in any note, edited only by `sweep-tasks` after the owner confirms its proposal table — and then only to append a thread link, `Expected by:`, `Waiting on:`, `Blocked by:` or a 📅 date, or to mark the task done (`[x]` with `✅ YYYY-MM-DD`) or dropped (`[-]`). Never the task's own words, never other lines
-	- The `status:` frontmatter field on the vault's heartbeat input notes (the notes matching its `heartbeat:` entry in `_AI/shared/config.yml`), written only by `heartbeat` and `debrief`, using the values defined in `_AI/local/workflows/heartbeat.md`. No other frontmatter, and never the note's body
-	- A git commit at the end of a `heartbeat` run, holding only the files that run touched (plus notes it lists as having no heartbeat commit yet), staged by name, never with `git add -A`
+	- The `status:` frontmatter field on the vault's heartbeat input notes (the notes matching its `heartbeat:` entry in `_AI/shared/config.yml`): only ever `needs-debrief`, set by `heartbeat` and removed by `debrief`, as defined in `_AI/local/workflows/heartbeat.md`. Never the note's body
+	- The `swept:` frontmatter field on those input notes, written only by `_AI/local/scripts/heartbeat.py` (`finish`, `mark` or `migrate`), never by hand
+	- A git commit at the end of a `heartbeat` run, made only by `heartbeat.py finish`: the files that run touched plus the rebuilt `NEXT.md` files, staged by name, never with `git add -A`
 	- Any folder named `_greenhouse/`
 	- Any folder named `_wayfinder/`
 	- The vault-root `standards/` folder (assessment rubrics that workflows check against) — but only edit a rubric when the user has explicitly said to; never fold new material into one as a side effect of another workflow
@@ -136,7 +137,7 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — shortcut: capture a log note (or take the one pointed at), then run heartbeat on just that note |
-| "heartbeat", "run the heartbeat", "sweep the logs" | `_AI/local/workflows/heartbeat.md` — sweep every new input note in the vault (log notes, or journal notes): propagate it to the tracking surfaces, thread its tasks, record what's still owed in its `status:`, commit its own files, then rebuild `NEXT.md`. Holds every processing rule |
+| "heartbeat", "run the heartbeat", "sweep the logs" | `_AI/local/workflows/heartbeat.md` — sweep every new input note in the vault (log notes, or journal notes): propagate it to the tracking surfaces, thread its tasks, stamp it swept, record any debrief it owes, then commit its own files after rebuilding `NEXT.md`. Holds every processing rule |
 | "sweep tasks", "sweep this note", "tidy the tasks", "tag the tasks" | `_AI/local/workflows/sweep-tasks.md` — tidy a note's dangling tasks with a thread link and plain-word fields (`Expected by:`, `Waiting on:`, `Blocked by:`, 📅), writing only what you confirm; run by heartbeat as part of processing a note, or by hand |
 | "reflect" + scope | `_AI/local/workflows/reflect.md` |
 | "gratitude", "help me write gratitude entries", "gratitude prompts" | `_AI/local/workflows/gratitude.md` — prompts grounded in recent journal notes, polishes each entry, appends approved entries to today's daily note (creating it from the daily template if missing) |

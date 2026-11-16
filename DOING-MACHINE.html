@@ -147,7 +147,7 @@ const LABEL = { home: 'home', thread: 'thread', item: 'item' };
 const N = (id, k, x, y, w, h, l, s, ln) => ({ id, k, x, y, w, h, l, s, ln });
 const LINES = [
   'Everything that happens becomes a dated **log note**, written by me or by Claude. That\'s the only way in.',
-  '**Heartbeat** applies each new log note everywhere it matters, tasks included, then marks it done. "**Minute this**" means write it and run heartbeat on it now.',
+  '**Heartbeat** applies each new log note everywhere it matters, tasks included, then stamps it swept. "**Minute this**" means write it and run heartbeat on it now.',
   'A log note can change two kinds of **item**: a **task** or a **watch**. Every item belongs to a **thread**.',
   'Every thread I chart is a **map**. It starts as my own **seed** (in the greenhouse) or as someone else\'s **ask** (a ticket, a client want). Charting it means refining it until what done means is agreed: by me for a seed, by them for an ask. A **single ticket** comes with its own thread, its work folder or checklist, and needs no map.',
   'Threads live in a **home**: a gig or a project folder.',
@@ -161,8 +161,8 @@ const W = (k, p, d) => ({ k, p, d });
 const INFO = {
   who: W('you', '', 'You or Claude. Authorship is recorded by the ai-generated tag; it doesn\'t change where the note goes.'),
   minute: W('vault', '"minute this"', 'A shortcut, not a workflow with its own rules: capture the note, then run heartbeat on just that note.'),
-  log: W('file', 'dated log note', 'The one door in. Anything that changes the machine enters as one. Its status: records what\'s still owed: unprocessed → done, or → needs-debrief.'),
-  heartbeat: W('vault', 'vault/workflows/heartbeat.md', 'The deep module. Holds every processing rule: propagation, threading tasks, the status vocabulary. Moves status freely; anything that changes what\'s true is flagged for debrief instead.'),
+  log: W('file', 'dated log note', 'The one door in. Anything that changes the machine enters as one. heartbeat stamps it swept: once dealt with; an edit makes it due again. status: needs-debrief marks one that owes a debrief.'),
+  heartbeat: W('vault', 'vault/workflows/heartbeat.md', 'The deep module. Holds every processing rule: propagation, threading tasks, what a note owes. Its script does the mechanics; anything that changes what\'s true is flagged for debrief instead.'),
   home: W('file', 'a gig or a project folder', 'Where threads live. A home outlives any one thread, so it holds many maps. "Project" now only ever means a home.'),
   thread: W('docs', 'one line of work', 'Every item belongs to one. Two shapes: a map you chart, or a single ticket that brings its own work folder or checklist.'),
   map: W('docs', '<home>/_wayfinder/<slug>/map.md', 'The only thread shape you make. A destination and its waypoints. Charting means refining until what done means is agreed. A quick chart exists for clear, linear jobs.'),
@@ -173,7 +173,7 @@ const INFO = {
   task: W('file', '- [ ] a task line', 'Something to do. Belongs to a thread through its link (a task with none is dangling). A pending question\'s chase ("Ask Stephen who Anne is") is a task too.'),
   watch: W('file', '<home>/radar/', 'Something to keep an eye on, no action implied. Out of sight until its updated: is over 14 days old, then it shows in "Worth a glance". Touching it takes it off.'),
   next: W('script', '<folder>/NEXT.md', 'The one place to look. Rebuilt by frontier.py from the threads every time; never edited by hand. Shows: steps from threads, stale watches, the debrief pile.'),
-  debrief: W('vault', 'vault/workflows/debrief.md', 'The gate for truth. Takes flagged log notes as sources, writes the wiki, and sets the note done. Its open questions become chase tasks.'),
+  debrief: W('vault', 'vault/workflows/debrief.md', 'The gate for truth. Takes flagged log notes as sources, writes the wiki, and clears the flag. Its open questions become chase tasks.'),
   wiki: W('ext', '<kb>/wiki/  ·  questions/', 'The knowing machine, out of scope here. It meets the doing machine at exactly two points: debrief going in, and its questions coming back as tasks.'),
 };
 const LN = { who: [1], minute: [2], log: [1, 2, 3, 8], heartbeat: [2, 8], item: [3], task: [3, 8], watch: [3, 7], thread: [3, 4, 5, 6], map: [4], seed: [4], ask: [4], ticket: [4], home: [5], next: [6, 7, 8], debrief: [8], wiki: [8] };
@@ -190,7 +190,7 @@ const SPEC = {
     N('who', 'you', 40, 18, 160, 52, 'me or Claude', 'whoever writes it'),
     N('minute', 'vault', 230, 18, 175, 52, '"minute this"', 'write it, heartbeat it now'),
     N('log', 'file', 40, 112, 250, 90, 'log note', 'dated · the only way in'),
-    N('heartbeat', 'vault', 400, 112, 260, 90, 'heartbeat', 'applies each new note everywhere, then marks it done'),
+    N('heartbeat', 'vault', 400, 112, 260, 90, 'heartbeat', 'applies each new note everywhere, then stamps it swept'),
     N('next', 'script', 930, 112, 240, 90, 'NEXT.md', 'the one place I look · never edited by hand'),
     N('task', 'file', 390, 385, 125, 64, 'task', 'something to do'),
     N('watch', 'file', 525, 385, 125, 64, 'watch', 'keep an eye on'),

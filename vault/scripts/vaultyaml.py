@@ -43,6 +43,63 @@ def read_note(path):
     return (parse_yaml(raw) if raw is not None else {}), body
 
 
+def set_field(text, key, value):
+    """A note's full text with one top-level frontmatter field set, or removed when value is None.
+
+    Everything else stays byte for byte, line endings included. Setting a field
+    on a note with no frontmatter gives it some. The value is written as a plain
+    scalar, quoted only when YAML would read the plain form back as a number.
+    """
+    nl = "\r\n" if text.startswith("---\r\n") else "\n"
+    line = None if value is None else "%s: %s%s" % (key, _plain_or_quoted(str(value)), nl)
+    raw, _ = split_frontmatter(text)
+    if raw is None:
+        return text if line is None else "---" + nl + line + "---" + nl + text
+    end = 3 + len(raw) + 1  # just past the newline before the closing ---
+    lines = text[:end].splitlines(keepends=True)
+    field = re.compile(r"%s\s*:" % re.escape(key))
+    for i in range(1, len(lines)):
+        if not field.match(lines[i]):
+            continue
+        j = i + 1
+        has_value = lines[i].split(":", 1)[1].strip() != ""
+        while j < len(lines) and (lines[j][:1] in (" ", "\t") or (not has_value and lines[j].startswith("-"))):
+            j += 1  # the field's indented or block-list continuation lines
+        lines[i:j] = [line] if line else []
+        return "".join(lines) + text[end:]
+    if line is None:
+        return text
+    return "".join(lines) + line + text[end:]
+
+
+def _plain_or_quoted(s):
+    if re.fullmatch(r"[-+]?(?:[0-9][0-9_]*|0b[01_]+|0x[0-9a-fA-F_]+|[0-9][0-9_]*\.[0-9_]*(?:[eE][-+][0-9]+)?)", s):
+        return '"%s"' % s
+    return s
+
+
+# ---- radar items ---------------------------------------------------------------
+RADAR_CLOSED = ("resolved", "not-mine")
+
+
+def radar_item(path):
+    """{status, opened, updated, latest} from a radar note's frontmatter (each "" if unset), or None if it has none."""
+    raw, _ = split_frontmatter(Path(path).read_text(encoding="utf-8", errors="replace"))
+    if raw is None:
+        return None
+
+    def field(key):
+        m = re.search(r"^%s:\s*(.+)$" % key, raw, re.MULTILINE)
+        return m.group(1).strip().strip('"').strip("'") if m else ""
+
+    return {k: field(k) for k in ("status", "opened", "updated", "latest")}
+
+
+def radar_open(item):
+    """True for a radar item that's still being watched in some way (not resolved or not-mine)."""
+    return item is not None and item["status"].lower() not in RADAR_CLOSED
+
+
 def load_config(path):
     """The config file as a mapping, or None if there's no file."""
     path = Path(path)
