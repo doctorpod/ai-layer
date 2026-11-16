@@ -3,7 +3,6 @@ tags: [ai-layer-docs]
 sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
-  - vault/workflows/elicit.md
   - vault/workflows/beats.md
   - vault/workflows/polish.md
   - vault/workflows/scribe.md
@@ -11,7 +10,7 @@ sources:
   - vault/workflows/gap-check.md
   - vault/workflows/diploma-ready.md
   - shared/snippets/piece-folder.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # Writing workflows
@@ -19,7 +18,7 @@ checked: 2026-09-26
 How a piece of writing moves from a brief to a finished draft, and which tool helps at each stage.
 
 - Every piece lives in a [[piece folder]]: a [[piece brief]], a [[guide folder]] of material, the [[output draft]] you write, and `assets/`.
-- Nine workflows help along the way. None of them writes your prose.
+- Eight workflows help along the way. None of them writes your prose.
 - For a lookup of every page, see the [[writing/INDEX|Index]].
 
 ## The running example
@@ -60,7 +59,6 @@ Browse the result in the [[guide view]]. Mark notes `rejected` if you've no real
 
 Before writing a section:
 
-- If the words won't start, [[elicit workflow|elicit]] gives you a burst of angles from the section's notes, in chat.
 - If you don't know the order, [[beats workflow|beats]] writes a [[beats block]] under `## 02 Observation`: set up the dry site, complicate it with the north gate, pivot to water as a resource.
 
 ### 4. Draft
@@ -85,8 +83,6 @@ The stages above are a typical order, not a fixed one. The tools never call each
 ## Which tool when
 
 - **[[sync-guide workflow|sync-guide]] or [[interview workflow|interview]]?** Is the material in your knowledge bases, or in your head? Either way, the notes come out the same shape.
-- **[[elicit workflow|elicit]] or [[beats workflow|beats]]?** elicit gives you sparks for a first sentence, in chat. beats gives you the section's order, written into the draft.
-- **[[elicit workflow|elicit]] or [[interview workflow|interview]]?** elicit is one brainstorm from notes you already have. interview runs over several sessions and produces the notes.
 - **[[polish workflow|polish]] or [[scribe workflow|scribe]]?** polish does one fixed job, cleaning your text, and strips its markers. scribe does whatever you ask and keeps its marker. Both work on any file, not just a piece.
 - **[[polish workflow|polish]] or [[sanity workflow|sanity]]?** polish fixes how the text is written and never comments on content. sanity comments on content and never touches the text.
 - **[[gap-check workflow|gap-check]] or [[diploma-ready workflow|diploma-ready]]?** gap-check asks whether the draft covers the guide, and records coverage. diploma-ready asks whether it would pass a tutor, gives a verdict, and writes nothing.

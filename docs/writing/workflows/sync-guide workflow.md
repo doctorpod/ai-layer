@@ -3,7 +3,7 @@ tags: [ai-layer-docs]
 sources:
   - vault/workflows/sync-guide.md
   - shared/snippets/piece-folder.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # sync-guide workflow

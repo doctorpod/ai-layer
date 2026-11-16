@@ -3,7 +3,6 @@ tags: [ai-layer-docs]
 sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
-  - vault/workflows/elicit.md
   - vault/workflows/beats.md
   - vault/workflows/polish.md
   - vault/workflows/scribe.md
@@ -11,7 +10,7 @@ sources:
   - vault/workflows/gap-check.md
   - vault/workflows/diploma-ready.md
   - shared/snippets/piece-folder.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # Writing workflows: index
@@ -22,7 +21,6 @@ Every page under the writing docs, one line each. For how they fit together, sta
 
 - [[sync-guide workflow]]: build and update a piece's `guide/` from the vault sources its brief names.
 - [[interview workflow]]: interview you thread by thread, check your answers against the record, and save them verbatim to `guide/`.
-- [[elicit workflow]]: a one-shot burst of angles and questions from a section's notes, shown in chat.
 - [[beats workflow]]: an ordered list of a section's moves, written into the draft to write against.
 - [[polish workflow]]: fix the spelling, punctuation and structure of your own words, never the meaning.
 - [[scribe workflow]]: carry out an instruction left in a file and reply in place.

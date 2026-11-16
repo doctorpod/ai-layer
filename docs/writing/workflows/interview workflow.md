@@ -3,7 +3,7 @@ tags: [ai-layer-docs]
 sources:
   - vault/workflows/interview.md
   - shared/snippets/piece-folder.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # interview workflow
@@ -66,7 +66,6 @@ In thread 2, `02 the wet corner surprise`, you say you first noticed the wet cor
 ## Compared with…
 
 - **[[sync-guide workflow|sync-guide]]**: the other gatherer, which extracts quotes from vault sources. Use interview when the source is you.
-- **[[elicit workflow|elicit]]**: a one-shot brainstorm from notes that already exist. interview runs over several sessions and *produces* the notes.
 - **grill-me** ("interview me"): records design decisions for a plan, and has nothing to do with a piece's `guide/`.
 
 ## Related

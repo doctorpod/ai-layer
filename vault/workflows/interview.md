@@ -7,7 +7,7 @@ description: Interview the writer one thread at a time, checking answers against
 
 Triggered by: "interview `<part>`", "start an interview", "resume the interview". Not "interview me" — that's `grill-me`.
 
-The *eliciting* gatherer. Where `sync-guide` extracts quotes from vault sources, this workflow draws material out of the writer: it asks questions one thread at a time, checks each answer against a dated timeline of the record, and saves the answers verbatim as gathered notes in the piece-folder's `guide/`. The notes follow the gathered-material contract in `_AI/shared/snippets/piece-folder.md`, so `beats`, `gap-check`, `elicit` and `guide.base` read them like any other guide notes.
+The *eliciting* gatherer. Where `sync-guide` extracts quotes from vault sources, this workflow draws material out of the writer: it asks questions one thread at a time, checks each answer against a dated timeline of the record, and saves the answers verbatim as gathered notes in the piece-folder's `guide/`. The notes follow the gathered-material contract in `_AI/shared/snippets/piece-folder.md`, so `beats`, `gap-check` and `guide.base` read them like any other guide notes.
 
 The writer's own words are the material. This workflow asks, checks and records — it never drafts prose.
 

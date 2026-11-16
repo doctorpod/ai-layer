@@ -4,7 +4,7 @@ sources:
   - shared/snippets/piece-folder.md
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # guide folder
@@ -24,7 +24,7 @@ You own `status` (`used`/`rejected`). [[gap-check workflow|gap-check]] owns `cov
 
 ## Who reads it
 
-[[beats workflow|beats]], [[elicit workflow|elicit]], [[gap-check workflow|gap-check]] and the [[guide view]] read every note the same way, whichever gatherer made it. That's the point of the [[gathered note]] contract.
+[[beats workflow|beats]], [[gap-check workflow|gap-check]] and the [[guide view]] read every note the same way, whichever gatherer made it. That's the point of the [[gathered note]] contract.
 
 ## Creating `guide/INDEX.md`
 

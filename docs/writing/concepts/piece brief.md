@@ -4,9 +4,8 @@ sources:
   - shared/snippets/piece-folder.md
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
-  - vault/workflows/elicit.md
   - vault/workflows/beats.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # piece brief
@@ -30,7 +29,7 @@ You write the brief. No workflow owns it. If you want help, ask in chat and the 
 
 ## Which workflows need it
 
-[[sync-guide workflow|sync-guide]], [[interview workflow|interview]], [[elicit workflow|elicit]] and [[beats workflow|beats]] all expect the brief to exist, and stop if it doesn't. sync-guide also offers to help you draft it in chat. The checkers ([[gap-check workflow|gap-check]], [[sanity workflow|sanity]], [[diploma-ready workflow|diploma-ready]]) work on the draft and don't need a brief, although diploma-ready will read the Outline if it has to.
+[[sync-guide workflow|sync-guide]], [[interview workflow|interview]] and [[beats workflow|beats]] all expect the brief to exist, and stop if it doesn't. sync-guide also offers to help you draft it in chat. The checkers ([[gap-check workflow|gap-check]], [[sanity workflow|sanity]], [[diploma-ready workflow|diploma-ready]]) work on the draft and don't need a brief, although diploma-ready will read the Outline if it has to.
 
 - [[sync-guide workflow|sync-guide]] reads `Draw from` to decide which knowledge bases' `curated/` folders to triage, and `Outline` to know which sections to file notes under. It stops if `Format` names a framework but `Outline` is missing.
 - [[interview workflow|interview]] needs an `Outline`, full stop, because each thread note is filed under one of its sections. It builds the [[interview timeline]] from the sources in `Draw from`.

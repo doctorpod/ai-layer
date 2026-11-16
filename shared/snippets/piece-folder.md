@@ -40,7 +40,7 @@ The user writes this. A workflow may help draft it on request — by asking ques
 
 ## Gathered material (`guide/`)
 
-`guide/` holds the material a piece is written from. A workflow that fills it is a **gatherer**; every gatherer writes notes to the same contract, so the workflows that read `guide/` (`beats`, `gap-check`, `elicit`, and the `guide.base` view) never need to know which gatherer produced a note.
+`guide/` holds the material a piece is written from. A workflow that fills it is a **gatherer**; every gatherer writes notes to the same contract, so the workflows that read `guide/` (`beats`, `gap-check`, and the `guide.base` view) never need to know which gatherer produced a note.
 
 Every gathered note carries this frontmatter:
 

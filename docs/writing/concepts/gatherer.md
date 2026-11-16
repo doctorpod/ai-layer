@@ -5,7 +5,7 @@ sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
   - docs/PATTERNS.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # gatherer
@@ -21,7 +21,7 @@ There are two:
 | [[sync-guide workflow\|sync-guide]] | extracting quotes | vault sources, via the `curated/` folders of the knowledge bases in `Draw from` |
 | [[interview workflow\|interview]] | eliciting answers | you, checked against the [[interview timeline]] |
 
-The readers are [[beats workflow|beats]], [[elicit workflow|elicit]], [[gap-check workflow|gap-check]] and the [[guide view]].
+The readers are [[beats workflow|beats]], [[gap-check workflow|gap-check]] and the [[guide view]].
 
 A part can use both gatherers. They share the [[triage log]], each reading only its own lines.
 

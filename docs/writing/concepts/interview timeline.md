@@ -3,7 +3,7 @@ tags: [ai-layer-docs]
 sources:
   - shared/snippets/piece-folder.md
   - vault/workflows/interview.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # interview timeline

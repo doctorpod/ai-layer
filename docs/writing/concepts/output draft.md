@@ -5,14 +5,14 @@ sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
   - vault/workflows/beats.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # output draft
 
 *The `output.md` file in a [[piece folder]]: the prose of the piece, which you always write yourself.*
 
-No writing workflow drafts prose into it. The gatherers ([[sync-guide workflow|sync-guide]], [[interview workflow|interview]]) never read or write it, and the checkers only read it. That's why you can run any workflow on a piece in progress without it clashing with your draft, however you produced it: typed, dictated and then polished, or sparked by an elicit brainstorm.
+No writing workflow drafts prose into it. The gatherers ([[sync-guide workflow|sync-guide]], [[interview workflow|interview]]) never read or write it, and the checkers only read it. That's why you can run any workflow on a piece in progress without it clashing with your draft, however you produced it: typed, or dictated and then polished.
 
 ## Frontmatter
 

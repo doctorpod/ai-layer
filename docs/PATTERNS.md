@@ -37,7 +37,7 @@ Each entry gives the **shape**, **why it works**, its **concrete forms** (the fi
 - A piece-folder's `guide/`: one folder name for gathered material, whatever produced it. The contract is five frontmatter fields (`categories`, `guide`, `section`, `status`, `coverage`); the body and any extra fields belong to the gatherer. Full contract in `_AI/shared/snippets/piece-folder.md`.
 - The brief's `Draw from` field says where material comes from and, in words for people to read, how it's gathered. No tool dispatches on it.
 
-**Where it's used** — Two gatherers: `sync-guide` (extracts quotes from vault sources) and `interview` (elicits verbatim answers from the writer). Consumers: `beats`, `gap-check`, `elicit`, and the `guide.base` view.
+**Where it's used** — Two gatherers: `sync-guide` (extracts quotes from vault sources) and `interview` (elicits verbatim answers from the writer). Consumers: `beats`, `gap-check`, and the `guide.base` view.
 
 ---
 

@@ -14,7 +14,6 @@ Drop the `code/` layer into any coding repo and get:
 - **Review** — a post-implementation check against the slice before raising its PR
 - **QA failure** — log a QA failure against a work folder, diagnose the root cause, and deliver the fix as a new slice
 - **Strict review** — a harsh maintainability review for abstraction quality, giant files, and tangled conditionals
-- **Teach me** — guided learning from the codebase
 
 How a change flows from ticket to merged PRs: [`code/README.md`](code/README.md).
 
@@ -28,13 +27,11 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Lint** — audit KB structure for orphans, broken links, and pending cautions
 - **Normalise** — find near-duplicate, over-broad, or source-shaped wiki pages and propose merges or splits
 - **Connect** — discover cross-KB insights and write bidirectional links
-- **Link components** — propose wikilinks from internal decision notes to the components they touch
 - **Create summaries** — update a note's Summary section from the notes that reference it
 
 **Writing**
 - **Sync-guide** — build/maintain a piece's guide from its brief and vault sources
 - **Interview** — interview the writer one thread at a time and save verbatim answers into the guide
-- **Elicit** — a one-shot brainstorm of tickler ideas and questions from a section's theme notes
 - **Beats** — lay out a beat sheet from guide notes to draft prose against
 - **Gap-check** — check a draft against its guide (or any reference) and report what's missing
 - **Sanity** — flag contradictions and non-sequiturs in your own writing, without editing it
@@ -47,10 +44,8 @@ Drop the `vault/` layer into any Obsidian vault and get:
 - **Heartbeat** — sweep every new log or journal note: run its steps, record what's still owed, commit, and rebuild `NEXT.md`
 - **Add to radar** — capture, update, and review ongoing things worth tracking
 - **Wayfinder** — map a too-big project into a destination and small decisions worked through across sessions
-- **State of play** — a full reconciliation sweep across a gig or project folder, ending in a digest in chat
 - **Sweep tasks** — tidy a note's dangling tasks with a thread link and plain-word fields, writing only what you confirm
 - **Frontier** — a script that lists what's yours to do now, what's waiting on others and what needs a look, written to `<folder>/NEXT.md`
-- **Process notes** — propose folder moves and categories for a scope of notes, then apply on confirmation
 
 **Reflection**
 - **Reflect** — surface patterns, observations, and open loops across a scope of notes
@@ -60,7 +55,6 @@ Drop the `vault/` layer into any Obsidian vault and get:
 **Specialist and housekeeping**
 - **Trace** — turn an exported app log into per-journey sequence diagrams with what each class decides and why
 - **Diploma ready** — check a permaculture design against the Diploma design rubric
-- **Save** — commit with a 12-word summary and log entry
 - **Fetch** — async message passing via dated chat logs
 
 ### Shared workflows
@@ -70,7 +64,6 @@ Both contexts also include (from `shared/`):
 - **Rubber duck** — talk a problem through with honest, brief pushback
 - **Readback** — check your own explanation against the evidence until it's right
 - **Greenhouse** — park early-stage ideas for later review
-- **Handoff** / **Resume** — save a conversation's state and pick it up in a later session
 - **Validate AI setup** — check the AI layer is correctly installed
 
 ---
@@ -179,7 +172,6 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/create-plan` | `_AI/local/workflows/create-plan.md` |
 | `/execute-plan` | `_AI/local/workflows/execute-plan.md` |
 | `/review` | `_AI/local/workflows/review.md` |
-| `/teach-me` | `_AI/local/workflows/teach-me.md` |
 | `/ingest` | `_AI/local/workflows/ingest.md` |
 | `/lint` | `_AI/local/workflows/lint.md` |
 | `/normalise` | `_AI/local/workflows/normalise.md` |
@@ -187,7 +179,6 @@ This scans `code/workflows/`, `vault/workflows/`, and `shared/workflows/` and wr
 | `/debrief` | `_AI/local/workflows/debrief.md` |
 | `/sync-guide` | `_AI/local/workflows/sync-guide.md` |
 | `/gap-check` | `_AI/local/workflows/gap-check.md` |
-| `/save` | `_AI/local/workflows/save.md` |
 | `/fetch` | `_AI/local/workflows/fetch.md` |
 
 Skills are thin wrappers — all logic stays in the workflow files. Context-specific skills resolve via `_AI/local` (which symlinks to either `code/` or `vault/` depending on the target). Shared skills resolve via `_AI/shared`.

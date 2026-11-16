@@ -2,7 +2,7 @@
 tags: [ai-layer-docs]
 sources:
   - vault/workflows/scribe.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # scribe marker
@@ -38,7 +38,7 @@ to hold the water back and slow it down.
 The instruction can be anything, including another workflow's name. The assistant then follows that workflow's rules:
 
 - `% scribe polish`: edits within [[polish workflow|polish]]'s guarantee.
-- `% scribe elicit` or `% scribe beats`: the brainstorm or [[beats block]] goes into the comments, without checkboxes.
+- `% scribe beats`: the [[beats block]] goes into the comments, without checkboxes.
 - `% scribe gap check this section`: [[gap-check workflow|gap-check]] runs scoped to the section.
 - `% scribe sanity`: [[sanity workflow|sanity]]'s findings, with line numbers.
 
