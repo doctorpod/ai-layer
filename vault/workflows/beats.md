@@ -5,9 +5,9 @@ description: Read a set of guide notes and lay out a beat sheet — an ordered l
 
 # Beats Workflow
 
-Triggered by: "beats", "beats section `<N>`", "beat sheet for `<section>`" — standalone in chat/CLI, or invoked by name from inside a `% scribe` marker (`_AI/local/workflows/scribe.md`), same as `polish` and `elicit`.
+Triggered by: "beats", "beats section `<N>`", "beat sheet for `<section>`" — standalone in chat/CLI, or invoked by name from inside a `% scribe` marker (`_AI/local/workflows/scribe.md`), same as `polish`.
 
-A **beat** is one discrete move in the section — set up, refine, complicate, pivot, illustrate, pay off, or connect. Not a topic; a function. This workflow turns a pile of guide notes into an ordered sequence of those moves, so the writing has a spine before a single sentence is drafted. Unlike `elicit` (angles to spark a sentence) and `gap-check` (coverage report), beats produces structure.
+A **beat** is one discrete move in the section — set up, refine, complicate, pivot, illustrate, pay off, or connect. Not a topic; a function. This workflow turns a pile of guide notes into an ordered sequence of those moves, so the writing has a spine before a single sentence is drafted. Unlike `gap-check` (coverage report), beats produces structure.
 
 ## Prerequisites
 

@@ -56,7 +56,6 @@ Workflows live in `_AI/local/workflows/` (code-specific) and `_AI/shared/workflo
 | "QA failure", "log a QA failure", "QA report", "this failed QA" | `_AI/local/workflows/qa-failure.md` ⚠️ fresh context required — log the failure in the work folder and deliver the fix as a new slice |
 | "grill me", "interview me", "question me about" | `_AI/shared/workflows/grill-me.md` — captures decisions into a durable ADR-style record |
 | "readback", "let me read this back to you", "check my understanding of" | `_AI/shared/workflows/readback.md` — you explain something in your own words; corrected against the real evidence until it's accurate |
-| "teach me", "teach me on how this works", "help me learn" | `_AI/local/workflows/teach-me.md` |
 | "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "validate AI setup", "check AI setup", "is the AI layer installed correctly" | `_AI/shared/workflows/validate-ai-setup.md` |

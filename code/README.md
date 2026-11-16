@@ -96,7 +96,6 @@ How a change moves from a ticket to merged PRs in a code repo, and which workflo
 
 | Workflow | Use when |
 |---|---|
-| **Teach me** | You want to learn how part of the codebase works, using the code itself as the material. |
 | **Strict review** | You want a harsh maintainability pass — abstraction quality, giant files, tangled conditionals. |
 | **Readback** | You've just built something and want to check your own explanation of it against the diff and the slice. |
 | **Rubber duck** | You want to talk a problem through with honest, brief pushback and no file changes. |

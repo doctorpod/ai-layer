@@ -5,7 +5,7 @@ sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
   - vault/workflows/diploma-ready.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # brief outline
@@ -21,7 +21,7 @@ The Outline headings become the `section:` values on [[gathered note|gathered no
 
 - [[sync-guide workflow|sync-guide]] files each note under one Outline section. If `Format` names a framework and there's no Outline, it stops and asks you for one rather than inventing headings. With no framework, sections emerge as you write.
 - [[interview workflow|interview]] won't run without an Outline, because every thread note needs a section.
-- [[beats workflow|beats]], [[elicit workflow|elicit]] and [[gap-check workflow|gap-check]] pick notes by matching `section:`, so "beats section 02" means "every note whose `section:` is the 02 heading".
+- [[beats workflow|beats]] and [[gap-check workflow|gap-check]] pick notes by matching `section:`, so "beats section 02" means "every note whose `section:` is the 02 heading".
 - [[diploma-ready workflow|diploma-ready]] reads the Outline to work out which design framework you used when that isn't obvious from the draft.
 
 Write the heading text the same way everywhere, e.g. `02 Observation`. The `section:` field on a note is matched against it exactly.

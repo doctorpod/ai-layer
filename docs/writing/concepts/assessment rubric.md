@@ -4,7 +4,7 @@ sources:
   - vault/workflows/diploma-ready.md
   - vault/workflows/interview.md
   - vault/workflows/gap-check.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # assessment rubric

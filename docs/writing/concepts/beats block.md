@@ -2,7 +2,7 @@
 tags: [ai-layer-docs]
 sources:
   - vault/workflows/beats.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # beats block

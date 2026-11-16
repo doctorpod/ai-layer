@@ -32,7 +32,7 @@ DOCS_DIR = 'docs/writing'
 LINK_SCOPE = ['docs/README.md', DOCS_DIR]
 
 IN_SCOPE_WORKFLOWS = [
-    'sync-guide', 'interview', 'elicit', 'beats', 'polish', 'scribe',
+    'sync-guide', 'interview', 'beats', 'polish', 'scribe',
     'sanity', 'gap-check', 'diploma-ready',
 ]
 

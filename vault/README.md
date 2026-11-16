@@ -32,7 +32,6 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 |---|---|
 | **Sync-guide** | Build or update the piece's `guide/` folder from the brief and vault sources. Only ever touches `guide/` — never reads or writes `output.md`, never drafts prose. |
 | **Interview** | The material for a part has to come from you — a reflection, an evaluation, what you learned. Builds a dated timeline from your logs, then interviews you one thread at a time, checks each answer against the record, and saves your answers verbatim as notes in `guide/`. Runs across sessions; never drafts prose, never touches `output.md`. |
-| **Elicit** | Stuck on a section — want a burst of odd angles and questions to kick a sentence loose. Reads the section's theme notes in `guide/`, throws out ideas in chat (or into a `scribe` block), then stops. One pass, no back-and-forth, never touches `output.md`. |
 | **Beats** | Know what a section must cover but not what order the writing should move in. Reads the section's theme notes (or a `scribe`-wrapped passage) and lays out an ordered beat sheet — each beat phrased as the *move* it makes, not just its topic — written as a framework block under the section heading for you to draft against and delete. One pass; never alters existing prose. |
 | **Polish** | The text is already yours (typed or dictated) — clean up spelling/punctuation/structure only, never rephrase. Works on any file, not just `output.md` in a piece-folder — see `%P`/`%` markers in `polish.md`. |
 | **Scribe** | Leave a `% scribe <instruction>` marker (or the short form `%s <instruction>`, at column 0) inline in any file — I carry out the instruction and write the response into a `% comments` block in place, without stripping the marker. Works on any file, not just `output.md` in a piece-folder. |
@@ -40,9 +39,9 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 | **Gap-check** | Compare a draft against its `guide/` (or any named reference) and report what's missing. Never edits target or reference content, but does record a coverage verdict on each checked theme, every run. No overall score — just a gap list. |
 | **Diploma-ready** | Same read-only-target shape as gap-check, but checked against the fixed Diploma assessment rubric specifically, with a Yes/Nearly/Not Yet verdict — before showing a tutor. |
 
-**You always write `output.md` yourself — `sync-guide` scaffolds and stays out of it.** **Calling `sync-guide` on a piece already in progress** only ever touches `guide/`, regardless of whether your draft so far came from typing, dictating + polish, or ideas sparked by `elicit` — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
+**You always write `output.md` yourself — `sync-guide` scaffolds and stays out of it.** **Calling `sync-guide` on a piece already in progress** only ever touches `guide/`, regardless of whether your draft so far came from typing or dictating + polish — it can't clash with any of them. When you want to know whether the draft actually covers the guide, that's a separate step: call `gap-check` explicitly.
 
-`elicit` and `beats` both read a section's theme notes and stop, but do different jobs: `elicit` throws out angles and questions to spark a sentence; `beats` gives the section a spine — an ordered list of moves — before any sentence is drafted. `beats` writes a framework block into `output.md` under the heading; `elicit` never touches it. `interview` is a different kind of tool again: `elicit` is a single-shot brainstorm from notes that already exist, while `interview` is a multi-session elicitation that *produces* the notes — the other way of filling `guide/`, alongside `sync-guide`.
+`beats` reads a section's theme notes and stops: it gives the section a spine — an ordered list of moves — before any sentence is drafted, written as a framework block into `output.md` under the heading. `interview` is a different kind of tool: a multi-session elicitation that *produces* the notes — the other way of filling `guide/`, alongside `sync-guide`.
 
 `polish` and `scribe` are unrelated to this pipeline — both are marker-driven and work on any vault file, whether or not a piece-folder is involved.
 
@@ -77,11 +76,8 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 |---|---|
 | **Lint** | Automated structural check — orphan pages, broken links, pending cautions — via script. |
 | **Normalise** | Periodic sizing pass over a KB's `wiki/` — finds near-duplicate, over-broad, source-shaped, and full-prose pages and proposes merges, splits, or conversions. Propose-only. |
-| **Process notes** | Convention-based: proposes folder moves and category fixes, applies on confirmation. |
 | **Connect** | Cross-knowledge-base pass to surface new connections between KBs. |
-| **State of play** | On-demand, full reconciliation sweep across a gig or project folder's radar and wayfinder waypoints — interrogates you on each, updates the underlying notes, then gives a plain-language digest in chat. |
 | **Create summaries** | Pulls mentions from linking notes into a target note's `## Summary` section. |
-| **Link components** | Wikilinks PRP decision notes to technical component pages (code-adjacent KBs only). |
 
 ---
 
@@ -106,9 +102,7 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 
 | Workflow | Use when |
 |---|---|
-| **Handoff** | Save state so this conversation can be resumed later. |
-| **Resume** | Pick up from a saved handoff. |
-| **Fetch** | Different mechanism — async message passing via a dated chat file, not a session-boundary save. |
+| **Fetch** | Pass a message between sessions asynchronously, via a dated chat file. |
 
 ---
 
@@ -117,4 +111,3 @@ Full docs — the lifecycle of a piece, a page per workflow, and the concepts th
 | Workflow | Use when |
 |---|---|
 | **Validate AI setup** | Check the AI layer is correctly installed in this vault. |
-| **Save** | Commit recent changes with a summary and log entry. |

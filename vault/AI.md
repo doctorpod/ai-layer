@@ -109,7 +109,7 @@ All directions are relative to the church building.
 
 When writing or revising a workflow, check it against `_AI/docs/PRINCIPLES.md` and `_AI/docs/ANTI-PATTERNS.md`, and reuse a shape from `_AI/docs/PATTERNS.md` where one fits.
 
-When revising a writing workflow (sync-guide, interview, elicit, beats, polish, scribe, sanity, gap-check, diploma-ready) — e.g. via post-mortem — update its matching page(s) in `_AI/docs/writing/` in the same pass and bump their `checked:` date.
+When revising a writing workflow (sync-guide, interview, beats, polish, scribe, sanity, gap-check, diploma-ready) — e.g. via post-mortem — update its matching page(s) in `_AI/docs/writing/` in the same pass and bump their `checked:` date.
 
 ## Workflows
 
@@ -121,7 +121,6 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "ingest" (optionally naming a knowledge base) | `_AI/local/workflows/ingest.md` |
 | "lint" or "audit" + knowledge base name | `_AI/local/workflows/lint.md` |
 | "normalise" or "sizing pass" + knowledge base name | `_AI/local/workflows/normalise.md` — periodic pass over a KB's `wiki/` for near-duplicate, over-broad, and source-shaped pages; propose-only |
-| "process notes" + scope | `_AI/local/workflows/process-notes.md` — proposes folder moves and category fixes against vault conventions, applies on confirmation |
 | "connect" or "find cross-knowledge base insights" | `_AI/local/workflows/connect.md` |
 | "update the summary in `<note>`", "update summary", "refresh the summary for `<note>`" | `_AI/local/workflows/create-summaries.md` — pulls mentions from linking notes into a target note's Summary section |
 | "sync guide", "sync the guide", "update the guide", "build the guide" | `_AI/local/workflows/sync-guide.md` — builds/maintains a piece's `guide/` folder from the brief and vault sources; never touches output.md |
@@ -134,7 +133,6 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "readback", "let me read this back to you", "check my understanding of" | `_AI/shared/workflows/readback.md` — you explain something in your own words; corrected against the real evidence until it's accurate |
 | "rubber duck this", "let's rubber duck", "talk this through with me" | `_AI/shared/workflows/rubber-duck.md` — honest, brief conversation with no file changes |
 | "debrief" | `_AI/local/workflows/debrief.md` *(optional workflow)* |
-| "save" | `_AI/local/workflows/save.md` |
 | "fetch" | `_AI/local/workflows/fetch.md` *(optional workflow)* |
 | "capture log note", "capture as a log note", "log this" | `_AI/local/workflows/capture-log-note.md` |
 | "minute this", "minute that", "minute it" | `_AI/local/workflows/minute.md` — shortcut: capture a log note (or take the one pointed at), then run heartbeat on just that note |
@@ -146,13 +144,8 @@ When my request matches a trigger below, read and follow the corresponding workf
 | "greenhouse this", "park in greenhouse", "add to greenhouse", "review greenhouse" | `_AI/shared/workflows/greenhouse.md` — park early-stage ideas for later, distinct from radar |
 | "wayfinder this", "map this out", "help me find a way forward", "chart a way forward" | `_AI/local/workflows/wayfinder.md` — map a woolly, multi-session project into a destination + waypoints resolved one at a time; quick chart for clear, linear jobs |
 | "compass check this", "compass check", "check this against my compass", "towards or away?" | `_AI/local/workflows/compass.md` — diagnostic: checks an idea, offer or commitment against the owner's vocation compass (towards or away, and which part is theirs); also run as a one-line quick check by greenhouse capture and wayfinder chart |
-| "state of play", "where are we", "sweep the gig" | `_AI/local/workflows/state-of-play.md` — on-demand reconciliation sweep across a home's radar and wayfinder, then a plain-language digest in chat |
 | "post-mortem this", "run a post-mortem", "candidate for post-mortem?" | `_AI/local/workflows/post-mortem.md` — investigate what went wrong, propose a concrete tweak |
-| "handoff" | `_AI/shared/workflows/handoff.md` — save a handoff document so this conversation can be resumed later |
-| "resume" | `_AI/shared/workflows/resume.md` — resume from a saved handoff document |
 | "trace", "trace this journey", "trace these logs", "draw the flows from these logs" | `_AI/local/workflows/trace.md`: turns an exported app log into per-journey sequence diagrams with a Decides/Why layer, plus a gig system map, in `<gig>/repos/flows/` |
-| "link components" + knowledge base name, "sweep PRPs for components" | `_AI/local/workflows/link-components.md` — propose wikilinks from PRP decision notes to technical component pages |
-| "elicit", "elicit section `<N>`", "grill me on section `<N>` of the guide" | `_AI/local/workflows/elicit.md` — one-shot brainstorm of angles and questions from a section's `guide/` theme notes, to spark writing; never drafts prose, never touches `output.md` |
 | "beats", "beats section `<N>`", "beat sheet for `<section>`" | `_AI/local/workflows/beats.md` — ordered beat sheet from a section's `guide/` theme notes, or a scribe-wrapped passage; writes a **Beats** framework block to draft against, doesn't alter existing prose |
 | "interview `<part>`", "start an interview", "resume the interview" | `_AI/local/workflows/interview.md` — one thread at a time, answers checked against a timeline and saved verbatim as gathered notes in the part's `guide/`; never drafts prose, never touches `output.md` |
 

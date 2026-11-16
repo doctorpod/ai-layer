@@ -2,7 +2,7 @@
 tags: [ai-layer-docs]
 sources:
   - vault/workflows/beats.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # beats workflow
@@ -61,7 +61,6 @@ You write the section, ticking beats as you go, then delete the block.
 
 ## Compared with…
 
-- **[[elicit workflow|elicit]]**: angles to spark a sentence, shown in chat. beats gives structure and writes it into the draft.
 - **[[gap-check workflow|gap-check]]**: checks *after* you've written whether the draft covers the notes. beats plans the section *before* you write.
 
 ## Related

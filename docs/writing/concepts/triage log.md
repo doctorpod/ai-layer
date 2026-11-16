@@ -5,7 +5,7 @@ sources:
   - vault/workflows/sync-guide.md
   - vault/workflows/interview.md
   - docs/PATTERNS.md
-checked: 2026-09-26
+checked: 2026-11-16
 ---
 
 # triage log
