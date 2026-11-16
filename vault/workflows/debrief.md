@@ -74,7 +74,7 @@ The multi-source trigger in `ingest.md` applies here too: if this debrief is the
 
 ## Step 9b: Clear the flag
 
-If a note debriefed here has `status: needs-debrief`, set it `done` (the exit named in `_AI/local/workflows/heartbeat.md`). Change no other frontmatter.
+If a note debriefed here has `status: needs-debrief`, remove its `status:` field (the exit named in `_AI/local/workflows/heartbeat.md`). Change no other frontmatter.
 
 ## Step 10: Learnings
 

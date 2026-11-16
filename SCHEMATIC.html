@@ -211,7 +211,7 @@ footer { color: var(--muted); font-size: 12px; text-align: center; padding: 8px 
         <li><code>radar/</code>, <code>_wayfinder/</code>, <code>_greenhouse/</code>, <code>questions/</code>, <code>touchpoints/</code>, <code>flows/</code></li>
         <li><code>guide/</code> (gatherers), <code>coverage</code> (gap-check), Beats block (beats)</li>
         <li><code>NEXT.md</code> only via frontier.py</li>
-        <li>task lines only via sweep-tasks; note <code>status:</code> only via heartbeat and debrief</li>
+        <li>task lines only via sweep-tasks; note <code>swept:</code> only via heartbeat.py, <code>status: needs-debrief</code> only via heartbeat and debrief</li>
         <li><code>_AI/chats</code>, <code>_AI/logs</code>, <code>_AI/postmortems/</code>, <code>_AI/learnings.md</code></li>
         <li>anything else: ask first</li>
       </ul>
@@ -284,11 +284,11 @@ const INFO = {
   'h-you': W('you', '', 'Meeting notes, stand-ups, log notes typed by hand, or a journal entry.'),
   'h-in': W('file', 'input notes', 'Defined per vault by heartbeat: inputs: in config.yml, e.g. "YYYY-MM-DD *.md" for log notes or "journal/YYYY-MM-DD.md" for a journal. Daily notes wait until their day has passed. Notes before cutoff: are never swept.'),
   'h-cfg': W('shared', 'config.yml → heartbeat: <vault root>', 'inputs (which notes), cutoff (date), steps (e.g. [propagate, sweep-tasks] for a log vault, [sweep-tasks] for a journal vault). Every vault listed needs a frontier: folders: entry inside it.'),
-  'hb-py': W('script', '_AI/local/scripts/heartbeat.py', 'Lists, oldest first: Owes a debrief (status: needs-debrief), To process (no status, not done, or edited since last swept, judged from git), No heartbeat commit yet. Heartbeat opens with the debrief pile but never runs debriefs.'),
+  'hb-py': W('script', '_AI/local/scripts/heartbeat.py', 'Prints the vault\'s steps, then, oldest first: Owes a debrief (status: needs-debrief) and To process (no swept: stamp, or one that no longer matches the body). Each note comes with its body (changed lines marked, labelled content or tasks ticked), its linked surfaces, its home\'s open radar items and maps, and uncommitted flags. Heartbeat opens with the debrief pile but never runs debriefs.'),
   'hb-prop': W('vault', 'heartbeat › propagate', 'Heartbeat\'s own step. For each surface in the note\'s home (radar, wayfinder, greenhouse) and its KB\'s questions/, decide whether the note changes it, apply, and cross-link both ways. Four or more files: confirm first. Never touches wiki/, concept notes or INDEX.md: a note that changes what\'s true about a subject stops here and gets needs-debrief.'),
-  'hb-status': W('file', 'status: on the input note', 'unprocessed (or none) → done, or → needs-debrief. Describes what\'s owed, not steps taken. Written only by heartbeat and debrief. An edit to a done note\'s body puts it back in To process.'),
-  'hb-commit': W('ext', 'git commit "heartbeat: N notes, M files"', 'Stages only files it touched, by name, never git add -A. Asks before including files that were already uncommitted. Never skips the pre-commit hook. The prefix is how the next run knows what was swept.'),
-  'hb-front': W('script', '_AI/local/scripts/frontier.py --vault .', 'Rebuilds NEXT.md for every frontier: folders entry in this vault. Also run at the end of debrief and sweep-tasks, or by hand.'),
+  'hb-status': W('file', 'swept: and status: on the input note', 'swept: is a hash of the body heartbeat looked at, link paths ignored, so moves don\'t count and any edit puts the note back in To process. Written only by heartbeat.py. status: is only ever needs-debrief, set by heartbeat and removed by debrief.'),
+  'hb-commit': W('ext', 'git commit "heartbeat: N notes, M files"', 'Made by heartbeat.py finish, last, after the NEXT.md rebuild: only the files the run touched plus the rebuilt NEXT.md files, staged by name, never git add -A. Asks before including files that were already uncommitted. Never skips the pre-commit hook. Skipped outside a git repo.'),
+  'hb-front': W('script', 'heartbeat.py finish → frontier.py --vault .', 'Stamps the swept notes, then rebuilds NEXT.md for every frontier: folders entry in this vault. frontier.py also runs at the end of debrief and sweep-tasks, or by hand.'),
   's-radar': W('file', '<home>/radar/', 'Watches: situations worth awareness, no action implied. Propagate bumps updated:, rewrites latest:, adds a dated Context entry. Frontier flags watches gone quiet.'),
   's-way': W('file', '<home>/_wayfinder/<thing>/map.md', 'Wayfinder maps: a destination plus waypoints. An Open waypoint is a step on NEXT.md.'),
   's-green': W('file', '<home>/_greenhouse/', 'Ideas you like and want, deliberately not now.'),
@@ -322,11 +322,11 @@ Object.assign(INFO, {
 });
 // workflows: vault
 Object.assign(INFO, {
-  'heartbeat': W('vault', 'vault/workflows/heartbeat.md', 'Sweeps every new input note: opens with what\'s owed, runs the vault\'s steps on each note (propagate, sweep-tasks), sets its status:, commits its own files, rebuilds NEXT.md, reports. Holds every rule for processing a note; other workflows point here.'),
+  'heartbeat': W('vault', 'vault/workflows/heartbeat.md', 'Sweeps every new or edited input note: opens with what\'s owed, runs the vault\'s steps on each note (propagate, sweep-tasks), then one finish call stamps the notes swept, rebuilds NEXT.md and commits its own files; reports. Holds every rule for processing a note; other workflows point here.'),
   'capture-log-note': W('vault', 'vault/workflows/capture-log-note.md', 'Files content as a dated log note in the right gig log folder. No processing.'),
   'minute': W('vault', 'vault/workflows/minute.md', 'Shortcut for "log it and apply it now": capture a log note (or take the one pointed at), then heartbeat in single-note mode on just that note.'),
   'sweep-tasks': W('vault', 'vault/workflows/sweep-tasks.md', 'Proposes a thread link and plain-word fields for each dangling task in one table; writes only what you confirm. A heartbeat step, or by hand.'),
-  'debrief': W('vault', 'vault/workflows/debrief.md', 'First-hand material (site visit, conversation, worked-out thought) into wiki pages, accuracy paramount. Takes needs-debrief notes as sources and sets them done. Rebuilds NEXT.md at the end.', { w: 'wiki/, concept notes, INDEX.md, note status:' }),
+  'debrief': W('vault', 'vault/workflows/debrief.md', 'First-hand material (site visit, conversation, worked-out thought) into wiki pages, accuracy paramount. Takes needs-debrief notes as sources and clears their status:. Rebuilds NEXT.md at the end.', { w: 'wiki/, concept notes, INDEX.md, note status:' }),
   'ingest': W('vault', 'vault/workflows/ingest.md', 'Classifies each source in the vault-root inbox/, routes it to the right KB, writes cited wiki pages, moves the source to curated/. Owns the citation rules.'),
   'lint': W('vault', 'vault/workflows/lint.md', '◇ Structural audit via lint-kb.py: orphans, broken links, pending cautions.'),
   'normalise': W('vault', 'vault/workflows/normalise.md', 'Propose-only sizing pass: near-duplicate, over-broad, source-shaped and full-prose wiki pages → merges, splits, conversions.'),
@@ -594,12 +594,12 @@ draw('d-vault', {
     N('minute', 'vault', 20, 182, 175, 54, 'minute', 'capture, then heartbeat just that note'),
     N('h-in', 'file', 20, 270, 175, 76, 'input notes', 'YYYY-MM-DD *.md (log) or journal/YYYY-MM-DD.md'),
     N('h-cfg', 'shared', 20, 380, 175, 64, 'config.yml heartbeat:', 'inputs · cutoff · steps'),
-    N('hb-py', 'script', 245, 60, 265, 64, '1 · heartbeat.py', 'owes a debrief · to process · no commit yet'),
+    N('hb-py', 'script', 245, 60, 265, 64, '1 · heartbeat.py', 'steps · owes a debrief · to process + bodies'),
     N('hb-prop', 'vault', 245, 145, 265, 64, '2a · propagate', 'logistics and status only; never the wiki'),
     N('sweep-tasks', 'vault', 245, 230, 265, 58, '2b · sweep-tasks', 'thread dangling tasks; you confirm'),
-    N('hb-status', 'file', 245, 310, 265, 64, '2c · status: on the note', 'unprocessed → done, or → needs-debrief'),
-    N('hb-commit', 'ext', 245, 395, 265, 58, '3 · git commit "heartbeat: …"', 'only the files it touched'),
-    N('hb-front', 'script', 245, 475, 265, 64, '4 · frontier.py --vault .', 'rebuilds every NEXT.md in this vault'),
+    N('hb-status', 'file', 245, 310, 265, 64, '2c · swept: stamp, status:', 'stamped swept; status only needs-debrief'),
+    N('hb-front', 'script', 245, 395, 265, 64, '3 · finish → frontier.py', 'stamps, rebuilds every NEXT.md'),
+    N('hb-commit', 'ext', 245, 475, 265, 58, '4 · git commit "heartbeat: …"', 'last: touched files + NEXT.md'),
     N('s-radar', 'file', 588, 55, 190, 50, 'radar/', 'watches · latest: · updated:'),
     N('s-way', 'file', 588, 115, 190, 50, '_wayfinder/', 'maps · waypoints'),
     N('s-green', 'file', 588, 175, 190, 50, '_greenhouse/', 'parked ideas'),
@@ -609,7 +609,7 @@ draw('d-vault', {
     N('wayfinder', 'vault', 838, 115, 150, 50, 'wayfinder', ''),
     N('greenhouse', 'shared', 838, 175, 150, 50, 'greenhouse', ''),
     N('compass', 'vault', 838, 235, 150, 50, 'compass ◇', 'towards or away?'),
-    N('debrief', 'vault', 1035, 140, 150, 70, 'debrief', 'first-hand → wiki; sets done'),
+    N('debrief', 'vault', 1035, 140, 150, 70, 'debrief', 'first-hand → wiki; clears flag'),
     N('h-reads', 'file', 570, 400, 400, 58, 'frontier.py reads', 'wayfinder maps · delivery work folders & tickets · task lines · radar watches · question notes'),
     N('h-next', 'file', 1005, 470, 180, 90, 'NEXT.md', 'do now · owes a debrief · waiting · gone quiet · needs a look'),
     N('k-inbox', 'file', 40, 640, 140, 58, 'inbox/', 'vault root · external'),
@@ -629,8 +629,8 @@ draw('d-vault', {
     { a: 'hb-py', b: 'hb-prop' },
     { a: 'hb-prop', b: 'sweep-tasks' },
     { a: 'sweep-tasks', b: 'hb-status' },
-    { a: 'hb-status', b: 'hb-commit' },
-    { a: 'hb-commit', b: 'hb-front' },
+    { a: 'hb-status', b: 'hb-front' },
+    { a: 'hb-front', b: 'hb-commit' },
     { a: 'hb-prop', b: 's-radar', k: 'vault' },
     { a: 'hb-prop', b: 's-way', k: 'vault' },
     { a: 'hb-prop', b: 's-green', k: 'vault' },
@@ -640,7 +640,7 @@ draw('d-vault', {
     { a: 'wayfinder', b: 's-way', as: 'l', bs: 'r' },
     { a: 'greenhouse', b: 's-green', as: 'l', bs: 'r' },
     { a: 'hb-status', b: 'debrief', as: 'r', bs: 'b', via: [[540, 342], [540, 382], [1110, 382]], k: 'vault', l: 'needs-debrief: your call, run separately' },
-    { a: 'hb-front', b: 'h-next', as: 'r', bs: 'l', ao: [0, 4], bo: [0, -4], k: 'script', l: 'writes' },
+    { a: 'hb-front', b: 'h-next', as: 'r', bs: 'l', ao: [0, 4], bo: [0, -4], via: [[545, 431], [545, 511]], k: 'script', l: 'writes' },
     { a: 'h-reads', b: 'hb-front', as: 'l', bs: 'r', bo: [0, -14], dash: true },
     { a: 'debrief', b: 'k-kb', as: 'r', bs: 't', via: [[1192, 175], [1192, 585], [550, 585]], k: 'vault', l: 'the only other way into a wiki' },
     { a: 'k-inbox', b: 'ingest' },

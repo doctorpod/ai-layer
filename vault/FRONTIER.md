@@ -68,7 +68,7 @@ A live thread with no open step goes under "Needs a look". Record the next step 
 
 ## Owes a debrief
 
-A heartbeat input note with `status: needs-debrief` (heartbeat sets it when a note changes what's true about a subject) is a step in its own "Owes a debrief" group under "Yours now", after the threads. It stays there until `debrief` takes the note as a source and sets it `done`.
+A heartbeat input note with `status: needs-debrief` (heartbeat sets it when a note changes what's true about a subject) is a step in its own "Owes a debrief" group under "Yours now", after the threads. It stays there until `debrief` takes the note as a source and removes its `status:`.
 
 ## Watches
 
